@@ -287,3 +287,19 @@ test("scorecard lists every problem from the brief with found / not found / data
   assert.equal(sc.rows.find((r) => r.type === "new_store_no_baseline")!.status, "data_issue");
   assert.equal(sc.rows.find((r) => r.type === "bills_exceed_footfall")!.status, "not_found");
 });
+
+test("scorecard: a market note is labelled, valued apart, and never the store total or the biggest problem", () => {
+  const mk = (id: string, type: string, rupees: number) => ({ id, type, store_id: "S", rupees_at_stake: rupees } as unknown as Issue);
+  const issues = [mk("city", "city_slowdown", 900_000), mk("left", "staff_absent_or_left", 300_000), mk("pair", "missing_pair", 10_000), mk("rm", "role_model", 0)];
+  const sc = buildBriefScorecard(AS_OF, issues, []);
+  const row = (t: string) => sc.rows.find((r) => r.type === t)!;
+  assert.equal(row("city_slowdown").kind, "market_note");
+  assert.equal(row("city_slowdown").rupees_at_stake, 900_000, "still visible and valued");
+  for (const r of sc.rows) {
+    if (r.lever === "not_a_problem") assert.equal(r.kind, "data_quality", r.type);
+    else if (r.type !== "city_slowdown") assert.equal(r.kind, "store", r.type);
+  }
+  assert.equal(sc.store_rupees_at_stake, 310_000);
+  assert.equal(sc.market_rupees_at_stake, 900_000);
+  assert.equal(sc.biggest_issue_id, "left");
+});

@@ -161,6 +161,9 @@ export interface ScorecardRow {
   store_ids: StoreId[];
   top_issue_id: string | null;
   rupees_at_stake: number | null;
+  /** Added 21 Nov (optional). "market_note" (city_slowdown) is for the area manager: never add it to the
+   *  store ₹ total or pick it as the biggest problem. "data_quality" rows are never alerts. */
+  kind?: "store" | "market_note" | "data_quality";
 }
 
 export interface AmBrief {

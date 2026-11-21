@@ -11,7 +11,8 @@
         "LKO-02"
       ],
       "top_issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
-      "rupees_at_stake": 124000
+      "rupees_at_stake": 124000,
+      "kind": "store"
     },
     {
       "lever": "more_bills",
@@ -22,7 +23,8 @@
         "BLR-03"
       ],
       "top_issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
-      "rupees_at_stake": 98000
+      "rupees_at_stake": 98000,
+      "kind": "store"
     },
     {
       "lever": "more_bills",
@@ -31,7 +33,8 @@
       "status": "not_found",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "store"
     },
     {
       "lever": "more_bills",
@@ -40,7 +43,8 @@
       "status": "not_found",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "market_note"
     },
     {
       "lever": "bigger_baskets",
@@ -51,7 +55,8 @@
         "LKO-02"
       ],
       "top_issue_id": null,
-      "rupees_at_stake": 56000
+      "rupees_at_stake": 56000,
+      "kind": "store"
     },
     {
       "lever": "bigger_baskets",
@@ -60,7 +65,8 @@
       "status": "not_found",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "store"
     },
     {
       "lever": "bigger_baskets",
@@ -71,7 +77,8 @@
         "PAT-01"
       ],
       "top_issue_id": null,
-      "rupees_at_stake": 33000
+      "rupees_at_stake": 33000,
+      "kind": "store"
     },
     {
       "lever": "more_repeat",
@@ -80,7 +87,8 @@
       "status": "not_found",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "store"
     },
     {
       "lever": "more_repeat",
@@ -89,7 +97,8 @@
       "status": "not_found",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "store"
     },
     {
       "lever": "not_a_problem",
@@ -98,7 +107,8 @@
       "status": "data_issue",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "data_quality"
     },
     {
       "lever": "not_a_problem",
@@ -109,7 +119,8 @@
         "PAT-03"
       ],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "data_quality"
     },
     {
       "lever": "not_a_problem",
@@ -120,7 +131,8 @@
         "BLR-05"
       ],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "data_quality"
     },
     {
       "lever": "not_a_problem",
@@ -129,8 +141,12 @@
       "status": "data_issue",
       "store_ids": [],
       "top_issue_id": null,
-      "rupees_at_stake": null
+      "rupees_at_stake": null,
+      "kind": "data_quality"
     }
   ],
-  "title": "Problems from the brief"
+  "title": "Problems from the brief",
+  "store_rupees_at_stake": 311000,
+  "market_rupees_at_stake": 0,
+  "biggest_issue_id": "2026-10-31:LKO-02:staff_absent_or_left"
 }
