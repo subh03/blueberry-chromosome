@@ -3,6 +3,7 @@ import { useEffect, useState, Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { EvidenceChain } from "@/components/evidence-chain";
 import { DataQualityStrip } from "@/components/data-quality-strip";
+import { RunLogStrip } from "@/components/run-log-strip";
 import { getScorecard, getIssues, usesSample } from "@/lib/ui/data";
 import type { Issue, ScorecardRow } from "@/types";
 export function Scorecard() {
@@ -154,6 +155,7 @@ export function Scorecard() {
         )}
       </section>
       <DataQualityStrip />
+      <RunLogStrip />
       <footer className="page-footer">
         Every number comes from the evidence.{" "}
         {usesSample && "Sample values are illustrative."}

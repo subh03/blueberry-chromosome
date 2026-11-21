@@ -491,3 +491,8 @@ summary:focus-visible { outline: 3px solid #75562c; outline-offset: 4px; }
 .quality-strip li { display: grid; grid-template-columns: 175px 1fr; gap: 6px 20px; padding: 16px 0; border-top: 1px solid #d3d8cb; }
 .quality-strip small { grid-column: 2; color: #526055; }
 @media (max-width: 640px) { .quality-strip { padding: 20px 16px; } .quality-strip li { display: block; } .quality-strip p { margin: 8px 0; } }
+.run-strip { padding: 28px 0; border-bottom: 1px solid #d4d8d3; }
+.run-strip h2 { margin-bottom: 12px; }
+.run-detail { font-size: 13px; color: #526055; }
+.followup { margin: 24px 0; background: #e8ede8; padding: 16px; }
+.followup small { display: block; }

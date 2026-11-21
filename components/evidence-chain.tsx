@@ -1,4 +1,5 @@
 import type { Issue } from "@/types";
+import { FollowupBadge } from "@/components/followup-badge";
 export function EvidenceChain({ issue }: { issue: Issue }) {
   return (
     <section className="evidence" aria-label={`Evidence for ${issue.store_id}`}>
@@ -23,6 +24,7 @@ export function EvidenceChain({ issue }: { issue: Issue }) {
           </li>
         ))}
       </ol>
+      <FollowupBadge followup={issue.followup} />
       <h4>Peer comparison</h4>
       <p>
         {issue.evidence.peer
