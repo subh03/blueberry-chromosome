@@ -44,7 +44,9 @@ function facts(ev: Evidence, action?: IssueAction | null) {
   };
 }
 
-export function buildCardPrompt(ev: Evidence, o: PromptOptions = {}): string {
+export function buildCardPrompt(ev: Evidence, opts: PromptOptions = {}): string {
+  // The action always travels with the evidence (Evidence.action), so every path gets it word for word.
+  const o: PromptOptions = { ...opts, action: opts.action ?? ev.action ?? null };
   const f = cardFacts(ev, o.action);
   const who = o.audience === "am"
     ? `Write to ${f.action_who ?? `Store manager, ${ev.store_id}`}: start with "${f.action_who ?? `Store manager, ${ev.store_id}`}:". They manage the store; tell them what to do with their team.`
@@ -54,13 +56,18 @@ export function buildCardPrompt(ev: Evidence, o: PromptOptions = {}): string {
   const peerRule = f.subject_role === "role_model" && f.teacher && f.learner
     ? `${f.teacher} is the role model: they teach the others. Never tell ${f.teacher} to shadow, observe, watch or learn from anyone. ${f.learner} learns from ${f.teacher}; name ${f.learner} as the one who watches or asks. Use names, never "he" or "she".`
     : ev.peer
-      ? `Name ${ev.peer.display_name} (a colleague in the same store) and say what to learn from them or do with them. Use their name, never "he" or "she".`
+      ? (o.audience !== "am" && f.action
+        ? `Name ${ev.peer.display_name} (a colleague in the same store) once, after the action, as someone to ask for a tip. ${ev.peer.display_name} is never the action: never tell them to shadow, observe, watch, copy or "align with" ${ev.peer.display_name}. Use their name, never "he" or "she".`
+        : `Name ${ev.peer.display_name} (a colleague in the same store) and say what to learn from them or do with them. Use their name, never "he" or "she".`)
       : "There is no colleague to name. Do not invent one.";
   const factRules = [
     o.audience === "am"
       ? `Write two or three sentences. First sentence: the action with its when. Second sentence: why, taken from the "why" fact (${JSON.stringify(f.why)}); keep each number's direction: a number that fell is said as "fell from A to B", never "maintain" or "keep" a number that fell. A third sentence only if it names who does what. No filler: never "ensure", "engagement", "strategy", "improve service" or "helpful environment".`
       : null,
     f.action ? `The action is the "action" fact. Say it nearly word for word (keep its names and numbers exactly).` : null,
+    o.audience !== "am" && f.action
+      ? `First sentence: the action fact word for word with its when, like ${JSON.stringify(`${ev.subject?.display_name?.split(/\s+/)[0] ?? "Name"}, ${(f.action_when ?? "today").toLowerCase()}, ${f.action.charAt(0).toLowerCase()}${f.action.slice(1).replace(/[.\s]+$/, "")}.`)} Then one sentence of why with one or two numbers. Never replace the action with a different one.`
+      : null,
     f.people_on_floor !== null ? `Headcount: tell them to keep exactly ${f.people_on_floor} people on the floor (people_on_floor). Never give an average like 6.6 as the number to keep.` : null,
     f.stores_in_city !== null ? `Store count: ${f.stores_in_city} ${f.city ?? ""} stores in total, this store included. Say "all ${f.stores_in_city} ${f.city ?? ""} stores", never "the other ${f.stores_in_city}".`.replace(/  +/g, " ") : null,
     f.dates.length ? `Dates: only ${f.dates.join(", ")}, written exactly like that; "since" is always followed by one of these dates.` : null,

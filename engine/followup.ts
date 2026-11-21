@@ -3,7 +3,7 @@
 // after are computed the same way. The text only says whether the number moved, never why.
 import type { Followup, Issue } from "../types";
 
-/** Two values that show the same at 1 decimal are "flat": the display and the direction always agree. */
+/** Two values whose 1-decimal displays are equal are "flat"; the tolerance only absorbs float noise in the difference. */
 export const FLAT_TOLERANCE = 0.05;
 
 export const NEW_THIS_WEEK = (beforeAsOf: string) => `New this week: not flagged on ${beforeAsOf}, so there is nothing to compare yet.`;
@@ -39,8 +39,9 @@ export function headline(i: Pick<Issue, "type" | "evidence">): Headline | null {
 export function followupFor(before: Issue, after: Issue): Followup | null {
   const b = headline(before), a = headline(after);
   if (!b || !a || b.metric !== a.metric) return null;
-  const r1 = (v: number) => Math.round(v * 10) / 10;
-  const diff = r1(a.value) - r1(b.value);
+  // Direction is read from the DISPLAYED values (toFixed(1)), so "3.0% → 3.1%" can never say "did not move".
+  const shown = (v: number) => Number(v.toFixed(1));
+  const diff = shown(a.value) - shown(b.value);
   const direction: Followup["direction"] = Math.abs(diff) < FLAT_TOLERANCE ? "flat" : diff > 0 ? "up" : "down";
   const improved = direction !== "flat" && (direction === "up") === a.higherIsBetter;
   const nums = `${a.display(b.value)} → ${a.display(a.value)}`;

@@ -78,6 +78,8 @@ export interface Evidence {
   subject?: { salesperson_id: SalespersonId; display_name: string } | null;
   /** Added 21 Nov (optional): mirror of Issue.followup_note, stored with the evidence jsonb. */
   followup_note?: string;
+  /** Added 21 Nov (optional): mirror of Issue.action, so every card path (prompt + validator) sees the action word for word. */
+  action?: IssueAction;
   /** Every number-looking token the card is allowed to contain, as displayed. */
   allowedNumbers: string[]; // ["11.0%", "12.6%", "6", "4-8 pm", "₹1,24,000"]
 }

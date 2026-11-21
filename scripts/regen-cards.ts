@@ -3,7 +3,7 @@
 // Per card: one Gemini draft; if the full validator rejects it, one retry carrying the rejection reasons;
 // if that fails too, the engine template (validated) is stored and the last draft kept as rejected_draft.
 // Same card id, newer created_at, validation.draft_origin "gemini". Paced ≥ 4.6 s (≤ 13 calls/min),
-// --dry: Gemini runs and the log is written, the DB is not touched. --apply: upsert the logged rows, no Gemini calls.
+// --attempts=1: one Gemini draft per card (no retry). --dry: Gemini runs and the log is written, the DB is not touched. --apply: upsert the logged rows, no Gemini calls.
 // hard cap MAX_CALLS Gemini calls per run. Logs every draft to data/generated/<log>.json. Never prints keys.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
@@ -20,6 +20,7 @@ const timeoutMs = Math.min(Number(process.env.AI_TIMEOUT_MS) || 8000, 8000);
 const GAP_MS = 4600;
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
 const MAX_CALLS = Number(arg("max") ?? 30);
+const ATTEMPTS = Math.min(2, Math.max(1, Number(arg("attempts") ?? 2))); // --attempts=1: one draft per card, no retry
 const only = arg("only")?.split(",").filter(Boolean) ?? [];
 const logName = arg("log") ?? "card-run-log.run4-semantic";
 const dry = process.argv.includes("--dry");
@@ -68,7 +69,7 @@ async function main() {
     let feedback: { draft: string; reasons: string[] } | null = null;
     let final: ActionCard | null = null;
 
-    for (let a = 1; a <= 2 && calls < MAX_CALLS; a++) {
+    for (let a = 1; a <= ATTEMPTS && calls < MAX_CALLS; a++) {
       const wait = lastCall + GAP_MS - Date.now();
       if (wait > 0) await sleep(wait);
       lastCall = Date.now();
@@ -99,7 +100,8 @@ async function main() {
       final = {
         ...card, text, source: "template",
         rejected_draft: last?.draft ?? undefined,
-        validation: last?.validation ? { ...last.validation, draft_origin: "gemini" } : { ...tv, draft_origin: "gemini" },
+        // A rejected Gemini draft is kept and labelled; a timeout/error leaves no Gemini text, so a pure template has no origin.
+        validation: last?.validation ? { ...last.validation, draft_origin: "gemini" } : { ...tv, draft_origin: undefined },
       };
     }
     final = { ...final, created_at: new Date().toISOString() };

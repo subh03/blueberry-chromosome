@@ -156,3 +156,34 @@ export function semanticCheck(text: string, ev: Evidence, action?: IssueAction |
   }
   return reasons;
 }
+
+// ---------- H2: the card must say its issue's action ----------
+// Content words of Issue.action.what must appear in the card (≥ ACTION_COVERAGE of them). Catches a card that
+// leads with "shadow <peer>" when the action is "take the phone number on every bill…".
+export const ACTION_COVERAGE = 0.8;
+const ACTION_STOP = new Set("a an the to of with on in at for and or any how they them you your their least".split(" "));
+const stem = (w: string) => w.replace(/(?:ies)$/, "y").replace(/(?<=[a-z]{3})s$/, "").replace(/(?<=[a-z]{3})ing$/, "").replace(/(?<=[a-z]{3})e$/, "");
+const PERSON = /\p{Lu}\p{Ll}+ \p{Lu}\.(?:[’']s)?/gu; // names are checked by the validator, not here
+const contentWords = (s: string) =>
+  [...new Set(s.replace(PERSON, " ").toLowerCase().replace(/[’']s\b/g, "").split(/[^\p{L}-]+/u).map((w) => w.replace(/^-+|-+$/g, "")).filter((w) => w && !ACTION_STOP.has(w)).map(stem))];
+
+/** The action as the card's reader would hear it: "Ask Karthik J. to show the team…" → "show the team…" when the card goes to Karthik. */
+function actionPhrases(action: IssueAction): string[] {
+  const out = [action.what];
+  const asked = action.what.match(/^ask\s+\p{Lu}\p{L}*(?:\s+\p{Lu}\.)?\s+to\s+(.+)$/iu);
+  if (asked) out.push(asked[1]);
+  return out;
+}
+
+/** Reasons the card does not say the action. Empty = passes (or no action to check). */
+export function actionCheck(text: string, action?: IssueAction | null): string[] {
+  if (!action?.what) return [];
+  // A "Store team" card is a different audience from a manager-owned action (it gets the team's part); skip it.
+  if (/^store team\b/i.test(text.trim()) && !/^store team\b/i.test(action.who)) return [];
+  const have = new Set(contentWords(text));
+  const best = Math.max(...actionPhrases(action).map((p) => {
+    const need = contentWords(p);
+    return need.length ? need.filter((w) => have.has(w)).length / need.length : 1;
+  }));
+  return best >= ACTION_COVERAGE ? [] : [`does not say the action ("${action.what}"): ${Math.round(best * 100)}% of its words`];
+}
