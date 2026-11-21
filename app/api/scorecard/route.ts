@@ -15,10 +15,10 @@ const catalogue = sampleBody.rows.map(({ lever, brief_problem, type }) => ({ lev
 
 export async function GET() {
   await connection();
-  const db = getBrowserDb();
   let issueCount = 0;
   const body = await dbOrSample(
     async () => {
+      const db = getBrowserDb(); // inside the read, so a missing env falls back to the sample too
       const [issues, flags] = await Promise.all([listIssues(db), listDqFlags(db)]);
       issueCount = issues.length;
       return { as_of: issues[0]?.as_of ?? "", rows: buildScorecard(catalogue, issues, flags.map(toDqFlag)) };
