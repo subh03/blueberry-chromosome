@@ -2,7 +2,8 @@
 // A card is rejected when it is over 60 words, contains a number the evidence does not have,
 // names someone the evidence does not name, or has no peer, no action or no time for today.
 // "Every number is computed in our code": Gemini may only repeat numbers in evidence.allowedNumbers.
-import type { CardValidation, Evidence } from "../types";
+import type { CardValidation, Evidence, IssueAction } from "../types";
+import { semanticCheck } from "./card-semantics";
 
 export const MAX_WORDS = 60;
 
@@ -105,7 +106,7 @@ function strangers(text: string, ev: Evidence): string[] {
   return [...out];
 }
 
-export function validateCard(text: string, ev: Evidence): CardValidation {
+export function validateCard(text: string, ev: Evidence, action?: IssueAction | null): CardValidation {
   const reasons: string[] = [];
   const word_count = countWords(text);
   if (word_count > MAX_WORDS) reasons.push(`over ${MAX_WORDS} words`);
@@ -129,6 +130,7 @@ export function validateCard(text: string, ev: Evidence): CardValidation {
   }
   if (!ACTION.test(text)) reasons.push("no action for today");
   if (!TIME.test(text)) reasons.push("no time (today / by …)");
+  for (const r of semanticCheck(text, ev, action)) reasons.push(r);
 
   return { passed: reasons.length === 0, word_count, rejected_numbers, reasons };
 }

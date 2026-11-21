@@ -124,6 +124,8 @@ export interface CardValidation {
   reasons: string[]; // "over 60 words", "no peer named", ...
   /** Added 21 Nov (optional): mirror of ActionCard.draft_origin, so it survives in the cards.validation jsonb. */
   draft_origin?: DraftOrigin;
+  /** Added 21 Nov (optional): the team fixed Gemini's wording by hand. gemini_text is Gemini's validated draft, kept for audit. */
+  team_edit?: { gemini_text: string; why: string };
 }
 
 /** Where a card's draft came from: Gemini, or a team-written stress test. Unset on pure templates. */
