@@ -109,6 +109,12 @@ export interface Followup {
   display: string; // "11.0% → 11.4%"
 }
 
+/**
+ * Result of the number validator on the Gemini draft.
+ * source "gemini": the draft passed and is `text` (passed: true).
+ * source "template": the draft failed (passed: false); it is `rejected_draft`, and
+ * word_count / rejected_numbers / reasons describe that draft, not the template text.
+ */
 export interface CardValidation {
   passed: boolean;
   word_count: number;
