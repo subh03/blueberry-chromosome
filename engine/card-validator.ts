@@ -64,6 +64,8 @@ const SHOP_WORDS = new Set(
     "your you this that every each when then and with at on in for before after by").split(" "),
 );
 
+const CONNECTIVES = new Set("also next then first finally meanwhile however now remember tip note so but and still".split(" "));
+
 const ACTION = /\b(observe|shadow|discuss|partner|apply|practise|practice|recommend|mention|present|review|show|call|ask|check|keep|put|pair|offer|add|take|send|greet|try|follow|move|watch|stand|suggest|give|invite|note|message|text|thank|share|bring|walk|clear|agree|copy|learn|spend|use|tell|welcome|explain|demonstrate|place|hand|start|stop|hold|lead|coach|help)\b/i;
 const TIME = /\b(today|tonight|now|this (?:morning|afternoon|evening|week|weekend|saturday|sunday)|by (?:closing|close|lunch|tonight|evening|(?:the )?end of (?:the )?(?:day|shift))|before (?:closing|close|lunch|you leave|(?:the )?end of)|from today)\b|आज/i;
 
@@ -90,6 +92,7 @@ function strangers(text: string, ev: Evidence): string[] {
     const sentenceStart = /(^|[.!?:\n]\s*|["“(]\s*)$/u.test(before);
     const vocative = text.slice(m.index! + raw.length).startsWith(",");
     if (sentenceStart && !vocative) continue; // an ordinary capitalised first word
+    if (sentenceStart && (lw.endsWith("ly") || CONNECTIVES.has(lw))) continue; // "Currently, ..." is not "Ravi, ..." 
     out.add(w);
   }
   return [...out];

@@ -150,3 +150,10 @@ test("observe, shadow, discuss and partner with count as actions", () => {
   }
 });
 
+
+test("a sentence-opening adverb with a comma (Currently, Also,) is not a name; an invented name is", () => {
+  const ok = validateCard(GOOD + " Currently, few come back. Also, ask Asha R. again before closing.", ev);
+  assert.ok(!ok.reasons.some((r) => r.startsWith("names someone")), ok.reasons.join(" | "));
+  const bad = validateCard("Ravi, " + GOOD, ev);
+  assert.ok(bad.reasons.includes("names someone not in the evidence: Ravi"), bad.reasons.join(" | "));
+});
