@@ -76,6 +76,8 @@ export interface Evidence {
   peer: { salesperson_id: SalespersonId; display_name: string; why: string } | null;
   /** Added 21 Nov (optional): the salesperson a salesperson-level issue is about. The card goes to them. */
   subject?: { salesperson_id: SalespersonId; display_name: string } | null;
+  /** Added 21 Nov (optional): mirror of Issue.followup_note, stored with the evidence jsonb. */
+  followup_note?: string;
   /** Every number-looking token the card is allowed to contain, as displayed. */
   allowedNumbers: string[]; // ["11.0%", "12.6%", "6", "4-8 pm", "₹1,24,000"]
 }
@@ -99,6 +101,8 @@ export interface Issue {
   action: IssueAction;
   evidence: Evidence;
   followup: Followup | null;
+  /** Added 21 Nov (optional): why followup is null, e.g. "New this week: …". Mirrored in evidence.followup_note (the DB has no column). */
+  followup_note?: string;
 }
 
 export interface Followup {
@@ -108,7 +112,10 @@ export interface Followup {
   after_as_of: ISODate; // "2026-10-31"
   after: number;
   direction: "up" | "down" | "flat";
-  display: string; // "11.0% → 11.4%"
+  display: string; // "Conversion 12.6% → 10.4% (down) since last week's alert."
+  /** Added 21 Nov (optional): did the metric move the good way? For discounts, down is better. Flat = false.
+   *  Says nothing about why it moved: never present it as caused by the action. */
+  improved?: boolean;
 }
 
 /**
