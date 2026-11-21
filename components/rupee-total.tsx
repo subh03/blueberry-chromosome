@@ -76,7 +76,7 @@ export function RupeeTotal({
       className="rupee-total"
       ref={container}
       role="group"
-      aria-label={`${formatted} at stake across ${problems} problems`}
+      aria-label={`${formatted} at stake across ${problems} store problems`}
     >
       <strong className="rupee-hero">
         <span className="sr-only">{formatted}</span>
@@ -84,7 +84,7 @@ export function RupeeTotal({
           {formatted}
         </span>
       </strong>
-      <p>At stake across {problems} problems</p>
+      <p>At stake across {problems} store problems</p>
     </div>
   );
 }

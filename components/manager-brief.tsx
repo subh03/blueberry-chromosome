@@ -75,7 +75,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
         <>
           <h2>Priorities by rupees at stake</h2>
           {brief?.market_note && (
-            <p className="market-note">{brief.market_note}</p>
+            <p className="market-note"><span className="market-note-label">Market note</span>{brief.market_note}</p>
           )}
           {issues.length === 0 ? (
             <div className="state" role="status">

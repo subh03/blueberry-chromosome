@@ -63,10 +63,13 @@ export function Scorecard({
       active = false;
     };
   }, [attempt, initialScorecard]);
-  const biggestProblem = [...rows]
+  const storeRows = rows.filter((row) =>
+    row.kind ? row.kind === "store" : row.type !== "city_slowdown" && row.lever !== "not_a_problem",
+  );
+  const biggestProblem = [...storeRows]
     .filter(
       (row) =>
-        row.top_issue_id &&
+        (row.rupees_at_stake ?? 0) > 0 && row.top_issue_id &&
         issues.some((issue) => issue.id === row.top_issue_id),
     )
     .sort((a, b) => (b.rupees_at_stake ?? 0) - (a.rupees_at_stake ?? 0))[0];
@@ -124,11 +127,11 @@ export function Scorecard({
       <section aria-labelledby="scorecard-title">
         {!loading && !error && rows.length > 0 && (
           <RupeeTotal
-            value={rows.reduce(
+            value={storeRows.reduce(
               (total, row) => total + (row.rupees_at_stake ?? 0),
               0,
             )}
-            problems={rows.filter((row) => row.status === "found").length}
+            problems={storeRows.filter((row) => row.status === "found" && (row.rupees_at_stake ?? 0) > 0).length}
           />
         )}
         <div className="section-heading">
@@ -173,10 +176,11 @@ export function Scorecard({
                     (item) => item.id === row.top_issue_id,
                   );
                   const expanded = open === row.type;
+                  const marketNote = row.kind === "market_note" || (!row.kind && row.type === "city_slowdown");
                   return (
                     <Fragment key={row.type}>
                       <tr
-                        className="scorecard-row"
+                        className={`scorecard-row${marketNote ? " market-note-row" : ""}`}
                         style={
                           {
                             "--row-delay": `${[0, 40, 70, 90, 105, 115][Math.min(index, 5)]}ms`,
@@ -184,6 +188,7 @@ export function Scorecard({
                         }
                       >
                         <th scope="row">
+                          {marketNote && <span className="market-note-label">Market note</span>}
                           <button
                             className="row-trigger"
                             aria-expanded={expanded}

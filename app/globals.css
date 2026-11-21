@@ -943,3 +943,11 @@ thead th:nth-child(3) {
   outline: 2px solid var(--brass);
   outline-offset: 4px;
 }
+.market-note-row { background: var(--green-tint); }
+.market-note-label {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
