@@ -21,7 +21,7 @@ export function templateCard(issue: Pick<Issue, "id" | "action" | "cause"> & Par
     id: `template:${issue.id}:${audience}`,
     issue_id: issue.id,
     audience,
-    salesperson_id: ev?.subject?.salesperson_id ?? null, // who a salesperson-level issue is about
+    salesperson_id: audience === "salesperson" ? (ev?.subject?.salesperson_id ?? null) : null, // manager cards never name a seller
     text,
     source: "template",
     validation: useEngine ? validateCard(text, ev!) : { passed: true, word_count: words(text), rejected_numbers: [], reasons: [] },
@@ -41,4 +41,15 @@ function cut(s: string, max: number): string {
 
 function trimDot(s: string): string {
   return s.trim().replace(/[.\s]+$/, "");
+}
+
+/** Issue types whose action is addressed to the named salesperson themself. */
+const SELLER_ACTS = new Set(["missing_pair", "category_avoidance", "discount_above_norm", "low_repeat"]);
+
+/**
+ * Who a card for this issue is for. A salesperson card only when the issue is about a named seller
+ * and the action is theirs to take; city notes, staffing and role models go to the manager.
+ */
+export function cardAudience(issue: Pick<Issue, "type" | "evidence">): ActionCard["audience"] {
+  return issue.evidence?.subject && SELLER_ACTS.has(issue.type) ? "salesperson" : "am";
 }

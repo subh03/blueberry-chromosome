@@ -40,3 +40,13 @@ test("toAmBrief turns city_slowdown into the market note, never a store alert", 
   assert.equal(brief.market_note, "cause LKO-01");
   assert.deepEqual(brief.issues.map((i) => i.type), ["missing_pair"]);
 });
+
+test("toAmBrief breaks rupee ties by the engine's stored rank, then id, so the cap is stable", () => {
+  const a = { ...issue("LKO-01", "role_model", 0), rank: 4 };
+  const b = { ...issue("LKO-02", "role_model", 0), rank: 3 };
+  const c = issue("LKO-03", "missing_pair", 5);
+  const once = toAmBrief(am, "2026-10-31", [a, b, c]).issues.map((i) => i.store_id);
+  const again = toAmBrief(am, "2026-10-31", [c, a, b]).issues.map((i) => i.store_id);
+  assert.deepEqual(once, ["LKO-03", "LKO-02"]);
+  assert.deepEqual(again, once);
+});

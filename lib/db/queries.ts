@@ -54,7 +54,10 @@ export async function getAmBrief(db: Db, amId: string, asOf?: string): Promise<A
   if (!am) return null;
   const day = asOf ?? (await getLatestAsOf(db));
   if (!day) return toAmBrief(am, "", []); // empty DB
-  const rows = check(await db.from("issues").select("*").eq("area_manager_id", amId).eq("as_of", day), "issues");
+  const rows = check(
+    await db.from("issues").select("*").eq("area_manager_id", amId).eq("as_of", day).order("rank").order("id"),
+    "issues",
+  );
   return toAmBrief(am, day, rows);
 }
 
@@ -65,6 +68,15 @@ export async function getIssue(db: Db, id: string): Promise<Issue | null> {
 
 export async function getStoreMetrics(db: Db, storeId: string, asOf: string): Promise<StoreMetrics[]> {
   return check(await db.from("store_metrics").select("*").eq("store_id", storeId).eq("as_of", asOf), "store metrics") as StoreMetrics[];
+}
+
+/** The newest saved card for an issue and audience (written by /api/run), or null. */
+export async function getLatestCard(db: Db, issueId: string, audience: ActionCard["audience"]): Promise<ActionCard | null> {
+  const row = maybe(
+    await db.from("cards").select("*").eq("issue_id", issueId).eq("audience", audience).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    "latest card",
+  );
+  return (row as unknown as ActionCard | null) ?? null;
 }
 
 /** Server client only (RLS blocks anon writes). */

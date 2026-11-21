@@ -39,3 +39,17 @@ test("templateCard cuts an over-long action at 60 words and marks the cut", () =
   assert.equal(card.validation.word_count, 60);
   assert.ok(card.text.endsWith("…"));
 });
+
+test("cardAudience: salesperson only for issues the named seller acts on; everything else goes to the manager", async () => {
+  const { cardAudience } = await import("./card");
+  const subject = { salesperson_id: "SP1", display_name: "A B." };
+  const mk = (type: string, s: unknown = subject) => ({ type, evidence: { subject: s } }) as unknown as Issue;
+  for (const t of ["missing_pair", "category_avoidance", "discount_above_norm", "low_repeat"]) assert.equal(cardAudience(mk(t)), "salesperson", t);
+  for (const t of ["role_model", "staff_absent_or_left", "understaffed_busy_days", "city_slowdown"]) assert.equal(cardAudience(mk(t)), "am", t);
+  assert.equal(cardAudience(mk("missing_pair", null)), "am");
+});
+
+test("templateCard sets salesperson_id only on salesperson cards", () => {
+  const withSubject = { ...issue, evidence: { subject: { salesperson_id: "SP1125", display_name: "A B." } } } as unknown as Issue;
+  assert.equal(templateCard(withSubject, "am").salesperson_id, null);
+});

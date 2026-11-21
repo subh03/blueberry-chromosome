@@ -23,8 +23,10 @@ export async function withTimeout<T>(fn: (signal: AbortSignal) => Promise<T>, ms
   }
 }
 
-/** AI_TIMEOUT_MS from env, 8000 when missing or invalid. */
+const MAX_AI_MS = 8000; // the browser aborts /api/card at 10 s, so the template must arrive before that
+
+/** AI_TIMEOUT_MS from env, capped at 8000; 8000 when missing or invalid. */
 export function aiTimeoutMs(): number {
   const ms = Number(process.env.AI_TIMEOUT_MS);
-  return Number.isFinite(ms) && ms > 0 ? ms : 8000;
+  return Number.isFinite(ms) && ms > 0 ? Math.min(ms, MAX_AI_MS) : MAX_AI_MS;
 }

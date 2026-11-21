@@ -1,7 +1,7 @@
 // GET  /api/run  (Vercel cron, daily 06:00 IST) -> RunLog
 // POST /api/run  (manual "Run now")             -> RunLog
 // Needs `Authorization: Bearer <CRON_SECRET>` (Vercel cron sends it).
-// Writes a runs row: reads the latest issues, regenerates one salesperson card per issue from the
+// Writes a runs row: reads the latest issues, regenerates one card per issue (for the seller or the manager, see cardAudience) from the
 // stored evidence (Gemini or template), saves the cards, then records the counts, ok and error.
 import { timingSafeEqual } from "node:crypto";
 import type { RunLog } from "@/types";
@@ -10,6 +10,7 @@ import { finishRun, getLatestAsOf, listIssues, saveCard, startRun } from "@/lib/
 import { toIssue } from "@/lib/db/brief";
 import { toRunLog } from "@/lib/db/mappers";
 import { makeCard } from "../_lib/make-card";
+import { cardAudience } from "../_lib/card";
 import { jsonError } from "../_lib/json";
 
 export const maxDuration = 300;
@@ -41,7 +42,7 @@ async function run(trigger: RunLog["trigger"]): Promise<Response> {
     tally.rows_read = issues.length;
     tally.issues = issues.length;
     for (let i = 0; i < issues.length; i += BATCH) {
-      const cards = await Promise.all(issues.slice(i, i + BATCH).map((issue) => makeCard(issue, "salesperson")));
+      const cards = await Promise.all(issues.slice(i, i + BATCH).map((issue) => makeCard(issue, cardAudience(issue))));
       for (const card of cards) {
         await saveCard(db, card);
         tally.cards++;

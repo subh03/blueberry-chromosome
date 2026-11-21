@@ -20,7 +20,7 @@ export function toAmBrief(am: AreaManagerRow, asOf: string, rows: IssueRow[]): A
   const slowdown = rows.find((r) => r.type === "city_slowdown");
   const issues = rows
     .filter((r) => r.type !== "city_slowdown")
-    .sort((a, b) => b.rupees_at_stake - a.rupees_at_stake)
+    .sort((a, b) => b.rupees_at_stake - a.rupees_at_stake || a.rank - b.rank || a.id.localeCompare(b.id))
     .slice(0, am.max_alerts_per_week)
     .map((r, i) => ({ ...toIssue(r), rank: i + 1 }));
 

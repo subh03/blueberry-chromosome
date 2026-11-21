@@ -1,11 +1,11 @@
 // POST /api/card { issue_id: string, audience?: "am" | "salesperson" } -> ActionCard (types/index.ts)
-// Real issue in the DB -> makeCard: Gemini (GEMINI_MODEL, structured JSON, retry once) under the
+// A card already saved by /api/run is served as is. Otherwise, real issue in the DB -> makeCard: Gemini (GEMINI_MODEL, structured JSON, retry once) under the
 // 8 s deadline, checked by the validator; any failure -> template. card.source says "gemini" or "template".
 // Issue not in the DB yet (detectors not run) -> the matching sample card, so the demo flow still works.
 import type { ActionCard } from "@/types";
 import sample from "@/data/sample/cards.json";
 import { getBrowserDb } from "@/lib/db/browser";
-import { getIssue } from "@/lib/db/queries";
+import { getIssue, getLatestCard } from "@/lib/db/queries";
 import { makeCard } from "../_lib/make-card";
 import { jsonError } from "../_lib/json";
 
@@ -36,13 +36,21 @@ export async function POST(request: Request) {
   if (!req) return jsonError(400, "issue_id (string) is required; audience is 'am' or 'salesperson'");
 
   let issue = null;
+  let dbDown = false;
   try {
-    issue = await getIssue(getBrowserDb(), req.issue_id);
+    const db = getBrowserDb();
+    // Serve the card the daily run already made, so a page view does not call Gemini again.
+    const saved = await getLatestCard(db, req.issue_id, req.audience);
+    if (saved) return Response.json(saved);
+    issue = await getIssue(db, req.issue_id);
   } catch (err) {
-    console.warn("[api/card] issue read failed:", err instanceof Error ? err.message : err);
+    dbDown = true;
+    console.warn("[api/card] db read failed:", err instanceof Error ? err.message : err);
   }
   if (issue) return Response.json(await makeCard(issue, req.audience));
 
   const fallback = sampleCard(req.issue_id, req.audience);
-  return fallback ? Response.json(fallback) : jsonError(404, `Unknown issue ${req.issue_id}`);
+  if (fallback) return Response.json(fallback);
+  // A database outage is retryable; only a successful read that finds nothing is a 404.
+  return dbDown ? jsonError(503, "Store data is unavailable. Please try again.") : jsonError(404, `Unknown issue ${req.issue_id}`);
 }

@@ -22,6 +22,15 @@ const key = { store_id: row.store_id, as_of: row.as_of, window: row.window };
 async function main() {
   const db = getServerDb();
   const anon = getBrowserDb();
+  try {
+    await checks(db, anon);
+  } finally {
+    // Always clean up, even when a check fails, so no test rows stay in the public table.
+    await db.from("store_metrics").delete().in("store_id", ["TEST-SMOKE", "TEST-ANON"]);
+  }
+}
+
+async function checks(db: ReturnType<typeof getServerDb>, anon: ReturnType<typeof getBrowserDb>) {
 
   const ins = await db.from("store_metrics").upsert(row);
   if (ins.error) throw new Error(`insert: ${ins.error.message}`);
