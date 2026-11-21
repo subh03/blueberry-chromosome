@@ -40,6 +40,14 @@ export function PhoneCard({
   const words = card?.text.trim().split(/\s+/).filter(Boolean).length ?? 0;
   const overLimit = card?.audience === "salesperson" && words > 60;
   const origin = card ? cardDraftOrigin(card) : undefined;
+  // Never call a card Gemini-written when the team edited it.
+  const sourceLabel = !card
+    ? ""
+    : card.validation.team_edit
+      ? "Gemini draft, edited by our team"
+      : card.source === "template"
+        ? "Checked template"
+        : "Worded by Gemini";
   const copy = async () => {
     if (!card) return;
     try {
@@ -119,7 +127,7 @@ export function PhoneCard({
                   <CardRejection card={card} />
                 )}
                 <p className="card-meta">
-                  {words} words · {card.source === "template" ? "Written from a template" : "Worded by Gemini"}
+                  {words} words · {sourceLabel}
                 </p>
               </section>
               <div className="phone-actions">
@@ -147,7 +155,13 @@ export function PhoneCard({
               <h2>How this card was checked</h2>
               <dl>
                 <dt>Wording</dt>
-                <dd>{card.source === "gemini" ? "Gemini" : "Template"}</dd>
+                <dd>{sourceLabel}</dd>
+                {card.validation.team_edit && (
+                  <>
+                    <dt>Why edited</dt>
+                    <dd>{card.validation.team_edit.why}</dd>
+                  </>
+                )}
                 {card.rejected_draft && (
                   <>
                     <dt>Draft source</dt>

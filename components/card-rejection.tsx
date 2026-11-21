@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { ActionCard } from "@/types";
+import { cardDraftOrigin } from "@/lib/ui/data";
 
 export function RejectedDraft({
   text,
@@ -36,6 +37,16 @@ export function CardRejection({ card }: { card: ActionCard }) {
   const sequence = useRef<HTMLDivElement>(null);
   const hasRejection =
     Boolean(card.rejected_draft);
+  const origin = cardDraftOrigin(card);
+  // Replay is genuine only for a real Gemini draft; the injected stress test keeps its own label.
+  const replayLabel =
+    origin === "injected_test"
+      ? "Stress test: injected draft, not written by Gemini"
+      : origin === "gemini"
+        ? card.source === "template"
+          ? "Gemini draft rejected by our checks, template used"
+          : "Gemini draft rejected by our checks, a later draft passed"
+        : "Draft rejected by our checks";
   const rejected = card.validation.rejected_numbers.filter(
     (token) => token && card.rejected_draft?.includes(token),
   );
@@ -83,10 +94,8 @@ export function CardRejection({ card }: { card: ActionCard }) {
         )}
         <div className="template-card">
           <p className="card-copy">{card.text}</p>
-          {hasRejection && card.source === "template" && (
-            <p className="template-footer">
-              Template used. Every number checked.
-            </p>
+          {hasRejection && (
+            <p className="template-footer">{replayLabel}</p>
           )}
         </div>
       </div>
