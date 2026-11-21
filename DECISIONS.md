@@ -44,6 +44,12 @@
 - Prompt: action first, say when ("today", "this Saturday and Sunday"), no clock times, numbers copied exactly from allowedNumbers, no closing benefit line.
 - Honesty: Gemini made no number mistakes in 37 real drafts, so the trust beat uses one labelled stress-test card with a team-written draft. Never presented as a Gemini error.
 
+## Follow-up (Naman, 21 Nov, F4)
+- "A week later" = the detectors re-run as of 2026-10-24 on the same data, rules and guards, compared with 2026-10-31. Matching key = store + type + salesperson (the issue id without its date).
+- Each issue follows its own headline metric (conversion; weekend conversion; walk-ins vs fleet; pair rate; category share; discount off MRP; repeat rate), read from the same evidence step on both dates.
+- Direction uses the values as displayed (1 decimal): equal displays = "flat" (FLAT_TOLERANCE 0.05). `improved` = moved the good way (discount: down); flat is not improved.
+- Honest limits: these metrics use long windows (Aug-Oct, last 12 months, all-time repeat), so a week moves them only a little, and the move says nothing about whether the action worked. The text only says the number moved or did not move.
+
 ## AI
 - Gemini writes words only, from an `Evidence` JSON. The validator rejects any number not in `allowedNumbers`, any card over 60 words, and any card with no peer named. Rejected → retry once → template. Timeout 8 s.
 
