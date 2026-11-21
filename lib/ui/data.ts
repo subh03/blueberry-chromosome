@@ -42,7 +42,7 @@ export async function getBrief(amId: string): Promise<AmBrief> {
       throw new Error("No sample brief is available for this manager.");
     return brief;
   }
-  return readApi(`/api/brief?amId=${encodeURIComponent(amId)}`);
+  return readApi(`/api/brief?am=${encodeURIComponent(amId)}`);
 }
 export async function getCards(): Promise<{ cards: ActionCard[] }> {
   if (usesSample)
@@ -50,6 +50,22 @@ export async function getCards(): Promise<{ cards: ActionCard[] }> {
       cards: ActionCard[];
     };
   return readApi("/api/card");
+}
+
+export async function getCard(cardId: string, issueId?: string): Promise<ActionCard | null> {
+  if (usesSample) {
+    const { cards } = await getCards();
+    return cards.find((card) => issueId ? card.issue_id === issueId : card.id === cardId) ?? null;
+  }
+  if (!issueId) throw new Error("Open an action card from its evidence chain.");
+  const response = await fetch("/api/card", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!response.ok) throw new Error("The action card is unavailable. Please try again.");
+  return response.json() as Promise<ActionCard>;
 }
 export async function getFlags(): Promise<{ flags: DataQualityFlag[] }> {
   if (usesSample)

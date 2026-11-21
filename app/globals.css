@@ -469,3 +469,20 @@ a {
 summary { cursor: pointer; color: #225239; font-weight: 600; padding: 12px 0; }
 summary:focus-visible { outline: 3px solid #75562c; outline-offset: 4px; }
 @media (max-width: 640px) { .brief-list { padding-left: 18px; } .brief-list > li { padding: 20px 16px; } }
+.card-layout { display: grid; grid-template-columns: 360px 1fr; gap: 72px; align-items: start; padding: 12px 0 56px; }
+.phone-frame { border: 7px solid #29312c; border-radius: 38px; padding: 16px 22px 32px; background: white; min-height: 580px; }
+.phone-top { width: 80px; height: 7px; border-radius: 8px; background: #29312c; margin: 0 auto 36px; }
+.phone-brand { color: #365a43; font-weight: 600; margin-bottom: 28px; }
+.phone-content h2 { font-size: 28px; line-height: 1.2; }
+.recipient { color: #526055; font-size: 13px; margin-top: 12px; }
+.card-copy { font-size: 20px; line-height: 1.6; margin: 32px 0; }
+.card-meta { font-size: 13px; color: #526055; }
+.card-audit { padding: 24px 0; }
+.card-audit dl { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+.card-audit dt { color: #526055; }
+.card-audit dd { font-weight: 600; }
+.draft { border-top: 1px solid #d4d8d3; padding-top: 24px; margin-top: 24px; }
+.draft h3 { font-size: 19px; }
+.draft blockquote { color: #684b28; line-height: 1.6; margin: 16px 0; }
+.trust-beat { padding: 20px; background: #f5ead3; color: #6d4c17; }
+@media (max-width: 700px) { .card-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; } .phone-frame { max-width: 360px; width: 100%; margin: 0 auto; padding: 16px 20px 28px; } }
