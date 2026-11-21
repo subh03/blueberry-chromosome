@@ -21,29 +21,46 @@ export function newStores<T extends StoreInfo>(stores: T[], baselineFrom: string
 
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 
+export interface RosterRow {
+  salesperson_id: string;
+  date: string;
+  status: string; // "Present" | "Off"
+}
+
 /**
- * No exit date is recorded. "Inferred left" = last activity (Present roster day or bill)
- * is `minGapDays`+ before `asOf`. `neverActive` = no activity at all in the given rows.
+ * No exit date is recorded. Manyavar mentors (21 Nov): no sale for 3 weeks is NORMAL,
+ * so bills are never used here. Roster only:
+ * - left:   roster rows (Present or Off) stop `minGapDays`+ before `asOf`.
+ * - absent: still on the roster, but no Present day for `minGapDays`+ (on leave / missing shifts).
+ * - notOnRoster: no roster rows at all (roster covers May-Oct 2026 only; left earlier).
  */
-export function inferredLeavers(input: {
+export function rosterLeavers(input: {
   asOf: string;
   minGapDays: number;
   salespeople: string[];
-  activity: { salesperson_id: string; date: string }[];
-}): { left: { salesperson_id: string; last_active: string }[]; neverActive: string[] } {
-  const last = new Map<string, string>();
-  for (const a of input.activity) {
-    const prev = last.get(a.salesperson_id);
-    if (!prev || a.date > prev) last.set(a.salesperson_id, a.date);
+  roster: RosterRow[];
+}): {
+  left: { salesperson_id: string; last_on_roster: string; last_present: string | null }[];
+  absent: { salesperson_id: string; last_present: string | null }[];
+  notOnRoster: string[];
+} {
+  const lastRow = new Map<string, string>();
+  const lastPresent = new Map<string, string>();
+  for (const r of input.roster) {
+    if ((lastRow.get(r.salesperson_id) ?? "") < r.date) lastRow.set(r.salesperson_id, r.date);
+    if (r.status === "Present" && (lastPresent.get(r.salesperson_id) ?? "") < r.date) lastPresent.set(r.salesperson_id, r.date);
   }
-  const left: { salesperson_id: string; last_active: string }[] = [];
-  const neverActive: string[] = [];
+  const left: { salesperson_id: string; last_on_roster: string; last_present: string | null }[] = [];
+  const absent: { salesperson_id: string; last_present: string | null }[] = [];
+  const notOnRoster: string[] = [];
   for (const id of input.salespeople) {
-    const l = last.get(id);
-    if (!l) neverActive.push(id);
-    else if (dayDiff(l, input.asOf) >= input.minGapDays) left.push({ salesperson_id: id, last_active: l });
+    const row = lastRow.get(id);
+    const present = lastPresent.get(id) ?? null;
+    if (!row) notOnRoster.push(id);
+    else if (dayDiff(row, input.asOf) >= input.minGapDays) left.push({ salesperson_id: id, last_on_roster: row, last_present: present });
+    else if (!present || dayDiff(present, input.asOf) >= input.minGapDays) absent.push({ salesperson_id: id, last_present: present });
   }
-  return { left, neverActive };
+  return { left, absent, notOnRoster };
 }
 
 export function addDays(date: string, n: number): string {

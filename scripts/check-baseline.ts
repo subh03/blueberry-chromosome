@@ -2,7 +2,7 @@
 import { loadDataset } from "../engine/data";
 import { buildStoreDays, conversion, itemsPerBill, presencePct, sumDays, inRange, type StoreDay } from "../engine/metrics";
 import { compareWindows, snapshot, type Comparison, type Window } from "../engine/compare";
-import { addDays, badConversionDays, billsExceedFootfall, inferredLeavers, newStores } from "../engine/dq";
+import { addDays, badConversionDays, billsExceedFootfall, newStores, rosterLeavers } from "../engine/dq";
 
 const AS_OF = "2026-10-31";
 const BEFORE: Window = { from: "2026-05-01", to: "2026-07-31" };
@@ -117,16 +117,17 @@ for (const s of newStores(ds.stores, BEFORE.from)) {
   const t = sumDays(d);
   console.log(`  new_store_no_baseline   ${s.store_id} opened ${s.opened_on}: ${d.length} days, ${t.bills} bills, conv ${f(conversion(t))}% — too new to judge, excluded from peers`);
 }
-const activity = [
-  ...ds.roster.filter((r) => r.status === "Present").map((r) => ({ salesperson_id: r.salesperson_id, date: r.date })),
-  ...ds.bills.map((b) => ({ salesperson_id: b.salesperson_id, date: b.bill_date })),
-];
-const lv = inferredLeavers({ asOf: AS_OF, minGapDays: 21, salespeople: ds.salespeople.map((s) => s.salesperson_id), activity });
-const lvRecent = lv.left.filter((l) => l.last_active >= BEFORE.from);
-const byStore = new Map<string, number>();
+// Roster only. Bills are never used: Manyavar mentors say no sale for 3 weeks is normal.
+const lv = rosterLeavers({ asOf: AS_OF, minGapDays: 21, salespeople: ds.salespeople.map((s) => s.salesperson_id), roster: ds.roster });
 const spStore = new Map(ds.salespeople.map((s) => [s.salesperson_id, s.store_id]));
-for (const l of lvRecent) byStore.set(spStore.get(l.salesperson_id)!, (byStore.get(spStore.get(l.salesperson_id)!) ?? 0) + 1);
-console.log(`  staff_no_exit_date      ${ds.salespeople.length} staff, no exit dates. Inferred left (inactive 21+ days): ${lv.left.length}; of those last active in May-Oct 2026: ${lvRecent.length} (${[...byStore].map(([s, n]) => `${s} ${n}`).join(", ")}). Never active: ${lv.neverActive.length}`);
+const countByStore = (ids: string[]) => {
+  const m = new Map<string, number>();
+  for (const id of ids) m.set(spStore.get(id)!, (m.get(spStore.get(id)!) ?? 0) + 1);
+  return [...m].sort(([a], [b]) => a.localeCompare(b)).map(([s, n]) => `${s} ${n}`).join(", ") || "none";
+};
+console.log(`  staff_no_exit_date      ${ds.salespeople.length} staff, no exit dates. Left (dropped off roster 21+ days before ${AS_OF}): ${lv.left.length} (${countByStore(lv.left.map((l) => l.salesperson_id))})`);
+console.log(`                          Absent (on roster, no Present day for 21+ days): ${lv.absent.length} (${countByStore(lv.absent.map((a) => a.salesperson_id))})`);
+console.log(`                          Not on roster at all (left before May 2026): ${lv.notOnRoster.length}`);
 
 const diwali = ds.calendar.filter((c) => c.festival === "Diwali" && c.date <= AS_OF).map((c) => c.date);
 for (const dd of [...new Set(diwali)]) {

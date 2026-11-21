@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parseCsv } from "../engine/csv";
 import { compareWindows, type StoreInfo } from "../engine/compare";
-import { billsExceedFootfall, newStores, inferredLeavers } from "../engine/dq";
+import { billsExceedFootfall, newStores, rosterLeavers } from "../engine/dq";
 import type { StoreDay } from "../engine/metrics";
 
 test("parseCsv keeps IDs as text and handles quoted commas", () => {
@@ -44,18 +44,24 @@ test("newStores flags stores opened after the baseline start", () => {
   assert.deepEqual(newStores(s, "2026-05-01").map((x) => x.store_id), ["A-9"]);
 });
 
-test("inferredLeavers: active, then inactive 21+ days before as-of", () => {
-  const out = inferredLeavers({
+test("rosterLeavers: left = roster rows stop; Off rows = absent; bills never count", () => {
+  const out = rosterLeavers({
     asOf: "2026-10-31",
     minGapDays: 21,
-    salespeople: ["SP1", "SP2", "SP3"],
-    activity: [
-      { salesperson_id: "SP1", date: "2026-10-30" },
-      { salesperson_id: "SP2", date: "2026-09-01" },
+    salespeople: ["SP1", "SP2", "SP3", "SP4"],
+    roster: [
+      // SP1: present recently (no sales for weeks is normal, and bills are not an input)
+      { salesperson_id: "SP1", date: "2026-10-31", status: "Present" },
+      // SP2: drops off the roster on 1 Sep -> left
+      { salesperson_id: "SP2", date: "2026-09-01", status: "Present" },
+      // SP3: still on the roster, but only Off since 1 Sep -> absent, not left
+      { salesperson_id: "SP3", date: "2026-09-01", status: "Present" },
+      { salesperson_id: "SP3", date: "2026-10-31", status: "Off" },
     ],
   });
   assert.deepEqual(out, {
-    left: [{ salesperson_id: "SP2", last_active: "2026-09-01" }],
-    neverActive: ["SP3"],
+    left: [{ salesperson_id: "SP2", last_on_roster: "2026-09-01", last_present: "2026-09-01" }],
+    absent: [{ salesperson_id: "SP3", last_present: "2026-09-01" }],
+    notOnRoster: ["SP4"],
   });
 });

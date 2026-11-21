@@ -52,7 +52,7 @@ export interface SalespersonMetrics {
   pair_attach_sherwani: number | null; // % of sherwani bills with safa/mojari/mala
   pair_attach_kurta: number | null; // % of kurta bills with a jacket
   last_active: ISODate | null; // last Present roster day or last bill
-  inferred_left: boolean; // inactive 21+ days after being active
+  inferred_left: boolean; // roster rows stopped 21+ days before as-of (bills never used: no sale for 3 weeks is normal)
 }
 
 /** One link in the evidence chain shown in the UI. */
