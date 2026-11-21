@@ -74,6 +74,8 @@ export interface Evidence {
   steps: EvidenceStep[];
   cause: string; // written by code from the detector, e.g. "Top seller not on roster since 2026-09-14"
   peer: { salesperson_id: SalespersonId; display_name: string; why: string } | null;
+  /** Added 21 Nov (optional): the salesperson a salesperson-level issue is about. The card goes to them. */
+  subject?: { salesperson_id: SalespersonId; display_name: string } | null;
   /** Every number-looking token the card is allowed to contain, as displayed. */
   allowedNumbers: string[]; // ["11.0%", "12.6%", "6", "4-8 pm", "₹1,24,000"]
 }
