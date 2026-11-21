@@ -177,6 +177,12 @@ export function Scorecard({
                   );
                   const expanded = open === row.type;
                   const marketNote = row.kind === "market_note" || (!row.kind && row.type === "city_slowdown");
+                  const hasEvidence = Boolean(issue?.evidence.steps.length);
+                  const reason = row.reason ?? (row.status === "data_issue"
+                    ? "A data problem we excluded from the analysis. It is not counted as a store problem."
+                    : row.status === "not_found"
+                      ? "We checked this against peer stores and nothing met our threshold."
+                      : !hasEvidence ? "The evidence for this problem is unavailable in this snapshot." : null);
                   return (
                     <Fragment key={row.type}>
                       <tr
@@ -200,6 +206,7 @@ export function Scorecard({
                               {expanded ? "−" : "+"}
                             </span>
                           </button>
+                          {reason && <p className="row-reason">{reason}</p>}
                         </th>
                         <td>{row.store_ids.join(", ") || "—"}</td>
                         <td className="money">
@@ -214,7 +221,7 @@ export function Scorecard({
                         <td>
                           <span className={`status ${row.status}`}>
                             {row.status === "found"
-                              ? "Found"
+                              ? hasEvidence ? marketNote ? "Market note" : "Found" : "Evidence unavailable"
                               : row.status === "data_issue"
                                 ? "Data issue"
                                 : "Not found"}
@@ -224,15 +231,11 @@ export function Scorecard({
                       <tr id={`evidence-${row.type}`} hidden={!expanded}>
                         <td colSpan={4}>
                           {expanded &&
-                            (issue ? (
+                            (issue && hasEvidence ? (
                               <EvidenceChain issue={issue} />
                             ) : (
                               <p className="state">
-                                {row.status === "data_issue"
-                                  ? "Data-quality guard applied. No manager alert."
-                                  : row.status === "not_found"
-                                    ? "No matching issue was found in this snapshot."
-                                    : "Detailed evidence is not supplied for this sample row yet."}
+                                {reason}
                               </p>
                             ))}
                         </td>
