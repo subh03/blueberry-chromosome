@@ -2,6 +2,14 @@ import type { Issue, ScorecardRow } from "@/types";
 
 export const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
 
+/** Plain names for the three levers in the brief. */
+export const LEVER_LABEL: Record<string, string> = {
+  more_bills: "More bills",
+  bigger_baskets: "Bigger baskets",
+  more_repeat: "More repeat",
+};
+export const leverLabel = (lever?: string | null) => (lever ? LEVER_LABEL[lever] : undefined);
+
 export type Severity = "high" | "medium" | "low" | "model";
 
 /** Severity is a ranking label computed from ₹ at stake; always shown as a word. */

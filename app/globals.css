@@ -1694,3 +1694,34 @@ a {
 main:focus {
   outline: none;
 }
+
+/* Lever tag and the small "Why" / "Do this" labels (labels only, no new figures) */
+.lever-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--teal-tint);
+  color: var(--teal-deep);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.brief-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+.line-label {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--teal);
+}
+.problem[data-open] .lever-tag {
+  background: var(--surface);
+}

@@ -8,7 +8,7 @@ import { getBrief, type UiData } from "@/lib/ui/data";
 import { DataSourceLabel } from "@/components/data-source-label";
 import { EvidencePanel } from "@/components/evidence-panel";
 import { FollowupBadge } from "@/components/followup-badge";
-import { cardHref, inr } from "@/lib/ui/home";
+import { cardHref, inr, leverLabel } from "@/lib/ui/home";
 
 /** The Morning message: built only from this brief's own fields. */
 function morningMessage(brief: AmBrief, issues: AmBrief["issues"]) {
@@ -146,15 +146,24 @@ export function ManagerBrief({
               {issues.map((issue) => (
                 <li key={issue.id} className="brief-item">
                   <div className="brief-item-head">
-                    <span className="store-tag">{issue.store_id}</span>
+                    <span className="brief-tags">
+                      <span className="store-tag">{issue.store_id}</span>
+                      {leverLabel(issue.lever) && (
+                        <span className="lever-tag">{leverLabel(issue.lever)}</span>
+                      )}
+                    </span>
                     <strong title="₹ at stake per 28 days, based on the last 28 days of store data, computed by the problem engine">
                       {inr(issue.rupees_at_stake)}
                       <span className="muted" style={{ fontSize: 15, fontWeight: 400 }}> at stake</span>
                     </strong>
                   </div>
-                  <h2 style={{ fontSize: 21 }}>{issue.cause}</h2>
+                  <h2 style={{ fontSize: 21 }}>
+                    <span className="line-label">Why</span>
+                    {issue.cause}
+                  </h2>
                   <FollowupBadge issue={issue} compact />
                   <p className="action-box">
+                    <span className="line-label">Do this</span>
                     <strong>{issue.action.who}</strong>: {issue.action.what}.{" "}
                     {issue.action.when}.
                   </p>

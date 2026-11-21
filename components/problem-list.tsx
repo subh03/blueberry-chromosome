@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import type { Issue, ScorecardRow } from "@/types";
 import { EvidencePanel } from "@/components/evidence-panel";
 import { FollowupBadge } from "@/components/followup-badge";
-import { inr, severityLabel, severityOf } from "@/lib/ui/home";
+import { inr, leverLabel, severityLabel, severityOf } from "@/lib/ui/home";
 
 export type ProblemItem = {
   row: ScorecardRow;
@@ -61,6 +61,9 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
             >
               <span className="problem-top">
                 <span className={`chip chip-${severity}`}>{severityLabel[severity]}</span>
+                {leverLabel(issue?.lever ?? row.lever) && (
+                  <span className="lever-tag">{leverLabel(issue?.lever ?? row.lever)}</span>
+                )}
                 {row.store_ids.map((store) => (
                   <span key={store} className="store-tag">
                     {store}
@@ -72,6 +75,7 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
                   <span className="problem-title">{row.brief_problem}</span>
                   {issue && (
                     <span className="problem-line">
+                      <span className="line-label">Why</span>
                       {count > 1 ? `Biggest case: ${issue.cause}` : issue.cause}
                     </span>
                   )}
