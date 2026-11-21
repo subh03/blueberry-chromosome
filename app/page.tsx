@@ -44,7 +44,7 @@ const heroCard =
     ? {
         text: heroText,
         words: heroText.trim().split(/\s+/).length,
-        store_id: heroEntry.store_id,
+        store_id: issues.find((issue) => issue.id === HERO_ISSUE)?.store_id ?? heroEntry.store_id,
         name: issues.find((issue) => issue.id === HERO_ISSUE)?.evidence.subject?.display_name ?? heroEntry.salesperson_id,
       }
     : null;

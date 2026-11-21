@@ -127,7 +127,7 @@ export function PhoneCard({
                 <p className="recipient">
                   For{" "}
                   {card.audience === "am"
-                    ? "the store and area manager"
+                    ? "the area manager"
                     : (names[card.issue_id] ?? card.salesperson_id ?? "the salesperson")}
                 </p>
                 {overLimit ? (
