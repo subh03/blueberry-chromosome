@@ -41,7 +41,7 @@ export function SiteHeader({ pathname = "" }: { pathname?: string }) {
   return (
     <header className="site-header" data-scrolled={scrolled || undefined}>
       <div className="shell site-header-row">
-        <Link href="/" className="wordmark" aria-label="Store Coach for Manyavar, overview">
+        <Link href="/" className="wordmark">
           <Logo />
         </Link>
         <nav aria-label="Main" className="nav-desktop">
