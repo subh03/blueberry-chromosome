@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Issue } from "@/types";
 import { FollowupBadge } from "@/components/followup-badge";
 export function EvidenceChain({ issue }: { issue: Issue }) {
@@ -35,12 +36,12 @@ export function EvidenceChain({ issue }: { issue: Issue }) {
       <p>
         {issue.action.who} · {issue.action.what} · {issue.action.when}
       </p>
-      <a
+      <Link
         className="text-link"
         href={`/cards/for-issue?issue=${encodeURIComponent(issue.id)}`}
       >
         Open action card →
-      </a>
+      </Link>
     </section>
   );
 }

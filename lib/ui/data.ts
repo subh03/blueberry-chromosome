@@ -44,18 +44,19 @@ export async function getBrief(amId: string): Promise<AmBrief> {
   }
   return readApi(`/api/brief?am=${encodeURIComponent(amId)}`);
 }
-export async function getCards(): Promise<{ cards: ActionCard[] }> {
-  if (usesSample)
-    return (await import("@/data/sample/cards.json")).default as {
+export async function getCard(
+  cardId: string,
+  issueId?: string,
+): Promise<ActionCard | null> {
+  if (usesSample) {
+    const { cards } = (await import("@/data/sample/cards.json")).default as {
       cards: ActionCard[];
     };
-  return readApi("/api/card");
-}
-
-export async function getCard(cardId: string, issueId?: string): Promise<ActionCard | null> {
-  if (usesSample) {
-    const { cards } = await getCards();
-    return cards.find((card) => issueId ? card.issue_id === issueId : card.id === cardId) ?? null;
+    return (
+      cards.find((card) =>
+        issueId ? card.issue_id === issueId : card.id === cardId,
+      ) ?? null
+    );
   }
   if (!issueId) throw new Error("Open an action card from its evidence chain.");
   const response = await fetch("/api/card", {
@@ -64,7 +65,8 @@ export async function getCard(cardId: string, issueId?: string): Promise<ActionC
     body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
     signal: AbortSignal.timeout(10000),
   });
-  if (!response.ok) throw new Error("The action card is unavailable. Please try again.");
+  if (!response.ok)
+    throw new Error("The action card is unavailable. Please try again.");
   return response.json() as Promise<ActionCard>;
 }
 export async function getFlags(): Promise<{ flags: DataQualityFlag[] }> {

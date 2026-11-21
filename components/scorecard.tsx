@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState, Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { EvidenceChain } from "@/components/evidence-chain";
@@ -16,8 +17,6 @@ export function Scorecard() {
   const [open, setOpen] = useState<string | null>(null);
   useEffect(() => {
     let active = true;
-    setLoading(true);
-    setError(false);
     Promise.all([getScorecard(), getIssues()])
       .then(([scorecard, evidence]) => {
         if (!active) return;
@@ -38,10 +37,10 @@ export function Scorecard() {
   return (
     <main className="coach-shell" id="main-content">
       <header className="masthead">
-        <a href="/" className="brand">
+        <Link href="/" className="brand">
           Manyavar <span>Store Coach</span>
-        </a>
-        <a href="/am/AM-01">Weekly brief →</a>
+        </Link>
+        <Link href="/am/AM-01">Weekly brief →</Link>
       </header>
       <div className="page-heading">
         <div>
@@ -72,7 +71,15 @@ export function Scorecard() {
         ) : error ? (
           <div role="alert" className="state">
             <p>The store brief couldn’t load.</p>
-            <Button onClick={() => setAttempt(attempt + 1)}>Try again</Button>
+            <Button
+              onClick={() => {
+                setLoading(true);
+                setError(false);
+                setAttempt((value) => value + 1);
+              }}
+            >
+              Try again
+            </Button>
           </div>
         ) : rows.length === 0 ? (
           <p className="state">

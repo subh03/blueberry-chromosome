@@ -18,3 +18,10 @@
 
 ## Next
 - 12:00 tracer bullet live on a phone in incognito
+
+## Sagnik UI checkpoint - 21 Nov 2026, 12:00 IST
+- Done: home scorecard and expandable evidence; manager brief capped at five and ranked by rupees; phone action card with source/validator panel; data-quality strip; run history and follow-up badge. Each feature committed and pushed separately.
+- Verified: production build after every feature, Impeccable detector, desktop/mobile screenshots inspected, two-tap evidence-to-card flow, unknown-card empty state, unknown-manager error/retry, mobile page overflow check. Scoped UI ESLint passes after effect and Link fixes.
+- Broken / pending integration: DESIGN.md and PRODUCT.md have not arrived. No design-specific motion added. API adapter uses GET /api/scorecard, /api/issues, /api/dq-flags and /api/run-log, whose routes are pending Shubh. Existing /api/brief?am= and POST /api/card contracts are wired. Sample mode works with NEXT_PUBLIC_USE_SAMPLE=1.
+- Contract observations for Naman: scorecard supplies nine rows but only two detailed issues. Template card supplies rejected_draft with validation.passed=true; its validator word_count is 44, while whitespace counting gives 45. UI preserves the supplied result and only shows the exact trust beat when template + failed validation.
+- Next: incorporate Naman's DESIGN.md / PRODUCT.md, then verify live API reads with Shubh. No dependency or handshake type edits were made.
