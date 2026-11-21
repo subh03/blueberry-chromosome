@@ -65,10 +65,14 @@ The engine puts that at ₹6,18,300, but it is a market note for the area manage
 
 Cards (model `gemini-3.1-flash-lite`, 8 s deadline):
 
-- 18 of 18 salesperson cards were written by Gemini and passed the validator (17 on the first draft, 1 after a retry).
-- Across two full runs, Gemini wrote 37 drafts and none of them used a number outside the evidence.
+- 16 of the 18 salesperson cards are Gemini drafts that passed every check.
+  The other 2 show the template, because their Gemini drafts failed the wording checks (one named a person twice in one sentence, one had no "today"); the rejected drafts are kept and shown next to the card.
+- In the first two full runs, Gemini wrote 37 drafts and none of them used a number outside the evidence.
 - The validator raised 7 false alarms in those runs (for example it read "Kurta Sets" and "Currently," as names); all 7 are fixed and covered by tests.
-- The 4 area-manager cards are also Gemini-written and validated, and every card is stored, so the demo never waits on a live Gemini call.
+- A later audit added wording checks (headcounts, store counts, dates, repeated words, whole sentences); 10 of the 29 stored cards failed it, all 10 were regenerated, and it now finds no failures.
+- The 4 area-manager cards are Gemini drafts that the team edited for wording.
+  Each edit passed the full validator again, and Gemini's original text is stored with the card (`validation.team_edit`).
+- Every card is stored, so the demo never waits on a live Gemini call.
 
 ## How the numbers are made
 
@@ -103,10 +107,9 @@ Then our code checks the draft:
 The model is `gemini-3.1-flash-lite`, called from `app/api/_lib/gemini.ts`; the prompt is `engine/card-prompt.ts`.
 Cards are generated ahead of time and stored, and `/api/card` serves the stored card first.
 
-Gemini never made a number up in our runs, so there is no real mistake to show.
-To prove the validator works, the team wrote one bad draft by hand and stored it as a stress-test card (id `stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson`).
+The number check never caught Gemini inventing a number, so to prove that check works the team wrote one bad draft by hand and stored it as a stress-test card (id `stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson`).
 Its draft starts with "Injected test draft (written by the team, not by Gemini):", the validator rejects its two invented numbers (18% and ₹40,000), and the template card is shown instead.
-It is a team-written test, not a Gemini mistake, and the app and the demo video must call it a stress test.
+It is a team-written test, not a Gemini mistake, and the card page says so above the draft.
 
 ## Tech stack
 

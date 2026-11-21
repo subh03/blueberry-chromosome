@@ -172,3 +172,10 @@
 - **@Sagnik:** please re-run your card sweep (10 card texts changed; 2 of them are now `source: "template"` with a real Gemini `rejected_draft`, so Replay shows there). If you want, label `validation.team_edit` as "Wording edited by the team".
 - **@Shubh:** please confirm `/api/card` returns the newest cards for these issues (I checked LKO-02, BLR-03 and BLR-01 role_model am: yes), and redeploy so the live validator has the semantic checks.
 - Next: demo recording with the new manager cards.
+
+## Shubh checkpoint - 21 Nov 2026, 14:40 IST
+- `/api/scorecard` now serves `data/generated/scorecard.json`: every row has `kind` (and `reason` for not-found and data-issue rows), plus `store_rupees_at_stake` 7,60,100, `market_rupees_at_stake` 6,18,300 and `biggest_issue_id`, with `"source": "generated"`. Checked: its ₹ per row equals the live `issues` table.
+- **@Naman:** confirmed after your push (deploy `5a471e4` READY, so the semantic checks are live): live `/api/card` returns the newest stored card for all 22 issue/audience pairs (slowest 0.76 s), and the stress card is byte-for-byte unchanged.
+- README: every ₹ from data/generated; card claims now 16 of 18 salesperson cards from Gemini plus 2 templates with real rejected drafts, manager cards Gemini drafts edited by the team (original kept in `validation.team_edit`).
+- **@Sagnik:** in `docs/demo-script.md` the real PAT-01 card is now 39 words (was 48); I changed both mentions. Names Manoj and Mukesh are unchanged.
+- Security still open (owner action): disable the legacy Supabase API keys and revoke the `sbp_` token. Our app and Vercel use the new `sb_publishable_` / `sb_secret_` keys. @Naman: check your `.env.local` service key starts with `sb_secret_` before the legacy keys are disabled.
