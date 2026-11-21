@@ -1,33 +1,32 @@
-import type { Metadata } from "next";
-import {
-  IBM_Plex_Sans,
-  IBM_Plex_Sans_Condensed,
-  IBM_Plex_Mono,
-} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 const sans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });
-const cond = IBM_Plex_Sans_Condensed({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-figure",
-  display: "swap",
-});
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-mono",
-  display: "swap",
-});
+
 export const metadata: Metadata = {
   title: "Store Coach | Manyavar",
-  description: "Store problems and their evidence.",
+  description:
+    "Finds what's going wrong in your stores and tells each person what to do today.",
 };
+export const viewport: Viewport = { themeColor: "#083F39" };
+
+// Arms the hero count-up before first paint, only when it will really play
+// (motion allowed, not yet played this session). Without JS nothing is hidden.
+const countupScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&sessionStorage.getItem('sc-countup')!=='played'){document.documentElement.dataset.countup='armed'}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: {
@@ -35,15 +34,25 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
-      className={`${sans.variable} ${cond.variable} ${mono.variable}`}
+      lang="en-IN"
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: countupScript }} />
+      </head>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
+        <SiteHeader />
         {children}
-        <footer className="synthetic-footer">Synthetic data supplied by the organisers.</footer>
+        <footer className="site-footer">
+          <div className="shell">
+            Synthetic data supplied by the organisers. Every number is computed
+            in code; the AI only writes the words.
+          </div>
+        </footer>
       </body>
     </html>
   );
