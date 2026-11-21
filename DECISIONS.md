@@ -14,6 +14,7 @@
   - Items per bill = non-packaging qty ÷ bills → fleet **1.96**
 - "Today" = 2026-10-31. Current window = last 28 days. Baseline = the store's May-Jul 2026 + same-city peers.
 - DQ guard: packaging excluded. PAT-03 has 11 days with bills > footfall (data issue). BLR-05 is too new. Leavers are inferred after 21+ days inactive. Diwali ±3 days are left out of baselines.
+- **Peer flag rule (check:baseline):** May-Jul vs Aug-Oct 2026. A store is flagged on a metric only if its change minus the peer change is past the bar vs BOTH same-city and same-state peers (pooled, excluding itself and stores opened after 1 May). Bars: conversion −1.0 pp, IPB −0.15, presence −2.0 pp, discount +0.5 pp. Conversion uses clean days only (bills > footfall days dropped).
 - Scorecard rows = the **brief's own problem list**. We never claim to know Manyavar's hidden answers.
 
 ## AI

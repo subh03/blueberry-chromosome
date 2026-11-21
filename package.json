@@ -9,7 +9,7 @@
     "lint": "eslint",
     "load": "tsx scripts/load.ts",
     "check:baseline": "tsx scripts/check-baseline.ts",
-    "test": "echo 'no tests yet'"
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
