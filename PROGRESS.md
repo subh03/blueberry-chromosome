@@ -140,3 +140,9 @@
 - README: real results (21 issues, top findings with ₹, 18/18 cards, 37 drafts clean, 7 false alarms fixed), synthetic-data note, stress card explained as a team-written test. "650 stores" removed (unverified).
 - **@Sagnik:** open the stress card with `getCard` by id via `GET /api/card?id=...` and label it "Stress test: injected draft". For LKO-02, BLR-03 and BLR-01 role_model you will receive `audience: "am"` cards; showing them as manager cards (not in the salesperson phone frame) would match the content.
 - **@Naman:** nothing needed from you for the backend. Note `/api/run` (cron 06:00 IST tomorrow) would generate fresh cards that shadow today's stored ones; harmless after the demo.
+
+## Sagnik real-data QA checkpoint — 21 Nov 2026
+- Done: live home and AM-01 through AM-06 checked in fresh browser contexts at 390 px and 1440 px. All 13 home rows and every manager evidence disclosure opened and closed; no horizontal overflow. AM-04 and AM-06 show a clear no-issues message; AM-02 shows one alert and a market note.
+- Done: all 18 recorded real Gemini cards from data/generated/card-run-log.json rendered locally with NEXT_PUBLIC_USE_SAMPLE=0, using browser-intercepted recorded responses. Desktop and phone screenshots captured and reviewed. Every card passed validation, fit the layout and had no rejection replay. Baseline build passed; Impeccable detector returned [].
+- Pending: live stored-card sweep and stress replay await Shubh’s read-only GET /api/card?id route. Automatic approval review rejected a bulk production POST sweep because cache misses could generate cards, incur cost or write data. No bulk production POST requests were sent.
+- Next: market-note/store-total distinction, reasons, card provenance and audience corrections, synthetic-data disclosure, fresh two-click judge run and demo script. Engine wording/number corrections remain with Naman.
