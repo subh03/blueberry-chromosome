@@ -30,3 +30,9 @@
 - F4 (cron + follow-up) is first to cut. The follow-up is computed as as-of 24 Oct vs 31 Oct, not a real week later.
 - P2 detectors (category avoidance, repeat/role model) only if green at 14:20.
 - Not doing: Hindi cards (later), chat box, WhatsApp sending, auth, stock features.
+
+## Backend (Shubh)
+- Evidence is stored inside `issues.evidence` (jsonb), not as its own table, so an issue and its numbers are always written together.
+- `salesperson_metrics` is server-only (no anon access). Pages read names only through `Evidence`.
+- The browser uses the Supabase publishable key (`sb_publishable_...`) in `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Writes only use the service role, on the server.
+- Vercel project lives under the `blueberrychromosome-1281` account, Git-linked to `subh03/blueberry-chromosome`.

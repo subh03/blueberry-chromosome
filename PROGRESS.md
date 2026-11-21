@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Live link:** (none yet; target live by 12:00)
+**Live link:** https://blueberry-chromosome.vercel.app
 **Repo:** github.com/subh03/blueberry-chromosome
 
 ## Done
@@ -27,3 +27,8 @@
 - Broken / pending integration: DESIGN.md and PRODUCT.md have not arrived. No design-specific motion added. API adapter uses GET /api/scorecard, /api/issues, /api/dq-flags and /api/run-log, whose routes are pending Shubh. Existing /api/brief?am= and POST /api/card contracts are wired. Sample mode works with NEXT_PUBLIC_USE_SAMPLE=1.
 - Contract observations for Naman: scorecard supplies nine rows but only two detailed issues. Template card supplies rejected_draft with validation.passed=true; its validator word_count is 44, while whitespace counting gives 45. UI preserves the supplied result and only shows the exact trust beat when template + failed validation.
 - Next: incorporate Naman's DESIGN.md / PRODUCT.md, then verify live API reads with Shubh. No dependency or handshake type edits were made.
+
+## Shubh backend checkpoint - 21 Nov 2026, 12:25 IST
+- Done: Supabase schema live (8 tables, RLS on, anon read-only, `salesperson_metrics` server-only, security advisor clean). `lib/db/` server + publishable clients, typed queries, `toAmBrief` with tests. API stubs on sample data: `/api/brief`, `/api/card` (8 s timeout -> template), `/api/run` (CRON_SECRET), `/api/scorecard`, `/api/issues`, `/api/dq-flags`, `/api/run-log`. Vercel cron `30 0 * * *`. Live on Vercel with env vars for Production + Preview.
+- Broken / pending: `SUPABASE_SERVICE_ROLE_KEY` and `GEMINI_API_KEY` not set yet (locally or on Vercel), so the DB smoke test has not run. Routes still serve sample data, not Supabase.
+- Next: once `npm run load` fills Supabase, switch the read routes to `lib/db/queries` and make `/api/run` write a `runs` row.
