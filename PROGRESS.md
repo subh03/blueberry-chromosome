@@ -11,7 +11,7 @@
 - `npm run load` works: computes 20 stores, 59 store_metrics (3 windows; BLR-05 has no May-Jul row), 140 salesperson_metrics, 11 dq_flags, and writes `data/generated/*.json` (aggregates only). Upserts area_managers, stores, store_metrics, salesperson_metrics, dq_flags + a `runs` row when `.env.local` has the Supabase URL + service key. Not yet run against Supabase from Naman's Mac (no `.env.local`). Naman
 
 ## In progress
-- Naman: P1 detectors + ₹ at stake (next)
+- Naman (21 Nov, relevance audit): named peers must hold up over the last 8 weeks (KNP-01 card now names Ravi C. instead of Rohit V., whose jacket rate fell to 6.3%; both stored cards regenerated and validated, no ₹/rank change). Repeat-rate follow-ups now say "too early to tell" (neutral). Scorecard has a "Regional taste differences" row and the BLR-01 near-miss with its peer numbers. Follow-ups: up 4, down 5, flat 1, too early 10. Next: BLR-01 city-gap rule and SP1044 "stopped doing it" detector (report §next).
 - Shubh: Supabase project + `0001_init.sql`, Vercel project + env, `/api/card` stub, deploy by 12:00
 - Sagnik: home scorecard from `data/sample/scorecard.json`
 
