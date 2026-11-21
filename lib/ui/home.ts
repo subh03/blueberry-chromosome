@@ -46,6 +46,21 @@ export function isMarketNote(row: ScorecardRow) {
   return row.kind === "market_note" || (!row.kind && row.type === "city_slowdown");
 }
 
+/** The ₹ is a per-28-day figure from the last 28 days of data, not a forecast; say so wherever the engine label says "next 28 days". */
+const STAKE_BASIS: Record<string, string> = {
+  staff_absent_or_left: "walk-ins",
+  understaffed_busy_days: "walk-ins",
+  city_slowdown: "walk-ins",
+  low_repeat: "new customers",
+  missing_pair: "bills",
+  category_avoidance: "bills",
+  discount_above_norm: "sales at MRP",
+};
+export function stakeLabel(label: string, type: string) {
+  const basis = STAKE_BASIS[type] ?? "store data";
+  return label.replace("next 28 days", `per 28 days, based on the last 28 days of ${basis}`);
+}
+
 /** Splits evidence steps into the plain-language groups the panel shows. */
 export function groupSteps(issue: Issue) {
   const steps = issue.evidence.steps;

@@ -91,7 +91,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
                 <li key={issue.id} className="brief-item">
                   <div className="brief-item-head">
                     <span className="store-tag">{issue.store_id}</span>
-                    <strong title="28-day ₹ at stake, computed by the problem engine">
+                    <strong title="₹ at stake per 28 days, based on the last 28 days of store data, computed by the problem engine">
                       {inr(issue.rupees_at_stake)}
                       <span className="muted" style={{ fontSize: 15, fontWeight: 400 }}> at stake</span>
                     </strong>

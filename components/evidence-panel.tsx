@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Issue } from "@/types";
 import { FollowupBadge } from "@/components/followup-badge";
-import { cardHref, groupSteps } from "@/lib/ui/home";
+import { cardHref, groupSteps, stakeLabel } from "@/lib/ui/home";
 
 /** Step-by-step evidence for one issue: what changed, compared with what, why it matters, the ₹ maths. */
 export function EvidencePanel({
@@ -67,7 +67,7 @@ export function EvidencePanel({
               <div key={step.label} className="money-maths">
                 <p className="money-figure">{step.display}</p>
                 <p>
-                  {step.label}. Worked out as: {step.formula}.
+                  {stakeLabel(step.label, issue.type)}. Worked out as: {step.formula}.
                 </p>
               </div>
             ))}
@@ -95,7 +95,7 @@ export function EvidencePanel({
         <ul>
           {issue.evidence.steps.map((step) => (
             <li key={step.label}>
-              <span>{step.label}</span>
+              <span>{stakeLabel(step.label, issue.type)}</span>
               <strong>{step.display}</strong>
               <small>
                 {step.formula}, {step.rows.toLocaleString("en-IN")} rows

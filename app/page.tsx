@@ -66,7 +66,8 @@ export default function Home() {
             <div className="enter enter-2">
               <HeroFigure value={storeTotal} />
               <p className="hero-sub">
-                at stake over the next 28 days, across {storeProblems.length} store
+                at stake per 28 days, based on the last 28 days of store data,
+                across {storeProblems.length} store
                 problems · synthetic data supplied by the organisers
               </p>
             </div>
