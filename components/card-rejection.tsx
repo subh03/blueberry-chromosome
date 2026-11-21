@@ -33,7 +33,7 @@ export function RejectedDraft({
   );
 }
 
-export function CardRejection({ card }: { card: ActionCard }) {
+export function CardRejection({ card, replay = true }: { card: ActionCard; replay?: boolean }) {
   const sequence = useRef<HTMLDivElement>(null);
   const hasRejection =
     Boolean(card.rejected_draft);
@@ -73,7 +73,6 @@ export function CardRejection({ card }: { card: ActionCard }) {
         ?.getAnimations({ subtree: true })
         .forEach((animation) => animation.cancel());
     };
-    if (!media.matches) element?.setAttribute("data-playing", "true");
     media.addEventListener("change", finish);
     return () => {
       finish();
@@ -99,7 +98,7 @@ export function CardRejection({ card }: { card: ActionCard }) {
           )}
         </div>
       </div>
-      {hasRejection && (
+      {hasRejection && replay && (
         <button className="replay-button" onClick={play}>
           Replay
         </button>

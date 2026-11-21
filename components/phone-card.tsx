@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Check, Copy, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, Copy, MessageCircle, ShieldCheck } from "lucide-react";
+import { copyWithToast, whatsappHref } from "@/components/toast";
 import type { ActionCard } from "@/types";
 import { getCard, cardDraftOrigin, type UiData } from "@/lib/ui/data";
 import { CardRejection, RejectedDraft } from "@/components/card-rejection";
@@ -11,10 +12,12 @@ export function PhoneCard({
   cardId,
   issueId,
   audience = "salesperson",
+  names = {},
 }: {
   cardId: string;
   issueId?: string;
   audience?: ActionCard["audience"];
+  names?: Record<string, string>;
 }) {
   const [card, setCard] = useState<UiData<ActionCard> | null>(null);
   const [loading, setLoading] = useState(true);
@@ -50,16 +53,11 @@ export function PhoneCard({
         : "Worded by Gemini";
   const copy = async () => {
     if (!card) return;
-    try {
-      await navigator.clipboard.writeText(card.text);
-      setCopied("done");
-    } catch {
-      setCopied("failed");
-    }
+    setCopied((await copyWithToast(card.text)) ? "done" : "failed");
     window.setTimeout(() => setCopied("idle"), 2000);
   };
   return (
-    <main className="shell page" id="main-content">
+    <main className="shell page" id="main-content" tabIndex={-1}>
       <Link href="/#problems" className="back-link">
         <ArrowLeft size={18} aria-hidden="true" />
         Back to the problems
@@ -106,6 +104,11 @@ export function PhoneCard({
         </div>
       ) : (
         <>
+          {audience === "salesperson" && card.audience === "am" && (
+            <p className="audience-note" role="note">
+              This action is for the store manager. No floor card for this one.
+            </p>
+          )}
           {origin === "injected_test" && (
             <p className="stress-test-note">
               Stress test: injected draft, not written by Gemini. Our team wrote
@@ -116,15 +119,21 @@ export function PhoneCard({
             <div>
               <section className="phone" aria-label="Phone preview">
                 <div className="phone-notch" aria-hidden="true" />
-                <p className="phone-app">Store Coach</p>
+                <p className="phone-app">
+                  Store Coach
+                  <span className={`source-chip source-${card.validation.team_edit ? "edited" : card.source}`}>{sourceLabel}</span>
+                </p>
                 <h2>{card.audience === "salesperson" ? "On the floor today" : "For your stores"}</h2>
                 <p className="recipient">
-                  For {card.salesperson_id ?? "the area manager"}
+                  For{" "}
+                  {card.audience === "am"
+                    ? "the area manager"
+                    : (names[card.issue_id] ?? card.salesperson_id ?? "the salesperson")}
                 </p>
                 {overLimit ? (
                   <p role="alert">This draft is over the 60-word limit and needs remaking.</p>
                 ) : (
-                  <CardRejection card={card} />
+                  <CardRejection card={card} replay={card.audience !== "salesperson" || origin === "injected_test"} />
                 )}
                 <p className="card-meta">
                   {words} words · {sourceLabel}
@@ -139,10 +148,17 @@ export function PhoneCard({
                   )}
                   {copied === "done" ? "Copied" : "Copy card text"}
                 </button>
-                <span role="status" className="muted">
-                  {copied === "failed" ? "Copy didn’t work here. Select the text instead." : ""}
-                </span>
+                <a
+                  className="btn btn-secondary"
+                  href={whatsappHref(card.text)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle size={18} aria-hidden="true" />
+                  Share on WhatsApp
+                </a>
               </div>
+              <p className="muted small">Opens WhatsApp with this message. Nothing is sent automatically.</p>
               <p className="trust-line">
                 <ShieldCheck size={20} aria-hidden="true" />
                 <span>
@@ -152,7 +168,8 @@ export function PhoneCard({
               </p>
             </div>
             <aside className="card-audit" aria-label="How this card was checked">
-              <h2>How this card was checked</h2>
+              <details className="audit-details" open={card.audience !== "salesperson" || origin === "injected_test"}>
+              <summary><h2>How this card was checked</h2></summary>
               <dl>
                 <dt>Wording</dt>
                 <dd>{sourceLabel}</dd>
@@ -213,6 +230,7 @@ export function PhoneCard({
                   ))}
                 </ul>
               )}
+              </details>
             </aside>
           </div>
         </>

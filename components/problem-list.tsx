@@ -1,19 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { ChevronDown } from "lucide-react";
 import type { Issue, ScorecardRow } from "@/types";
 import { EvidencePanel } from "@/components/evidence-panel";
 import { FollowupBadge } from "@/components/followup-badge";
-import { inr, severityLabel, severityOf } from "@/lib/ui/home";
+import { inr, leverLabel, severityLabel, severityOf } from "@/lib/ui/home";
 
-export type ProblemItem = { row: ScorecardRow; issue: Issue | null };
+export type ProblemItem = {
+  row: ScorecardRow;
+  issue: Issue | null;
+  /** How many issues of this type the row adds up, and the biggest single one (from issues.json). */
+  count?: number;
+  biggest?: number;
+};
 
-const BAR_DELAYS = [0, 70, 130, 180, 220, 250];
 
 export function ProblemList({ items }: { items: ProblemItem[] }) {
   const [open, setOpen] = useState<string | null>(null);
-  const list = useRef<HTMLOListElement>(null);
   const max = Math.max(1, ...items.map((item) => item.row.rupees_at_stake ?? 0));
 
   const reveal = (id: string) => {
@@ -33,35 +37,12 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
     return () => window.removeEventListener("sc:open", onOpen);
   }, []);
 
-  // ₹ bars grow once when the list first enters view. Bars are full width until armed.
-  useEffect(() => {
-    const el = list.current;
-    if (!el || !("IntersectionObserver" in window)) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
-      el.dataset.bars = "grow";
-      return;
-    }
-    el.dataset.bars = "armed";
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          el.dataset.bars = "grow";
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <ol className="problem-list" ref={list}>
-      {items.map(({ row, issue }, index) => {
+    <ol className="problem-list">
+      {items.map(({ row, issue, count = 1, biggest }) => {
         const id = issue?.id ?? row.type;
         const expanded = open === id;
-        const severity = severityOf(row);
+        const severity = severityOf(row, biggest);
         const rupees = row.rupees_at_stake ?? 0;
         return (
           <li
@@ -80,6 +61,9 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
             >
               <span className="problem-top">
                 <span className={`chip chip-${severity}`}>{severityLabel[severity]}</span>
+                {leverLabel(issue?.lever ?? row.lever) && (
+                  <span className="lever-tag">{leverLabel(issue?.lever ?? row.lever)}</span>
+                )}
                 {row.store_ids.map((store) => (
                   <span key={store} className="store-tag">
                     {store}
@@ -91,7 +75,8 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
                   <span className="problem-title">{row.brief_problem}</span>
                   {issue && (
                     <span className="problem-line">
-                      {row.store_ids.length > 1 ? `Biggest case: ${issue.cause}` : issue.cause}
+                      <span className="line-label">Why</span>
+                      {count > 1 ? `Biggest case: ${issue.cause}` : issue.cause}
                     </span>
                   )}
                   {issue && <FollowupBadge issue={issue} compact />}
@@ -99,7 +84,11 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
                 {severity !== "model" && (
                   <span className="problem-money">
                     <strong>{inr(rupees)}</strong>
-                    <span>at stake</span>
+                    <span>
+                      {count > 1 && biggest !== undefined
+                        ? `at stake across ${count} people · biggest ${inr(biggest)}`
+                        : "at stake"}
+                    </span>
                   </span>
                 )}
                 <ChevronDown className="problem-chevron" size={22} aria-hidden="true" />
@@ -108,12 +97,7 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
                 <span className="bar" aria-hidden="true">
                   <span
                     className="bar-fill"
-                    style={
-                      {
-                        "--r": rupees / max,
-                        "--d": `${BAR_DELAYS[Math.min(index, BAR_DELAYS.length - 1)]}ms`,
-                      } as CSSProperties
-                    }
+                    style={{ transform: `scaleX(${rupees / max})` } as CSSProperties}
                   />
                 </span>
               )}

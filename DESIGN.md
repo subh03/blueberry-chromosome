@@ -61,5 +61,18 @@ Rules
 - Stress-test card: "Stress test: injected draft, not written by Gemini"; the rejection sequence only when `rejected_draft` exists.
 - Say "at stake", never "saved" or "lost". No claim of measured improvement.
 
+## 9. Brand (v2.1, ux-polish)
+- **Mark:** a teal (`--teal-deep`) rounded square, 22% corner radius, read as a clipboard, holding one marigold check whose right arm rises past the square's top edge: "checked, and moving up". Flat fills only: no gradient, no shadow, no outline glow.
+- **Wordmark:** "Store Coach" in Bricolage Grotesque 700, with "for Manyavar" beneath in IBM Plex Sans 500 at 0.55x size, `--ink-2` on light, `#CFE3DE` on dark.
+- **Variants:** on light (teal mark, ink words), on dark (marigold check on a white-outlined square, white words), mark only (favicon `app/icon.svg`, OG image).
+- **Manyavar** appears only as a text credit ("for Manyavar", "A hackathon build for Manyavar's Store Coach problem statement"). Never their logo, colours, fonts or styling; never implies endorsement.
+
+## 10. Additions
+- **Hero:** sentence + ₹ left, a real stored action card in the phone frame right (desktop); phone below on mobile. Stats line under the hero: rows read, issues found, cards checked, all read from data.
+- **Compare bars:** before / now / peers, only where the evidence step has a real `compare_to`; values labelled directly, not by colour alone.
+- **Weekly brief:** area-manager switcher as a segmented row of links (`aria-current`); a Morning message panel built only from the brief, with Copy and "Share on WhatsApp" (opens `wa.me` with the text; nothing is sent automatically).
+- **Toast:** bottom-centre, ink on white, auto-dismiss 3.5 s, `role="status"`; enters 200 ms, leaves 150 ms.
+- **Motion cap:** nothing longer than 600 ms except the hero count-up (900 ms). No bounce, no loops.
+
 ## 8. Never
 No eyebrow/kicker above headings, no gradient text, no glass, no identical icon-card walls, no coloured border-left callouts, no all-caps labels, no monospace costume, no blue or violet, no "0 cards" run stats on the page, no fade-in on every section, no italic serif display.
