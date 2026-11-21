@@ -1,0 +1,162 @@
+[
+ {
+  "store_id": "LKO-01",
+  "city": "Lucknow",
+  "state": "Uttar Pradesh",
+  "tier": "S++",
+  "opened_on": "2014-05-01",
+  "area_manager_id": "AM-01"
+ },
+ {
+  "store_id": "LKO-02",
+  "city": "Lucknow",
+  "state": "Uttar Pradesh",
+  "tier": "S+",
+  "opened_on": "2017-07-01",
+  "area_manager_id": "AM-01"
+ },
+ {
+  "store_id": "LKO-03",
+  "city": "Lucknow",
+  "state": "Uttar Pradesh",
+  "tier": "A",
+  "opened_on": "2022-01-01",
+  "area_manager_id": "AM-01"
+ },
+ {
+  "store_id": "LKO-04",
+  "city": "Lucknow",
+  "state": "Uttar Pradesh",
+  "tier": "S+",
+  "opened_on": "2022-05-01",
+  "area_manager_id": "AM-01"
+ },
+ {
+  "store_id": "KNP-01",
+  "city": "Kanpur",
+  "state": "Uttar Pradesh",
+  "tier": "S+",
+  "opened_on": "2017-09-01",
+  "area_manager_id": "AM-02"
+ },
+ {
+  "store_id": "KNP-02",
+  "city": "Kanpur",
+  "state": "Uttar Pradesh",
+  "tier": "A",
+  "opened_on": "2014-01-01",
+  "area_manager_id": "AM-02"
+ },
+ {
+  "store_id": "KNP-03",
+  "city": "Kanpur",
+  "state": "Uttar Pradesh",
+  "tier": "B",
+  "opened_on": "2018-12-01",
+  "area_manager_id": "AM-02"
+ },
+ {
+  "store_id": "PAT-01",
+  "city": "Patna",
+  "state": "Bihar",
+  "tier": "S++",
+  "opened_on": "2019-07-01",
+  "area_manager_id": "AM-03"
+ },
+ {
+  "store_id": "PAT-02",
+  "city": "Patna",
+  "state": "Bihar",
+  "tier": "S+",
+  "opened_on": "2015-06-01",
+  "area_manager_id": "AM-03"
+ },
+ {
+  "store_id": "PAT-03",
+  "city": "Patna",
+  "state": "Bihar",
+  "tier": "A",
+  "opened_on": "2014-02-01",
+  "area_manager_id": "AM-03"
+ },
+ {
+  "store_id": "PAT-04",
+  "city": "Patna",
+  "state": "Bihar",
+  "tier": "B",
+  "opened_on": "2015-01-01",
+  "area_manager_id": "AM-03"
+ },
+ {
+  "store_id": "MZF-01",
+  "city": "Muzaffarpur",
+  "state": "Bihar",
+  "tier": "A",
+  "opened_on": "2017-11-01",
+  "area_manager_id": "AM-04"
+ },
+ {
+  "store_id": "MZF-02",
+  "city": "Muzaffarpur",
+  "state": "Bihar",
+  "tier": "B",
+  "opened_on": "2019-08-01",
+  "area_manager_id": "AM-04"
+ },
+ {
+  "store_id": "BLR-01",
+  "city": "Bengaluru",
+  "state": "Karnataka",
+  "tier": "S++",
+  "opened_on": "2014-10-01",
+  "area_manager_id": "AM-05"
+ },
+ {
+  "store_id": "BLR-02",
+  "city": "Bengaluru",
+  "state": "Karnataka",
+  "tier": "S++",
+  "opened_on": "2021-05-01",
+  "area_manager_id": "AM-05"
+ },
+ {
+  "store_id": "BLR-03",
+  "city": "Bengaluru",
+  "state": "Karnataka",
+  "tier": "S+",
+  "opened_on": "2020-01-01",
+  "area_manager_id": "AM-05"
+ },
+ {
+  "store_id": "BLR-04",
+  "city": "Bengaluru",
+  "state": "Karnataka",
+  "tier": "S+",
+  "opened_on": "2022-03-01",
+  "area_manager_id": "AM-05"
+ },
+ {
+  "store_id": "BLR-05",
+  "city": "Bengaluru",
+  "state": "Karnataka",
+  "tier": "B",
+  "opened_on": "2026-10-10",
+  "area_manager_id": "AM-05"
+ },
+ {
+  "store_id": "MYS-01",
+  "city": "Mysuru",
+  "state": "Karnataka",
+  "tier": "A",
+  "opened_on": "2019-08-01",
+  "area_manager_id": "AM-06"
+ },
+ {
+  "store_id": "MYS-02",
+  "city": "Mysuru",
+  "state": "Karnataka",
+  "tier": "B",
+  "opened_on": "2022-11-01",
+  "area_manager_id": "AM-06"
+ }
+]

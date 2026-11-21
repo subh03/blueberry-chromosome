@@ -1,0 +1,90 @@
+[
+ {
+  "id": "dq:packaging_rows",
+  "store_id": null,
+  "kind": "packaging_rows",
+  "alerted": false,
+  "rows_affected": 84001,
+  "detail": "Packaging lines (₹0 bags, covers, boxes) are left out of items per bill and discount"
+ },
+ {
+  "id": "dq:bills_exceed_footfall:PAT-03",
+  "store_id": "PAT-03",
+  "kind": "bills_exceed_footfall",
+  "alerted": false,
+  "rows_affected": 11,
+  "detail": "11 store-days with more bills than walk-ins; those days are left out of conversion"
+ },
+ {
+  "id": "dq:new_store_no_baseline:BLR-05",
+  "store_id": "BLR-05",
+  "kind": "new_store_no_baseline",
+  "alerted": false,
+  "rows_affected": 22,
+  "detail": "Opened 2026-10-10: too new to judge, left out of peer comparisons"
+ },
+ {
+  "id": "dq:staff_no_exit_date:BLR-02",
+  "store_id": "BLR-02",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 2,
+  "detail": "2 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:BLR-03",
+  "store_id": "BLR-03",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 2,
+  "detail": "2 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:BLR-04",
+  "store_id": "BLR-04",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 1,
+  "detail": "1 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:KNP-03",
+  "store_id": "KNP-03",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 1,
+  "detail": "1 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:LKO-01",
+  "store_id": "LKO-01",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 1,
+  "detail": "1 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:LKO-02",
+  "store_id": "LKO-02",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 1,
+  "detail": "1 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:staff_no_exit_date:PAT-04",
+  "store_id": "PAT-04",
+  "kind": "staff_no_exit_date",
+  "alerted": false,
+  "rows_affected": 1,
+  "detail": "1 salesperson(s) dropped off the roster 21+ days before 2026-10-31; no exit date recorded, so treated as inferred left"
+ },
+ {
+  "id": "dq:festival_dip:2025-10-20",
+  "store_id": null,
+  "kind": "festival_dip",
+  "alerted": false,
+  "rows_affected": 133,
+  "detail": "Diwali 2025-10-20: bills per day -8% vs the 3 weeks before; ±3 days left out of baselines"
+ }
+]
