@@ -1,0 +1,8 @@
+local-data/
+datasets/
+statements/
+.env
+.env.*
+node_modules/
+.next/
+.DS_Store
