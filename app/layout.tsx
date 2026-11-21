@@ -43,6 +43,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <footer className="synthetic-footer">Synthetic data supplied by the organisers.</footer>
       </body>
     </html>
   );

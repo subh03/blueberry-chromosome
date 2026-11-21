@@ -968,3 +968,11 @@ thead th:nth-child(3) {
   max-width: 760px;
 }
 .card-audit, .phone-content { overflow-wrap: anywhere; }
+.synthetic-footer {
+  width: min(1160px, 100% - 32px);
+  margin: 48px auto 0;
+  padding: 20px 0 32px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink-muted);
+}

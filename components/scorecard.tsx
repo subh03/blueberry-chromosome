@@ -96,6 +96,7 @@ export function Scorecard({
       <div className="page-heading">
         <div>
           <h1>The store brief</h1>
+          <p className="reading-hint">Synthetic data supplied by the organisers.</p>
           <p>
             Which stores need attention, and the evidence behind each problem.
           </p>
@@ -251,7 +252,7 @@ export function Scorecard({
       <DataQualityStrip />
       <RunLogStrip />
       <footer className="page-footer">
-        Every number comes from the evidence.{" "}
+        Every number comes from the evidence. {" "}
         {source === "sample" && "Sample values are illustrative."}
       </footer>
     </main>

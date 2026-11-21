@@ -51,6 +51,7 @@ export function PhoneCard({
       <div className="page-heading">
         <div>
           <h1>One action for today</h1>
+          <p className="reading-hint">Synthetic data supplied by the organisers.</p>
           <p>The card and the evidence behind its words.</p>
         </div>
         <p className="snapshot">

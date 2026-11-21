@@ -43,6 +43,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
       <div className="page-heading">
         <div>
           <h1>The weekly brief</h1>
+          <p className="reading-hint">Synthetic data supplied by the organisers.</p>
           <p>{brief ? `${brief.name} · ${brief.city}` : amId}</p>
         </div>
         <p className="snapshot">
