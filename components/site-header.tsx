@@ -68,7 +68,7 @@ export function SiteHeader({ pathname = "" }: { pathname?: string }) {
       </div>
       <nav
         id="mobile-menu"
-        aria-label="Main"
+        aria-label="Menu"
         className="nav-mobile"
         hidden={!open}
       >
