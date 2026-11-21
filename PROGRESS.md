@@ -40,3 +40,12 @@
 - Verified: production build and scoped ESLint pass, Impeccable detector returns no findings. Inspected desktop/mobile screenshots for home, manager brief and card. Playwright checked initial HTML total, no session replay, both rejected tokens, interruption by repeated Replay, final template, reduced motion, evidence reopening and no page overflow at 375 px.
 - Decision: compressed the evidence-step start delays to 40/60/75/85/95/100 ms with 200 ms duration, meeting the explicit 300 ms limit. The original table's last listed step would finish at 370 ms.
 - Next: integrate real engine/API data when the backend switches from sample stubs. No type, dependency, API route, environment or data-file edits were made by Sagnik.
+
+## Shubh backend checkpoint - 21 Nov 2026, 13:00 IST
+- Live: https://blueberry-chromosome.vercel.app (deploy `08e8029` READY, 0 runtime errors in logs). All 8 env vars set for Production + Preview.
+- Real (reads Supabase, `"source": "db"`): `/api/dq-flags` (dq_flags, 11), `/api/run-log` (runs), `/api/brief?am=` for managers other than AM-01 (area_managers + issues via toAmBrief).
+- Still sample (`"source": "sample"`) until Naman's detectors fill `issues`: `/api/scorecard`, `/api/issues`, `/api/brief?am=AM-01`, and `/api/card` for sample issue ids. They switch to the DB automatically, no code change.
+- `/api/run` (CRON_SECRET) writes a `runs` row with all counts, ok and error; regenerates one card per issue into `cards`. Tested locally and in production.
+- `/api/card`: Gemini client ready (GEMINI_MODEL, structured JSON, retry once, 8 s, live-tested). Returns the template until Naman plugs the prompt + validator into `aiStep` in `app/api/_lib/make-card.ts` (TODO marked).
+- Tests: `npx tsx --test lib/db/*.test.ts app/api/_lib/*.test.ts` (19 pass). DB smoke script passes.
+- Next: Naman wires `aiStep`; once `issues` has rows, check scorecard/issues/brief flip to `"source": "db"`.
