@@ -67,6 +67,7 @@ export async function getBrief(amId: string): Promise<UiData<AmBrief>> {
 export async function getCard(
   cardId: string,
   issueId?: string,
+  audience: ActionCard["audience"] = "salesperson",
 ): Promise<UiData<ActionCard> | null> {
   if (usesSample) {
     const { cards } = (await import("@/data/sample/cards.json")).default as {
@@ -83,7 +84,7 @@ export async function getCard(
     fetch("/api/card", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
+      body: JSON.stringify({ issue_id: issueId, audience }),
       signal: AbortSignal.timeout(10000),
     }),
     getIssues().catch(() => null),

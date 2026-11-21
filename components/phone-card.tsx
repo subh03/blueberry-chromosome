@@ -11,9 +11,11 @@ import { CardRejection, RejectedDraft } from "@/components/card-rejection";
 export function PhoneCard({
   cardId,
   issueId,
+  audience = "salesperson",
 }: {
   cardId: string;
   issueId?: string;
+  audience?: ActionCard["audience"];
 }) {
   const [card, setCard] = useState<UiData<ActionCard> | null>(null);
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ export function PhoneCard({
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let active = true;
-    getCard(cardId, issueId)
+    getCard(cardId, issueId, audience)
       .then((data) => {
         if (active) setCard(data);
       })
@@ -34,7 +36,7 @@ export function PhoneCard({
     return () => {
       active = false;
     };
-  }, [cardId, issueId, attempt]);
+  }, [cardId, issueId, audience, attempt]);
   const words = card?.text.trim().split(/\s+/).filter(Boolean).length ?? 0;
   const overLimit = card?.audience === "salesperson" && words > 60;
   return (
@@ -114,13 +116,13 @@ export function PhoneCard({
               <dt>Source</dt>
               <dd>{card.source === "gemini" ? "Gemini" : "Template"}</dd>
               <dt>
-                {card.source === "template"
+                {card.rejected_draft
                   ? "Rejected draft validation"
                   : "Validator result"}
               </dt>
               <dd>{card.validation.passed ? "Passed" : "Failed"}</dd>
               <dt>
-                {card.source === "template"
+                {card.rejected_draft
                   ? "Rejected draft word count"
                   : "Validator word count"}
               </dt>

@@ -3,15 +3,20 @@ import { PhoneCard } from "@/components/phone-card";
 
 type Props = {
   params: Promise<{ cardId: string }>;
-  searchParams: Promise<{ issue?: string }>;
+  searchParams: Promise<{ issue?: string; audience?: string }>;
 };
 async function CardRoute({ params, searchParams }: Props) {
-  const [{ cardId }, { issue }] = await Promise.all([params, searchParams]);
+  const [{ cardId }, { issue, audience }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+  const cardAudience = audience === "am" ? "am" : "salesperson";
   return (
     <PhoneCard
-      key={`${cardId}:${issue ?? ""}`}
+      key={`${cardId}:${issue ?? ""}:${cardAudience}`}
       cardId={cardId}
       issueId={issue}
+      audience={cardAudience}
     />
   );
 }

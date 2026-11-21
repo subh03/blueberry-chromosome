@@ -75,3 +75,7 @@
 - **@Shubh:** the issues table is filled. Live `/api/scorecard`, `/api/issues`, `/api/brief?am=AM-01` already return `"source": "db"`. Redeploy so `/api/scorecard` picks up the 13-row catalogue in `data/sample/scorecard.json` (currently 9).
 - Next: F3 prompt + number validator in `engine/` and plug `aiStep` into `app/api/_lib/make-card.ts`.
 
+## Sagnik live-data follow-up during task 5
+- Real detector data arrived during recording-path validation. The biggest issue became Kanpur's city slowdown. The card link had requested audience salesperson, causing the UI's 60-word salesperson guard to hide a valid 63-word manager card.
+- Fixed only UI routing: city slowdown evidence passes audience=am through the card page and existing POST contract. Store problems retain salesperson. Template cards without a rejected_draft now use the general Validator result label rather than Rejected draft validation.
+- Verified against live API fixtures: two clicks request audience am, the manager text is visible under For your stores, validation passes and there is no 390 px overflow. Production build and Impeccable passed. Updated recording script will use the actual LKO-02 values and conditionally show rejection only when present.
