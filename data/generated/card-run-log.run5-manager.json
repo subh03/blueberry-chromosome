@@ -1,0 +1,240 @@
+{
+ "_note": "Regeneration of stored cards that failed the semantic audit. Every real Gemini draft and the full validator verdict. Nothing injected.",
+ "model": "gemini-3.1-flash-lite",
+ "ran_at": "2026-11-21T08:59:01.128Z",
+ "deadline_ms": 8000,
+ "gemini_calls": 7,
+ "max_calls": 10,
+ "entries": [
+  {
+   "card_id": "gemini:2026-10-31:KNP-01:city_slowdown:am",
+   "issue_id": "2026-10-31:KNP-01:city_slowdown",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 3684,
+     "draft": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are this Saturday and Sunday. All 3 Kanpur stores lost walk-ins vs the rest of the fleet in the last 28 days (KNP-01 −19.3%, KNP-02 −18.4%, KNP-03 −16.1%); the same weeks last year: −2.1%.",
+     "validation": {
+      "passed": true,
+      "word_count": 56,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are this Saturday and Sunday. All 3 Kanpur stores lost walk-ins vs the rest of the fleet in the last 28 days (KNP-01 −19.3%, KNP-02 −18.4%, KNP-03 −16.1%); the same weeks last year: −2.1%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:LKO-02:staff_absent_or_left:am",
+   "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1638,
+     "draft": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Top seller Imran C. with 23.3% of bills is not on the roster since 14 Sep and conversion fell from 12.6% to 10.4%.",
+     "validation": {
+      "passed": true,
+      "word_count": 47,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Top seller Imran C. with 23.3% of bills is not on the roster since 14 Sep and conversion fell from 12.6% to 10.4%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-03:understaffed_busy_days:am",
+   "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1927,
+     "draft": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Fewer people on the floor on Sat and Sun fell from 7.4 to 6.6. Weekend conversion fell from 13.0% to 9.8%.",
+     "validation": {
+      "passed": true,
+      "word_count": 45,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Fewer people on the floor on Sat and Sun fell from 7.4 to 6.6. Weekend conversion fell from 13.0% to 9.8%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:role_model:SP1110:am",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1700,
+     "draft": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Karthik J.'s customers come back 19.3% of the time; the rest of BLR-01: 7.8%. Srinivas B. learns from Karthik J.",
+     "validation": {
+      "passed": false,
+      "word_count": 40,
+      "rejected_numbers": [],
+      "reasons": [
+       "no time (today / by …)"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 1445,
+     "draft": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Karthik J.'s customers come back 19.3% of the time; the rest of BLR-01: 7.8%. Srinivas B. watches Karthik J. today.",
+     "validation": {
+      "passed": true,
+      "word_count": 40,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed on retry",
+   "final_text": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Karthik J.'s customers come back 19.3% of the time; the rest of BLR-01: 7.8%. Srinivas B. watches Karthik J. today."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8005,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    },
+    {
+     "attempt": 2,
+     "ms": 3054,
+     "draft": "Suresh, show a jacket with every kurta trial today. Observe Yogesh G. to understand how to improve your pairing frequency of 16.5% toward the store level of 25.2%.",
+     "validation": {
+      "passed": true,
+      "word_count": 28,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed on retry",
+   "final_text": "Suresh, show a jacket with every kurta trial today. Observe Yogesh G. to understand how to improve your pairing frequency of 16.5% toward the store level of 25.2%."
+  }
+ ],
+ "rows": [
+  {
+   "id": "gemini:2026-10-31:KNP-01:city_slowdown:am",
+   "issue_id": "2026-10-31:KNP-01:city_slowdown",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Area manager, Kanpur: this week, treat it as a market dip. Ask each store manager what changed locally and keep store targets as they are. All 3 Kanpur stores lost walk-ins against the rest of the fleet in the last 28 days (KNP-01 −19.3%, KNP-02 −18.4%, KNP-03 −16.1%); the same weeks last year showed only −2.1%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 56,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini",
+    "team_edit": {
+     "gemini_text": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are this Saturday and Sunday. All 3 Kanpur stores lost walk-ins vs the rest of the fleet in the last 28 days (KNP-01 −19.3%, KNP-02 −18.4%, KNP-03 −16.1%); the same weeks last year: −2.1%.",
+     "why": "Gemini moved the action to 'this Saturday and Sunday'; Issue.action says this week. Last-year figure made readable."
+    }
+   },
+   "created_at": "2026-11-21T08:58:30.748Z"
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-02:staff_absent_or_left:am",
+   "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, LKO-02: this Saturday and Sunday, put Sumit A. on the floor at the busiest hours and have the newest seller shadow them. Imran C., your top seller with 23.3% of bills, has not been on the roster since 14 Sep, and conversion has fallen from 12.6% to 10.4%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 50,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini",
+    "team_edit": {
+     "gemini_text": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Top seller Imran C. with 23.3% of bills is not on the roster since 14 Sep and conversion fell from 12.6% to 10.4%.",
+     "why": "Grammar: 'is not on the roster since' -> 'has not been on the roster since'; when moved to the front."
+    }
+   },
+   "created_at": "2026-11-21T08:58:33.304Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-03:understaffed_busy_days:am",
+   "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, BLR-03: this Saturday and Sunday, keep 7 people on the floor, and move Manjunath K.'s and Vijay N.'s weekly off to a weekday. Weekend floor staff fell from 7.4 to 6.6, and weekend conversion fell from 13.0% to 9.8%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 41,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini",
+    "team_edit": {
+     "gemini_text": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Fewer people on the floor on Sat and Sun fell from 7.4 to 6.6. Weekend conversion fell from 13.0% to 9.8%.",
+     "why": "Garbled 'Fewer people on the floor on Sat and Sun fell from 7.4 to 6.6'; 'weekly off to a weekday this Saturday and Sunday' read as if the move happens at the weekend."
+    }
+   },
+   "created_at": "2026-11-21T08:58:38.194Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:role_model:SP1110:am",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, BLR-01: at Saturday's morning huddle, ask Karthik J. to show the team how they follow up with customers. Karthik J.'s customers come back 19.3% of the time, against 7.8% for the rest of BLR-01. Today, have Srinivas B. watch Karthik J. on the floor.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 46,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini",
+    "team_edit": {
+     "gemini_text": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Karthik J.'s customers come back 19.3% of the time; the rest of BLR-01: 7.8%. Srinivas B. watches Karthik J. today.",
+     "why": "'the rest of BLR-01: 7.8%' read as a fragment; 'Srinivas B. watches Karthik J. today' turned into an instruction for the manager."
+    }
+   },
+   "created_at": "2026-11-21T08:58:46.913Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "salesperson_id": "SP1120",
+   "text": "Suresh, show a jacket with every kurta trial today. Observe Yogesh G. to understand how to improve your pairing frequency of 16.5% toward the store level of 25.2%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 28,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "created_at": "2026-11-21T08:59:01.128Z"
+  }
+ ],
+ "_team_edits": "4 manager cards: Gemini drafts passed the validator; the team fixed wording a store manager would find odd. Gemini's text kept in validation.team_edit.gemini_text. Every edit re-validated."
+}

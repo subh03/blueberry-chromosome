@@ -12,7 +12,9 @@
     "test": "tsx --test tests/*.test.ts lib/db/*.test.ts app/api/_lib/*.test.ts",
     "cards": "tsx scripts/cards.ts",
     "cards:stress": "tsx scripts/stress-card.ts",
-    "cards:origins": "tsx scripts/card-origins.ts"
+    "cards:origins": "tsx scripts/card-origins.ts",
+    "cards:audit": "tsx scripts/revalidate-cards.ts",
+    "cards:regen": "tsx scripts/regen-cards.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

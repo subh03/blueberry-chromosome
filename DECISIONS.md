@@ -60,3 +60,4 @@
 
 ## Design
 - **DESIGN.md: "the auditor's ledger"** (21 Nov). Ivory paper `#F7F7F5`, bottle green `#244E3B`, brass `#75562C` for every rupee figure and the evidence thread, madder `#A23B2A` only for ↓ and the rejected number. IBM Plex Sans / Sans Condensed (figures) / Mono (formulas) via next/font. Extends Sagnik's existing CSS, no blue, no gradients. No Lenis or scroll animation (work tool); 3 moments: rupee count-up, evidence thread, "AI draft rejected" stamp.
+- 21 Nov ~15:00 (Naman): the validator now checks meaning, not only numbers (`engine/card-semantics.ts`). Manager cards get Issue.action word for word plus a facts block. Gemini manager drafts that pass but read oddly may be hand-edited by the team; the original stays in `validation.team_edit.gemini_text` and the edit must pass the same validator.

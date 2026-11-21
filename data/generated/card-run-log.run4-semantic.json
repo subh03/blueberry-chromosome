@@ -1,0 +1,439 @@
+{
+ "_note": "Regeneration of stored cards that failed the semantic audit. Every real Gemini draft and the full validator verdict. Nothing injected.",
+ "model": "gemini-3.1-flash-lite",
+ "ran_at": "2026-11-21T08:57:03.172Z",
+ "deadline_ms": 8000,
+ "gemini_calls": 12,
+ "max_calls": 30,
+ "entries": [
+  {
+   "card_id": "gemini:2026-10-31:PAT-01:low_repeat:SP1072:salesperson",
+   "issue_id": "2026-10-31:PAT-01:low_repeat:SP1072",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 6268,
+     "draft": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Mukesh D. on the floor to understand how to improve your 3.4% repeat rate. You must close the 4.5 pts gap between your performance and the rest of PAT-01.",
+     "validation": {
+      "passed": true,
+      "word_count": 47,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Mukesh D. on the floor to understand how to improve your 3.4% repeat rate. You must close the 4.5 pts gap between your performance and the rest of PAT-01."
+  },
+  {
+   "card_id": "gemini:2026-10-31:PAT-02:low_repeat:SP1088:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1088",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 7177,
+     "draft": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Arjun D. to understand how they engage customers, given your 1.6% repeat rate against the 8.3% average in PAT-02. This difference currently sits at 6.7 pts.",
+     "validation": {
+      "passed": true,
+      "word_count": 44,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Arjun D. to understand how they engage customers, given your 1.6% repeat rate against the 8.3% average in PAT-02. This difference currently sits at 6.7 pts."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-02:category_avoidance:SP1125:salesperson",
+   "issue_id": "2026-10-31:BLR-02:category_avoidance:SP1125",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 3823,
+     "draft": "Show at least one Indo-Western option to every customer you serve today. Suresh K., observe how Venkatesh Y. recommends these items to bridge your 6.8 pts gap. Please follow the approach taken by Venkatesh Y. for the 35.4 bills you handle.",
+     "validation": {
+      "passed": false,
+      "word_count": 41,
+      "rejected_numbers": [],
+      "reasons": [
+       "a count of bills is not a whole number: 35.4"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 4161,
+     "draft": "Show at least one Indo-Western option to every customer you serve today. Suresh K., consult Venkatesh Y. to learn why your performance shows 1.3% while Venkatesh Y. captures more interest from visitors. This gap remains 6.8 pts.",
+     "validation": {
+      "passed": false,
+      "word_count": 37,
+      "rejected_numbers": [],
+      "reasons": [
+       "Venkatesh Y. named twice in one sentence"
+      ]
+     },
+     "error": null
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Suresh, today bring out one Indo-Western piece for every customer you serve, even if they came in for something else. Indo-Western is on 8.1% of bills across Bengaluru and on 1.3% of yours. Venkatesh Y. sells the most Indo-Western in BLR-02: ask which pieces they show first."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 6707,
+     "draft": "Show a jacket with every kurta trial today. Suresh, observe how Yogesh G. achieves the store standard of 25.2% while your current rate remains at 16.5%. Please coordinate with Yogesh G. to close this gap of 8.7 pts.",
+     "validation": {
+      "passed": true,
+      "word_count": 38,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Show a jacket with every kurta trial today. Suresh, observe how Yogesh G. achieves the store standard of 25.2% while your current rate remains at 16.5%. Please coordinate with Yogesh G. to close this gap of 8.7 pts."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:role_model:SP1110:salesperson",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 6581,
+     "draft": "Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. You maintain a high standard as customers return 19.3% of the time, while the rest of BLR-01 achieves 7.8%. Srinivas B. watches your process to gain insight from 715 visits.",
+     "validation": {
+      "passed": false,
+      "word_count": 47,
+      "rejected_numbers": [],
+      "reasons": [
+       "no time (today / by …)",
+       "role model Karthik J. is told to watch or learn from someone (\"watches\"); the role model should teach the others"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 7080,
+     "draft": "Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. You maintain a high standard because customers return 19.3% of the time, while the rest of BLR-01 achieves 7.8%. Srinivas B. asks you to explain the method used for 715 visits.",
+     "validation": {
+      "passed": false,
+      "word_count": 48,
+      "rejected_numbers": [],
+      "reasons": [
+       "no time (today / by …)"
+      ]
+     },
+     "error": null
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Karthik, today spend a few minutes with Srinivas B. and show them how you follow up after a sale. 19.3% of your customers come back, and the rest of BLR-01 is at 7.8%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:KNP-01:city_slowdown:am",
+   "issue_id": "2026-10-31:KNP-01:city_slowdown",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 5282,
+     "draft": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are. Review this approach today across all 3 Kanpur stores after observing a city slowdown of −18.5%.",
+     "validation": {
+      "passed": true,
+      "word_count": 39,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are. Review this approach today across all 3 Kanpur stores after observing a city slowdown of −18.5%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:LKO-02:staff_absent_or_left:am",
+   "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1904,
+     "draft": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Since Imran C. is not on the roster since 14 Sep, observe Sumit A. to maintain the 10.4% conversion and manage the 1.7 pts gap.",
+     "validation": {
+      "passed": true,
+      "word_count": 49,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Since Imran C. is not on the roster since 14 Sep, observe Sumit A. to maintain the 10.4% conversion and manage the 1.7 pts gap."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-03:understaffed_busy_days:am",
+   "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1145,
+     "draft": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Greet every customer to ensure a helpful store environment.",
+     "validation": {
+      "passed": true,
+      "word_count": 33,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Greet every customer to ensure a helpful store environment."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:role_model:SP1110:am",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "am",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 2437,
+     "draft": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Practice professional helpfulness today to improve service. Srinivas B. must watch Karthik J. demonstrate engagement with 715 people, reaching a repeat rate of 19.3% instead of 7.8%.",
+     "validation": {
+      "passed": true,
+      "word_count": 47,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Practice professional helpfulness today to improve service. Srinivas B. must watch Karthik J. demonstrate engagement with 715 people, reaching a repeat rate of 19.3% instead of 7.8%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 3068,
+     "draft": "Check with the store manager before giving any discount from today, Manoj N. Observe Mukesh D. regarding the current discount policy to avoid a 5.2 pts gap. You currently offer 7.1% while the rest of the store provides 1.9%.",
+     "validation": {
+      "passed": true,
+      "word_count": 39,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Check with the store manager before giving any discount from today, Manoj N. Observe Mukesh D. regarding the current discount policy to avoid a 5.2 pts gap. You currently offer 7.1% while the rest of the store provides 1.9%."
+  }
+ ],
+ "rows": [
+  {
+   "id": "gemini:2026-10-31:PAT-01:low_repeat:SP1072:salesperson",
+   "issue_id": "2026-10-31:PAT-01:low_repeat:SP1072",
+   "audience": "salesperson",
+   "salesperson_id": "SP1072",
+   "text": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Mukesh D. on the floor to understand how to improve your 3.4% repeat rate. You must close the 4.5 pts gap between your performance and the rest of PAT-01.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 47,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:04.270Z"
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:low_repeat:SP1088:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1088",
+   "audience": "salesperson",
+   "salesperson_id": "SP1088",
+   "text": "From today, take the phone number on every bill and send a thank-you message the same evening. Observe Arjun D. to understand how they engage customers, given your 1.6% repeat rate against the 8.3% average in PAT-02. This difference currently sits at 6.7 pts.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:11.448Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-02:category_avoidance:SP1125:salesperson",
+   "issue_id": "2026-10-31:BLR-02:category_avoidance:SP1125",
+   "audience": "salesperson",
+   "salesperson_id": "SP1125",
+   "text": "Suresh, today bring out one Indo-Western piece for every customer you serve, even if they came in for something else. Indo-Western is on 8.1% of bills across Bengaluru and on 1.3% of yours. Venkatesh Y. sells the most Indo-Western in BLR-02: ask which pieces they show first.",
+   "source": "template",
+   "validation": {
+    "passed": false,
+    "word_count": 37,
+    "rejected_numbers": [],
+    "reasons": [
+     "Venkatesh Y. named twice in one sentence"
+    ],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": "Show at least one Indo-Western option to every customer you serve today. Suresh K., consult Venkatesh Y. to learn why your performance shows 1.3% while Venkatesh Y. captures more interest from visitors. This gap remains 6.8 pts.",
+   "created_at": "2026-11-21T08:56:20.211Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "salesperson_id": "SP1120",
+   "text": "Show a jacket with every kurta trial today. Suresh, observe how Yogesh G. achieves the store standard of 25.2% while your current rate remains at 16.5%. Please coordinate with Yogesh G. to close this gap of 8.7 pts.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 38,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:27.356Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:role_model:SP1110:salesperson",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "salesperson",
+   "salesperson_id": "SP1110",
+   "text": "Karthik, today spend a few minutes with Srinivas B. and show them how you follow up after a sale. 19.3% of your customers come back, and the rest of BLR-01 is at 7.8%.",
+   "source": "template",
+   "validation": {
+    "passed": false,
+    "word_count": 48,
+    "rejected_numbers": [],
+    "reasons": [
+     "no time (today / by …)"
+    ],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": "Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. You maintain a high standard because customers return 19.3% of the time, while the rest of BLR-01 achieves 7.8%. Srinivas B. asks you to explain the method used for 715 visits.",
+   "created_at": "2026-11-21T08:56:41.017Z"
+  },
+  {
+   "id": "gemini:2026-10-31:KNP-01:city_slowdown:am",
+   "issue_id": "2026-10-31:KNP-01:city_slowdown",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Area manager, Kanpur: Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are. Review this approach today across all 3 Kanpur stores after observing a city slowdown of −18.5%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 39,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:46.300Z"
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-02:staff_absent_or_left:am",
+   "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, LKO-02: Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them this Saturday and Sunday. Since Imran C. is not on the roster since 14 Sep, observe Sumit A. to maintain the 10.4% conversion and manage the 1.7 pts gap.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 49,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:48.204Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-03:understaffed_busy_days:am",
+   "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, BLR-03: Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday this Saturday and Sunday. Greet every customer to ensure a helpful store environment.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 33,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:52.046Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:role_model:SP1110:am",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "am",
+   "salesperson_id": null,
+   "text": "Store manager, BLR-01: Ask Karthik J. to show the team how they follow up with customers during Saturday's morning huddle. Practice professional helpfulness today to improve service. Srinivas B. must watch Karthik J. demonstrate engagement with 715 people, reaching a repeat rate of 19.3% instead of 7.8%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 47,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:56:57.940Z"
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "audience": "salesperson",
+   "salesperson_id": "SP1064",
+   "text": "Check with the store manager before giving any discount from today, Manoj N. Observe Mukesh D. regarding the current discount policy to avoid a 5.2 pts gap. You currently offer 7.1% while the rest of the store provides 1.9%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 39,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "rejected_draft": null,
+   "created_at": "2026-11-21T08:57:03.172Z"
+  }
+ ]
+}
