@@ -122,7 +122,12 @@ export interface CardValidation {
   word_count: number;
   rejected_numbers: string[]; // tokens in Gemini text that are not in allowedNumbers
   reasons: string[]; // "over 60 words", "no peer named", ...
+  /** Added 21 Nov (optional): mirror of ActionCard.draft_origin, so it survives in the cards.validation jsonb. */
+  draft_origin?: DraftOrigin;
 }
+
+/** Where a card's draft came from: Gemini, or a team-written stress test. Unset on pure templates. */
+export type DraftOrigin = "gemini" | "injected_test";
 
 export interface ActionCard {
   id: string;
@@ -134,6 +139,8 @@ export interface ActionCard {
   validation: CardValidation;
   rejected_draft?: string; // Gemini draft that failed (shown in demo beat 4)
   created_at: string; // ISO timestamp
+  /** Added 21 Nov (optional). "injected_test" = the labelled stress-test card: never present it as a Gemini mistake. */
+  draft_origin?: DraftOrigin;
 }
 
 export type DqKind =
@@ -164,6 +171,8 @@ export interface ScorecardRow {
   /** Added 21 Nov (optional). "market_note" (city_slowdown) is for the area manager: never add it to the
    *  store ₹ total or pick it as the biggest problem. "data_quality" rows are never alerts. */
   kind?: "store" | "market_note" | "data_quality";
+  /** Added 21 Nov (optional): one plain line for not_found / data_issue rows, from the real checks. */
+  reason?: string;
 }
 
 export interface AmBrief {

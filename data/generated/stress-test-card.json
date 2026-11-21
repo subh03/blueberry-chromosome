@@ -18,9 +18,11 @@
    "reasons": [
     "number not in evidence: 18%",
     "number not in evidence: ₹40,000"
-   ]
+   ],
+   "draft_origin": "injected_test"
   },
   "created_at": "2026-11-21T00:00:00.000Z",
-  "rejected_draft": "Injected test draft (written by the team, not by Gemini): Manoj, give smaller discounts today, like Mukesh D.. This will lift your sales by 18% and add ₹40,000 this week."
+  "rejected_draft": "Injected test draft (written by the team, not by Gemini): Manoj, give smaller discounts today, like Mukesh D.. This will lift your sales by 18% and add ₹40,000 this week.",
+  "draft_origin": "injected_test"
  }
 }

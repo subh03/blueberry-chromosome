@@ -6,6 +6,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 import type { ActionCard, CardValidation, Issue } from "../types";
 import { cardAiStep } from "../engine/card-ai";
+import { originForCard, toCardRow, withDraftOrigin } from "../engine/card-origin";
 import { templateCard } from "../app/api/_lib/card";
 import { generateJson } from "../app/api/_lib/gemini";
 
@@ -64,7 +65,7 @@ async function one(issue: Issue): Promise<{ entry: Entry; card: ActionCard }> {
   }
   return {
     entry: { issue_id: issue.id, type: issue.type, store_id: issue.store_id, salesperson_id: issue.evidence.subject!.salesperson_id, attempts, final_source: card.source, outcome },
-    card,
+    card: withDraftOrigin(card, originForCard(card)),
   };
 }
 
@@ -106,7 +107,7 @@ async function main() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) { console.log("skipped Supabase (no keys)"); return; }
   const db = createClient(url, key, { auth: { persistSession: false } });
-  const { error } = await db.from("cards").upsert(cards, { onConflict: "id" });
+  const { error } = await db.from("cards").upsert(cards.map(toCardRow), { onConflict: "id" });
   if (error) throw new Error(`cards: ${error.message}`);
   console.log(`upsert  cards ${cards.length}`);
 }
