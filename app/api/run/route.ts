@@ -50,8 +50,9 @@ async function run(trigger: RunLog["trigger"]): Promise<Response> {
       }
     }
   } catch (err) {
-    error = err instanceof Error ? err.message : "Unknown error";
-    console.error("[api/run] run failed:", error);
+    // runs is publicly readable (/api/run-log): store a generic message, keep details in server logs.
+    error = "Run failed while generating cards; see server logs.";
+    console.error("[api/run] run failed:", err instanceof Error ? err.message : err);
   }
 
   try {
