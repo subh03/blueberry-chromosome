@@ -461,3 +461,11 @@ a {
     min-height: 60px;
   }
 }
+.brief-list { list-style: decimal; padding-left: 24px; margin: 24px 0 48px; }
+.brief-list > li { padding: 28px; background: white; border-bottom: 1px solid #dce0db; }
+.brief-list .section-heading { padding-bottom: 4px; }
+.lever { text-transform: capitalize; color: #526055; font-size: 14px; margin-bottom: 16px; }
+.action-copy { margin: 20px 0; }
+summary { cursor: pointer; color: #225239; font-weight: 600; padding: 12px 0; }
+summary:focus-visible { outline: 3px solid #75562c; outline-offset: 4px; }
+@media (max-width: 640px) { .brief-list { padding-left: 18px; } .brief-list > li { padding: 20px 16px; } }
