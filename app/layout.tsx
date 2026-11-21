@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Finds what's going wrong in your stores and tells each person what to do today.",
 };
-export const viewport: Viewport = { themeColor: "#083F39" };
+export const viewport: Viewport = { themeColor: "#ffffff" };
 
 // Arms the hero count-up before first paint, only when it will really play
 // (motion allowed, not yet played this session). Without JS nothing is hidden.

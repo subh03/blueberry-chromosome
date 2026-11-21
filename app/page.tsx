@@ -112,7 +112,11 @@ export default function Home() {
         <div className="section-head">
           <h2 id="problems-title">Top problems, biggest first</h2>
           <p className="muted">
-            Data as of {scorecard.as_of}. Open one to see the proof and today&rsquo;s
+            Data as of{" "}
+            {new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeZone: "UTC" }).format(
+              new Date(scorecard.as_of),
+            )}
+            . Open one to see the proof and today&rsquo;s
             action.
           </p>
         </div>
