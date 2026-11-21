@@ -1,0 +1,564 @@
+{
+ "_note": "Every real Gemini draft for the salesperson cards and the validator's verdict. Nothing injected.",
+ "model": "gemini-3.1-flash-lite",
+ "ran_at": "2026-11-21T08:01:47.247Z",
+ "deadline_ms": 8000,
+ "summary": {
+  "inputs": 18,
+  "gemini_calls": 24,
+  "drafts": 18,
+  "drafts_passed": 12,
+  "drafts_rejected": 6,
+  "cards_gemini_first_try": 11,
+  "cards_gemini_after_retry": 1,
+  "cards_template_after_two_rejections": 0,
+  "cards_template_error_or_timeout": 6,
+  "rejection_reasons": {
+   "names someone not in the evidence": 2,
+   "no action for today": 4
+  }
+ },
+ "entries": [
+  {
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1015",
+   "type": "low_repeat",
+   "store_id": "LKO-01",
+   "salesperson_id": "SP1015",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1385,
+     "draft": "Tushar, observe Manoj T. today to understand how to improve customer engagement. Your repeat customer rate is 3.1% compared to the store average of 8.2%, leaving a gap of 5.0 pts. Discuss effective client follow-up strategies with Manoj T. to build stronger relationships and improve loyalty among the customers you serve from today.",
+     "numbers_used": [
+      "3.1%",
+      "8.2%",
+      "5.0 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 53,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1013",
+   "type": "low_repeat",
+   "store_id": "LKO-01",
+   "salesperson_id": "SP1013",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1246,
+     "draft": "Arif, observe Manoj T. today to learn how to build better relationships with customers. Your repeat rate is 1.2% while the store average is 7.9%, creating a gap of 6.8 pts. Discuss customer engagement strategies with Manoj T. before closing to improve your connection with shoppers.",
+     "numbers_used": [
+      "1.2%",
+      "7.9%",
+      "6.8 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 46,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:LKO-01:missing_pair:SP1009",
+   "type": "missing_pair",
+   "store_id": "LKO-01",
+   "salesperson_id": "SP1009",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1299,
+     "draft": "Ashish, improve your Kurta Set pairing today by observing Shahid K. on the shop floor. Shahid K. has the best pairing performance in LKO-01. Closing the gap of 7.6 pts will increase sales. Partner with Shahid K. to learn how to add a jacket to more bills. Aim to match the store rate of 17.9%.",
+     "numbers_used": [
+      "7.6 pts",
+      "17.9%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 55,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:KNP-01:missing_pair:SP1054",
+   "type": "missing_pair",
+   "store_id": "KNP-01",
+   "salesperson_id": "SP1054",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1058,
+     "draft": "Shahid, shadow Rohit V. today to learn their approach to pairing jackets with Kurta Sets. You are currently at 14.5% while Rohit V. helps achieve 23.2% for the store. Closing this gap of 8.7 pts will help you serve customers better with our premium collection.",
+     "numbers_used": [
+      "14.5%",
+      "23.2%",
+      "8.7 pts"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 45,
+      "rejected_numbers": [],
+      "reasons": [
+       "names someone not in the evidence: Sets"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 302,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "type": "discount_above_norm",
+   "store_id": "PAT-01",
+   "salesperson_id": "SP1064",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1884,
+     "draft": "Manoj, align your discount practices with store standards today. Discuss the discount strategy with Mukesh D. to understand how Mukesh D. maintains the lowest discount in PAT-01. Your current rate of 7.1% is 5.3 pts higher than the rest of the store. Consistent application helps us protect our margins.",
+     "numbers_used": [
+      "7.1%",
+      "5.3 pts"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 49,
+      "rejected_numbers": [],
+      "reasons": [
+       "no action for today"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 2,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-01:low_repeat:SP1072",
+   "type": "low_repeat",
+   "store_id": "PAT-01",
+   "salesperson_id": "SP1072",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 2438,
+     "draft": "Faizan, observe how Mukesh D. engages customers to improve loyalty today. You currently have a gap of 4.5 pts against the store average. Your repeat rate is 3.4% compared to the store level of 7.9%. Discuss client outreach techniques with Mukesh D. to better retain visitors this Saturday and Sunday.",
+     "numbers_used": [
+      "4.5 pts",
+      "3.4%",
+      "7.9%"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 50,
+      "rejected_numbers": [],
+      "reasons": [
+       "no action for today"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 2,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1088",
+   "type": "low_repeat",
+   "store_id": "PAT-02",
+   "salesperson_id": "SP1088",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1193,
+     "draft": "Saurabh, observe how Arjun D. builds relationships with new clients today. Your repeat customer rate is 1.6% compared to 8.3% for the rest of PAT-02, a gap of 6.7 pts. Spend time shadowing Arjun D. before closing to learn specific techniques for improving customer retention and bringing them back to the store.",
+     "numbers_used": [
+      "1.6%",
+      "8.3%",
+      "6.7 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 52,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1065",
+   "type": "discount_above_norm",
+   "store_id": "PAT-01",
+   "salesperson_id": "SP1065",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1091,
+     "draft": "Sanjay, please adjust your discount policy to match the rest of the store today. Observe Mukesh D. to learn how they maintain a lower discount rate while serving customers. Your current discount of 6.2% is 4.2 pts above the store norm. Aligning your approach will improve store performance.",
+     "numbers_used": [
+      "6.2%",
+      "4.2 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 48,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1090",
+   "type": "low_repeat",
+   "store_id": "PAT-02",
+   "salesperson_id": "SP1090",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1261,
+     "draft": "Jitendra, shadow Arjun D. today to learn how to improve customer retention. Your repeat rate is 1.6% while the rest of the store achieves 8.3%, creating a gap of 6.6 pts. Observe how Arjun D. builds relationships to retain shoppers before closing.",
+     "numbers_used": [
+      "1.6%",
+      "8.3%",
+      "6.6 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 42,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-02:missing_pair:SP1087",
+   "type": "missing_pair",
+   "store_id": "PAT-02",
+   "salesperson_id": "SP1087",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1575,
+     "draft": "Arjun, ensure you suggest a safa, mojari or mala with every Sherwani sale today. Observe Prakash J. to learn how they achieve better pairing results, as Prakash J. is the top performer in PAT-02. Closing your 34.9 pts gap will improve your performance. Your current pairing rate is 47.8% compared to the rest of the store at 82.7%.",
+     "numbers_used": [
+      "34.9 pts",
+      "47.8%",
+      "82.7%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 58,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-02:category_avoidance:SP1125",
+   "type": "category_avoidance",
+   "store_id": "BLR-02",
+   "salesperson_id": "SP1125",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 5078,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1120",
+   "type": "low_repeat",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1120",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1531,
+     "draft": "Suresh, partner with Karthik J. today to understand their approach for repeat customers. Your current repeat rate of 4.8% trails the store average of 9.1% by 4.3 pts. Observe how Karthik J. engages with shoppers to improve your return rate before closing.",
+     "numbers_used": [
+      "4.8%",
+      "9.1%",
+      "4.3 pts"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 42,
+      "rejected_numbers": [],
+      "reasons": [
+       "no action for today"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 1836,
+     "draft": "Suresh, partner with Karthik J. today to observe how Karthik J. builds loyalty with shoppers. Your repeat rate is 4.8% compared to the store average of 9.1%. Work with Karthik J. before closing to learn techniques that will help close your performance gap of 4.3 pts and secure more returning customers.",
+     "numbers_used": [
+      "4.8%",
+      "9.1%",
+      "4.3 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 51,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed on retry"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1114",
+   "type": "low_repeat",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1114",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1085,
+     "draft": "Manjunath, shadow Karthik J. today to learn how to build repeat customer relationships. Your repeat rate is 5.0% while the rest of the store achieves 9.1%. Observing the techniques Karthik J. uses will help you improve this gap. Apply these methods with every customer you assist before closing to increase your performance.",
+     "numbers_used": [
+      "5.0%",
+      "9.1%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 52,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1116",
+   "type": "low_repeat",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1116",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1720,
+     "draft": "Chetan, review customer engagement techniques with Karthik J. today. Improving your repeat customer rate, currently at 4.6% compared to the store average of 9.0%, will help retain shoppers. Observe how Karthik J. builds lasting relationships during interactions. Focus on personalising service to ensure clients return to BLR-01.",
+     "numbers_used": [
+      "4.6%",
+      "9.0%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 47,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-04:low_repeat:SP1162",
+   "type": "low_repeat",
+   "store_id": "BLR-04",
+   "salesperson_id": "SP1162",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1687,
+     "draft": "Sachin, observe Kumar B. today to improve your customer retention. Kumar B. holds the best repeat rate in the store. Your current repeat rate is 1.3%, while the rest of the store achieves 7.8%, a gap of 6.5 pts. Apply these insights to increase your repeat visits before closing.",
+     "numbers_used": [
+      "1.3%",
+      "7.8%",
+      "6.5 pts"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 49,
+      "rejected_numbers": [],
+      "reasons": [
+       "no action for today"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 721,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "type": "missing_pair",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1120",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1198,
+     "draft": "Suresh, suggest a jacket with every Kurta Set you sell today. You are at 16.5% while the store average is 25.2%, creating a gap of 8.7 pts. Observe Yogesh G. on the floor to learn their pairing technique for Kurta Sets. Applying these tips will improve your conversion.",
+     "numbers_used": [
+      "16.5%",
+      "25.2%",
+      "8.7 pts"
+     ],
+     "validation": {
+      "passed": false,
+      "word_count": 48,
+      "rejected_numbers": [],
+      "reasons": [
+       "names someone not in the evidence: Sets"
+      ]
+     },
+     "error": null
+    },
+    {
+     "attempt": 2,
+     "ms": 1,
+     "draft": null,
+     "numbers_used": [],
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: deadline passed"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:discount_above_norm:SP1122",
+   "type": "discount_above_norm",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1122",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1507,
+     "draft": "Sunil, align your discounting strategy with the rest of BLR-01 today. Consult with Nithin J. to learn how Nithin J. maintains the lowest discount rate in the store. Your current discount of 3.8% is 2.6 pts above our store norm. Adjusting this practice will help protect store margins while you manage your ₹1,93,470 sales volume.",
+     "numbers_used": [
+      "3.8%",
+      "2.6 pts",
+      "₹1,93,470"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 55,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "type": "role_model",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1110",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1426,
+     "draft": "Karthik, shadow Srinivas B. today to understand how to improve customer retention. Your repeat rate is 19.3% across 715 customers, while the rest of the store is at 7.8%. Learn from Srinivas B. to maintain this performance. Keep focusing on these metrics before closing.",
+     "numbers_used": [
+      "19.3%",
+      "715",
+      "7.8%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 44,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  }
+ ]
+}

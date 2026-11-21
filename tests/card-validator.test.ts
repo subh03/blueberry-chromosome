@@ -136,3 +136,17 @@ test("store-level evidence without a peer skips the peer rule", () => {
   const v = validateCard("Keep the floor full today and ask each seller to greet walk-ins.", { ...ev, peer: null, subject: null });
   assert.ok(!v.reasons.includes("no same-store peer named"), v.reasons.join(" | "));
 });
+
+// Found in the first real Gemini run (21 Nov): these were validator false alarms, not Gemini mistakes.
+test("category plurals (Kurta Sets) are not mistaken for names", () => {
+  const v = validateCard(GOOD + " Suggest a jacket with every Kurta Set and watch how Asha pairs Kurta Sets.", ev);
+  assert.ok(!v.reasons.some((r) => r.startsWith("names someone")), v.reasons.join(" | "));
+});
+
+test("observe, shadow, discuss and partner with count as actions", () => {
+  for (const verb of ["observe Asha R. on the floor", "shadow Asha R.", "discuss follow-ups with Asha R.", "partner with Asha R."]) {
+    const v = validateCard(`Vikram, ${verb} today. 3.1% of your customers come back.`, ev);
+    assert.ok(!v.reasons.includes("no action for today"), `${verb}: ${v.reasons.join(" | ")}`);
+  }
+});
+

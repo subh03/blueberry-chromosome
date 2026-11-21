@@ -26,7 +26,8 @@ interface Entry { issue_id: string; type: string; store_id: string; salesperson_
 
 async function one(issue: Issue): Promise<{ entry: Entry; card: ActionCard }> {
   const attempts: Attempt[] = [];
-  const deadline = AbortSignal.timeout(timeoutMs);
+  // The live deadline (AI_TIMEOUT_MS) covers Gemini time only, as in makeCard. Pacing waits are not counted.
+  let budget = timeoutMs;
   const base = templateCard(issue, "salesperson");
   let card: ActionCard = base;
   let outcome = "template: no draft";
@@ -35,10 +36,12 @@ async function one(issue: Issue): Promise<{ entry: Entry; card: ActionCard }> {
     if (wait > 0) await sleep(wait);
     lastCall = Date.now();
     const t0 = Date.now();
+    const deadline = AbortSignal.timeout(Math.max(1, budget));
     try {
       const json = await generateJson<{ text?: string; numbers_used?: string[] }>({
         apiKey: apiKey!, model: model!, prompt: cardAiStep.buildPrompt(issue.evidence, "salesperson"), schema: cardAiStep.schema, signal: deadline,
       });
+      budget -= Date.now() - t0;
       const draft = cardAiStep.toText(json);
       const validation = cardAiStep.validate(draft, issue.evidence);
       attempts.push({ attempt: a, ms: Date.now() - t0, draft, numbers_used: json.numbers_used ?? [], validation, error: null });
