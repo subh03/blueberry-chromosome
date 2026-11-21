@@ -1,16 +1,15 @@
 // GET  /api/card?id=<card id>                         -> ActionCard (one stored card, e.g. the stress-test card)
 // POST /api/card { card_id }                          -> same as GET ?id=
 // POST /api/card { issue_id, audience? }              -> ActionCard for that issue
-// For an issue: a saved card is served first (pickSavedCard: asked audience, else the other one), so demo
-// paths never wait on Gemini. Otherwise, real issue in the DB -> makeCard: Gemini (GEMINI_MODEL, structured
-// JSON, retry once) under the 8 s deadline, checked by the validator; any failure -> template.
+// For an issue: the saved card (pickSavedCard), else the template card built from the issue's evidence.
+// This public route never calls Gemini, so nobody can spend our Gemini quota through it.
 // Issue or card not in the DB yet -> the matching sample card. DB down -> 503 (retryable), unknown -> 404.
 import type { NextRequest } from "next/server";
 import type { ActionCard } from "@/types";
 import sample from "@/data/sample/cards.json";
 import { getBrowserDb } from "@/lib/db/browser";
 import { getCardById, getIssue, listCardsForIssue } from "@/lib/db/queries";
-import { makeCard } from "../_lib/make-card";
+import { templateCard } from "../_lib/card";
 import { parseCardId, parseCardRequest, pickSavedCard } from "../_lib/card-request";
 import { jsonError } from "../_lib/json";
 
@@ -49,7 +48,8 @@ async function cardForIssue(issueId: string, audience: Audience): Promise<Respon
     dbDown = true;
     console.warn("[api/card] db read failed:", err instanceof Error ? err.message : err);
   }
-  if (issue) return Response.json(await makeCard(issue, audience));
+  // Public route: never spends Gemini calls (M7). Gemini runs only in /api/run and the card scripts.
+  if (issue) return Response.json(templateCard(issue, audience));
 
   const fallback = sampleForIssue(issueId, audience);
   if (fallback) return Response.json(fallback);

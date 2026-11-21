@@ -54,3 +54,26 @@ test("pickSavedCard compares times, not strings (whole seconds vs fractions, Z v
 test("parseCardRequest rejects a body that sends both card_id and issue_id", () => {
   assert.equal(parseCardRequest({ card_id: "card-1", issue_id: "i1" }), null);
 });
+
+// H5: /api/run must never overwrite (or shadow, since the newest card is served) a protected card.
+import { isProtectedCard, needsNewCard } from "./card-request";
+
+const withValidation = (id: string, audience: ActionCard["audience"], validation: object) =>
+  ({ id, audience, created_at: "2026-11-21T09:00:00Z", validation }) as unknown as ActionCard;
+
+test("isProtectedCard: team-edited cards and the injected stress-test card are protected", () => {
+  assert.equal(isProtectedCard(withValidation("gemini:i1:am", "am", { team_edit: { gemini_text: "x", why: "y" } })), true);
+  assert.equal(isProtectedCard(withValidation("stress-test:i1:salesperson", "salesperson", { draft_origin: "injected_test" })), true);
+  assert.equal(isProtectedCard(withValidation("gemini:i1:salesperson", "salesperson", { draft_origin: "gemini" })), false);
+});
+
+test("needsNewCard: no new card when the issue already has one for that audience (so a team edit is never shadowed)", () => {
+  assert.equal(needsNewCard([withValidation("gemini:i1:am", "am", { team_edit: { gemini_text: "x", why: "y" } })], "am"), false);
+  assert.equal(needsNewCard([withValidation("gemini:i1:salesperson", "salesperson", {})], "salesperson"), false);
+});
+
+test("needsNewCard: a card is made only when none exists for that audience; the stress card does not count", () => {
+  assert.equal(needsNewCard([], "am"), true);
+  assert.equal(needsNewCard([withValidation("gemini:i1:salesperson", "salesperson", {})], "am"), true);
+  assert.equal(needsNewCard([withValidation("stress-test:i1:salesperson", "salesperson", { draft_origin: "injected_test" })], "salesperson"), true);
+});

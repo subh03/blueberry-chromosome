@@ -40,3 +40,18 @@ export function pickSavedCard(cards: ActionCard[], audience: Audience): ActionCa
   if (exact) return exact;
   return audience === "salesperson" ? (real.find((c) => c.audience === "am") ?? null) : null;
 }
+
+/** Cards /api/run must never overwrite or shadow: a team-edited card, or the injected stress-test card. */
+export function isProtectedCard(card: ActionCard): boolean {
+  const v = card.validation as ActionCard["validation"] & { team_edit?: unknown; draft_origin?: string };
+  return Boolean(v?.team_edit) || v?.draft_origin === "injected_test" || card.id.startsWith(STRESS_PREFIX);
+}
+
+/**
+ * Whether /api/run should make a card for this issue and audience. Only when no real card exists yet:
+ * /api/card serves the newest card, so a fresh one would shadow a stored (possibly team-edited) card.
+ * The stress-test card does not count; a new card never replaces it (different row, served only by id).
+ */
+export function needsNewCard(existing: ActionCard[], audience: Audience): boolean {
+  return !existing.some((c) => c.audience === audience && !c.id.startsWith(STRESS_PREFIX));
+}
