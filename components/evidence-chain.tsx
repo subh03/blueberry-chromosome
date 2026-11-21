@@ -82,7 +82,7 @@ export function EvidenceChain({ issue }: { issue: Issue }) {
       </p>
       <Link
         className="text-link"
-        href={`/cards/for-issue?issue=${encodeURIComponent(issue.id)}&audience=${issue.type === "city_slowdown" ? "am" : "salesperson"}`}
+          href={`/cards/for-issue?issue=${encodeURIComponent(issue.id)}&audience=${issue.evidence.subject && ["missing_pair", "category_avoidance", "discount_above_norm", "low_repeat"].includes(issue.type) ? "salesperson" : "am"}`}
       >
         Open action card
       </Link>
