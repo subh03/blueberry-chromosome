@@ -1,22 +1,18 @@
 // POST /api/card { issue_id: string, audience?: "am" | "salesperson" } -> ActionCard (types/index.ts)
-// The AI step always runs under the AI_TIMEOUT_MS (8 s) deadline. Timeout or any failure
-// returns the template card, so the screen is never blank.
-// STUB: both paths read data/sample/cards.json. Naman replaces generateCard (Gemini + validator)
-// and templateCard (engine templates); the timeout and fallback wiring stays.
+// Real issue in the DB -> makeCard: Gemini (GEMINI_MODEL, structured JSON, retry once) under the
+// 8 s deadline, checked by the validator; any failure -> template. card.source says "gemini" or "template".
+// Issue not in the DB yet (detectors not run) -> the matching sample card, so the demo flow still works.
 import type { ActionCard } from "@/types";
 import sample from "@/data/sample/cards.json";
-import { aiTimeoutMs, withTimeout } from "../_lib/with-timeout";
+import { getBrowserDb } from "@/lib/db/browser";
+import { getIssue } from "@/lib/db/queries";
+import { makeCard } from "../_lib/make-card";
 import { jsonError } from "../_lib/json";
 
 type Audience = ActionCard["audience"];
-interface CardRequest {
-  issue_id: string;
-  audience: Audience;
-}
+const sampleCards = sample.cards as ActionCard[];
 
-const cards = sample.cards as ActionCard[];
-
-function parse(body: unknown): CardRequest | null {
+function parse(body: unknown): { issue_id: string; audience: Audience } | null {
   if (typeof body !== "object" || body === null) return null;
   const { issue_id, audience = "salesperson" } = body as Record<string, unknown>;
   if (typeof issue_id !== "string" || issue_id.length === 0 || issue_id.length > 200) return null;
@@ -24,22 +20,9 @@ function parse(body: unknown): CardRequest | null {
   return { issue_id, audience };
 }
 
-function pick(req: CardRequest, source: ActionCard["source"]): ActionCard {
-  const base =
-    cards.find((c) => c.issue_id === req.issue_id && c.audience === req.audience) ??
-    cards.find((c) => c.audience === req.audience) ??
-    cards[0];
-  return { ...base, issue_id: req.issue_id, audience: req.audience, source, created_at: new Date().toISOString() };
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-async function generateCard(req: CardRequest, signal: AbortSignal): Promise<ActionCard> {
-  // TODO(Naman): Gemini call with `signal`, then the number validator. Throw if it fails validation.
-  return pick(req, "gemini");
-}
-
-function templateCard(req: CardRequest): ActionCard {
-  return pick(req, "template");
+function sampleCard(issueId: string, audience: Audience): ActionCard | null {
+  const card = sampleCards.find((c) => c.issue_id === issueId && c.audience === audience) ?? sampleCards.find((c) => c.issue_id === issueId);
+  return card ? { ...card, created_at: new Date().toISOString() } : null;
 }
 
 export async function POST(request: Request) {
@@ -52,10 +35,14 @@ export async function POST(request: Request) {
   const req = parse(body);
   if (!req) return jsonError(400, "issue_id (string) is required; audience is 'am' or 'salesperson'");
 
+  let issue = null;
   try {
-    return Response.json(await withTimeout((signal) => generateCard(req, signal), aiTimeoutMs()));
+    issue = await getIssue(getBrowserDb(), req.issue_id);
   } catch (err) {
-    console.warn("[api/card] AI step failed, using template:", err instanceof Error ? err.message : err);
-    return Response.json(templateCard(req));
+    console.warn("[api/card] issue read failed:", err instanceof Error ? err.message : err);
   }
+  if (issue) return Response.json(await makeCard(issue, req.audience));
+
+  const fallback = sampleCard(req.issue_id, req.audience);
+  return fallback ? Response.json(fallback) : jsonError(404, `Unknown issue ${req.issue_id}`);
 }

@@ -1,12 +1,19 @@
 // GET  /api/run  (Vercel cron, daily 06:00 IST) -> RunLog
-// POST /api/run  (manual trigger)               -> RunLog
-// Both need `Authorization: Bearer <CRON_SECRET>`; Vercel cron sends it automatically.
-// STUB: returns data/sample/run-log.json with fresh timestamps. Real version: startRun -> regenerate
-// cards from stored evidence -> finishRun (lib/db/queries) with the server client.
+// POST /api/run  (manual "Run now")             -> RunLog
+// Needs `Authorization: Bearer <CRON_SECRET>` (Vercel cron sends it).
+// Writes a runs row: reads the latest issues, regenerates one salesperson card per issue from the
+// stored evidence (Gemini or template), saves the cards, then records the counts, ok and error.
 import { timingSafeEqual } from "node:crypto";
 import type { RunLog } from "@/types";
-import sample from "@/data/sample/run-log.json";
+import { getServerDb } from "@/lib/db/server";
+import { finishRun, getLatestAsOf, listIssues, saveCard, startRun } from "@/lib/db/queries";
+import { toIssue } from "@/lib/db/brief";
+import { toRunLog } from "@/lib/db/mappers";
+import { makeCard } from "../_lib/make-card";
 import { jsonError } from "../_lib/json";
+
+export const maxDuration = 300;
+const BATCH = 5;
 
 function authorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -16,10 +23,44 @@ function authorized(request: Request): boolean {
   return given.length === expected.length && timingSafeEqual(given, expected);
 }
 
-function run(trigger: RunLog["trigger"]): Response {
-  const now = new Date().toISOString();
-  const log: RunLog = { ...(sample.runs[0] as RunLog), id: `run-${now}`, trigger, started_at: now, finished_at: now };
-  return Response.json(log);
+async function run(trigger: RunLog["trigger"]): Promise<Response> {
+  const db = getServerDb();
+  let runId: string;
+  try {
+    const asOf = (await getLatestAsOf(db)) ?? new Date().toISOString().slice(0, 10);
+    runId = await startRun(db, trigger, asOf);
+  } catch (err) {
+    console.error("[api/run] could not start run:", err instanceof Error ? err.message : err);
+    return jsonError(503, "Could not start the run.");
+  }
+
+  const tally = { rows_read: 0, issues: 0, cards: 0, gemini_ok: 0, gemini_fallback: 0 };
+  let error: string | null = null;
+  try {
+    const issues = (await listIssues(db)).map(toIssue);
+    tally.rows_read = issues.length;
+    tally.issues = issues.length;
+    for (let i = 0; i < issues.length; i += BATCH) {
+      const cards = await Promise.all(issues.slice(i, i + BATCH).map((issue) => makeCard(issue, "salesperson")));
+      for (const card of cards) {
+        await saveCard(db, card);
+        tally.cards++;
+        if (card.source === "gemini") tally.gemini_ok++;
+        else tally.gemini_fallback++;
+      }
+    }
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Unknown error";
+    console.error("[api/run] run failed:", error);
+  }
+
+  try {
+    const row = await finishRun(db, runId, { ...tally, ok: error === null, error });
+    return Response.json(toRunLog(row), { status: error ? 500 : 200 });
+  } catch (err) {
+    console.error("[api/run] could not finish run:", err instanceof Error ? err.message : err);
+    return jsonError(503, "Run finished but could not be recorded.");
+  }
 }
 
 export async function GET(request: Request) {
