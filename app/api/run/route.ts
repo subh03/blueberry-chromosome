@@ -1,16 +1,17 @@
 // GET  /api/run  (Vercel cron, daily 06:00 IST) -> RunLog
 // POST /api/run  (manual "Run now")             -> RunLog
 // Needs `Authorization: Bearer <CRON_SECRET>` (Vercel cron sends it).
-// Writes a runs row: reads the latest issues, regenerates one card per issue (for the seller or the manager, see cardAudience) from the
+// Writes a runs row: reads the latest issues, makes a card only for issues that have none yet (for the seller or the manager, see cardAudience) from the
 // stored evidence (Gemini or template), saves the cards, then records the counts, ok and error.
 import { timingSafeEqual } from "node:crypto";
 import type { RunLog } from "@/types";
 import { getServerDb } from "@/lib/db/server";
-import { finishRun, getLatestAsOf, listIssues, saveCard, startRun } from "@/lib/db/queries";
+import { finishRun, getLatestAsOf, listCardsForIssue, listIssues, saveCard, startRun } from "@/lib/db/queries";
 import { toIssue } from "@/lib/db/brief";
 import { toRunLog } from "@/lib/db/mappers";
 import { makeCard } from "../_lib/make-card";
 import { cardAudience } from "../_lib/card";
+import { needsNewCard } from "../_lib/card-request";
 import { jsonError } from "../_lib/json";
 
 export const maxDuration = 300;
@@ -41,8 +42,14 @@ async function run(trigger: RunLog["trigger"]): Promise<Response> {
     const issues = (await listIssues(db)).map(toIssue);
     tally.rows_read = issues.length;
     tally.issues = issues.length;
-    for (let i = 0; i < issues.length; i += BATCH) {
-      const cards = await Promise.all(issues.slice(i, i + BATCH).map((issue) => makeCard(issue, cardAudience(issue))));
+    // Only issues with no card yet for their audience: /api/card serves the newest card, so a new one
+    // would shadow a stored or team-edited card (H5). Existing rows are never updated or deleted here.
+    const todo = [];
+    for (const issue of issues) {
+      if (needsNewCard(await listCardsForIssue(db, issue.id), cardAudience(issue))) todo.push(issue);
+    }
+    for (let i = 0; i < todo.length; i += BATCH) {
+      const cards = await Promise.all(todo.slice(i, i + BATCH).map((issue) => makeCard(issue, cardAudience(issue))));
       for (const card of cards) {
         await saveCard(db, card);
         tally.cards++;
