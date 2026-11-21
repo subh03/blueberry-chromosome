@@ -9,7 +9,7 @@
     "lint": "eslint",
     "load": "tsx scripts/load.ts",
     "check:baseline": "tsx scripts/check-baseline.ts",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "tsx --test tests/*.test.ts lib/db/*.test.ts app/api/_lib/*.test.ts",
     "cards": "tsx scripts/cards.ts",
     "cards:stress": "tsx scripts/stress-card.ts"
   },
