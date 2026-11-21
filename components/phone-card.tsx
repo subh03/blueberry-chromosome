@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { ActionCard } from "@/types";
 import { getCard, usesSample } from "@/lib/ui/data";
 import { Button } from "@/components/ui/button";
+import { CardRejection, RejectedDraft } from "@/components/card-rejection";
 
 export function PhoneCard({
   cardId,
@@ -41,7 +42,7 @@ export function PhoneCard({
         <Link href="/" className="brand">
           Manyavar <span>Store Coach</span>
         </Link>
-        <Link href="/">Back to evidence →</Link>
+        <Link href="/">Back to evidence</Link>
       </header>
       <div className="page-heading">
         <div>
@@ -91,7 +92,7 @@ export function PhoneCard({
                   This draft exceeds the 60-word limit and needs regeneration.
                 </p>
               ) : (
-                <p className="card-copy">{card.text}</p>
+                <CardRejection card={card} />
               )}
               <p className="card-meta">
                 {words} words ·{" "}
@@ -100,13 +101,21 @@ export function PhoneCard({
             </div>
           </section>
           <aside className="card-audit" aria-label="Card provenance">
-            <h2>Why you can trust this card</h2>
+            <h2>Card provenance</h2>
             <dl>
               <dt>Source</dt>
               <dd>{card.source === "gemini" ? "Gemini" : "Template"}</dd>
-              <dt>Validator result</dt>
+              <dt>
+                {card.source === "template"
+                  ? "Rejected draft validation"
+                  : "Validator result"}
+              </dt>
               <dd>{card.validation.passed ? "Passed" : "Failed"}</dd>
-              <dt>Validator word count</dt>
+              <dt>
+                {card.source === "template"
+                  ? "Rejected draft word count"
+                  : "Validator word count"}
+              </dt>
               <dd>{card.validation.word_count}</dd>
             </dl>
             {card.source === "template" && !card.validation.passed && (
@@ -117,10 +126,21 @@ export function PhoneCard({
             {card.rejected_draft && (
               <section className="draft">
                 <h3>Rejected AI draft</h3>
-                <blockquote>{card.rejected_draft}</blockquote>
+                <blockquote>
+                  <RejectedDraft
+                    text={card.rejected_draft}
+                    tokens={card.validation.rejected_numbers}
+                  />
+                </blockquote>
+                {card.validation.rejected_numbers.length > 0 && (
+                  <p className="rejection-stamp">
+                    {`Rejected: ${card.validation.rejected_numbers.join(", ")} ${card.validation.rejected_numbers.length > 1 ? "are" : "is"} not in the evidence`}
+                  </p>
+                )}
                 <p>
-                  The supplied card uses the {card.source} source. Its validator
-                  result is shown above.
+                  The supplied card uses the {card.source} source. For a
+                  template card, the validation above describes this rejected
+                  draft.
                 </p>
               </section>
             )}

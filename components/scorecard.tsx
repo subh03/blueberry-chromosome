@@ -7,15 +7,26 @@ import { DataQualityStrip } from "@/components/data-quality-strip";
 import { RunLogStrip } from "@/components/run-log-strip";
 import { getScorecard, getIssues, usesSample } from "@/lib/ui/data";
 import type { Issue, ScorecardRow } from "@/types";
-export function Scorecard() {
-  const [rows, setRows] = useState<ScorecardRow[]>([]);
-  const [issues, setIssues] = useState<Issue[]>([]);
-  const [asOf, setAsOf] = useState("");
-  const [loading, setLoading] = useState(true);
+import { RupeeTotal } from "@/components/rupee-total";
+import type { CSSProperties } from "react";
+export function Scorecard({
+  initialScorecard,
+  initialIssues = [],
+}: {
+  initialScorecard?: { as_of: string; rows: ScorecardRow[] };
+  initialIssues?: Issue[];
+}) {
+  const [rows, setRows] = useState<ScorecardRow[]>(
+    initialScorecard?.rows ?? [],
+  );
+  const [issues, setIssues] = useState<Issue[]>(initialIssues);
+  const [asOf, setAsOf] = useState(initialScorecard?.as_of ?? "");
+  const [loading, setLoading] = useState(!initialScorecard);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
   useEffect(() => {
+    if (initialScorecard && attempt === 0) return;
     let active = true;
     Promise.all([getScorecard(), getIssues()])
       .then(([scorecard, evidence]) => {
@@ -33,14 +44,14 @@ export function Scorecard() {
     return () => {
       active = false;
     };
-  }, [attempt]);
+  }, [attempt, initialScorecard]);
   return (
     <main className="coach-shell" id="main-content">
       <header className="masthead">
         <Link href="/" className="brand">
           Manyavar <span>Store Coach</span>
         </Link>
-        <Link href="/am/AM-01">Weekly brief →</Link>
+        <Link href="/am/AM-01">Weekly brief</Link>
       </header>
       <div className="page-heading">
         <div>
@@ -60,6 +71,15 @@ export function Scorecard() {
         </p>
       </div>
       <section aria-labelledby="scorecard-title">
+        {!loading && !error && rows.length > 0 && (
+          <RupeeTotal
+            value={rows.reduce(
+              (total, row) => total + (row.rupees_at_stake ?? 0),
+              0,
+            )}
+            problems={rows.filter((row) => row.status === "found").length}
+          />
+        )}
         <div className="section-heading">
           <h2 id="scorecard-title">The brief’s checklist</h2>
           <p>Tap a row to see its evidence.</p>
@@ -97,14 +117,21 @@ export function Scorecard() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => {
+                {rows.map((row, index) => {
                   const issue = issues.find(
                     (item) => item.id === row.top_issue_id,
                   );
                   const expanded = open === row.type;
                   return (
                     <Fragment key={row.type}>
-                      <tr>
+                      <tr
+                        className="scorecard-row"
+                        style={
+                          {
+                            "--row-delay": `${[0, 40, 70, 90, 105, 115][Math.min(index, 5)]}ms`,
+                          } as CSSProperties
+                        }
+                      >
                         <th scope="row">
                           <button
                             className="row-trigger"
@@ -140,17 +167,18 @@ export function Scorecard() {
                       </tr>
                       <tr id={`evidence-${row.type}`} hidden={!expanded}>
                         <td colSpan={4}>
-                          {issue ? (
-                            <EvidenceChain issue={issue} />
-                          ) : (
-                            <p className="state">
-                              {row.status === "data_issue"
-                                ? "Data-quality guard applied. No manager alert."
-                                : row.status === "not_found"
-                                  ? "No matching issue was found in this snapshot."
-                                  : "Detailed evidence is not supplied for this sample row yet."}
-                            </p>
-                          )}
+                          {expanded &&
+                            (issue ? (
+                              <EvidenceChain issue={issue} />
+                            ) : (
+                              <p className="state">
+                                {row.status === "data_issue"
+                                  ? "Data-quality guard applied. No manager alert."
+                                  : row.status === "not_found"
+                                    ? "No matching issue was found in this snapshot."
+                                    : "Detailed evidence is not supplied for this sample row yet."}
+                              </p>
+                            ))}
                         </td>
                       </tr>
                     </Fragment>

@@ -16,7 +16,7 @@ async function readApi<T>(path: string): Promise<T> {
     throw new Error("Store data is unavailable. Please try again.");
   return response.json() as Promise<T>;
 }
-export async function getScorecard(): Promise<{
+export async function getScorecard(origin = ""): Promise<{
   as_of: string;
   rows: ScorecardRow[];
 }> {
@@ -25,14 +25,14 @@ export async function getScorecard(): Promise<{
       as_of: string;
       rows: ScorecardRow[];
     };
-  return readApi("/api/scorecard");
+  return readApi(`${origin}/api/scorecard`);
 }
-export async function getIssues(): Promise<{ issues: Issue[] }> {
+export async function getIssues(origin = ""): Promise<{ issues: Issue[] }> {
   if (usesSample)
     return (await import("@/data/sample/issues.json")).default as {
       issues: Issue[];
     };
-  return readApi("/api/issues");
+  return readApi(`${origin}/api/issues`);
 }
 export async function getBrief(amId: string): Promise<AmBrief> {
   if (usesSample) {

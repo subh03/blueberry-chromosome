@@ -37,7 +37,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
         <Link href="/" className="brand">
           Manyavar <span>Store Coach</span>
         </Link>
-        <Link href="/">All store problems →</Link>
+        <Link href="/">All store problems</Link>
       </header>
       <div className="page-heading">
         <div>

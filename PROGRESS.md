@@ -32,3 +32,11 @@
 - Done: Supabase schema live (8 tables, RLS on, anon read-only, `salesperson_metrics` server-only, security advisor clean). `lib/db/` server + publishable clients, typed queries, `toAmBrief` with tests. API stubs on sample data: `/api/brief`, `/api/card` (8 s timeout -> template), `/api/run` (CRON_SECRET), `/api/scorecard`, `/api/issues`, `/api/dq-flags`, `/api/run-log`. Vercel cron `30 0 * * *`. Live on Vercel with env vars for Production + Preview.
 - Broken / pending: `SUPABASE_SERVICE_ROLE_KEY` and `GEMINI_API_KEY` not set yet (locally or on Vercel), so the DB smoke test has not run. Routes still serve sample data, not Supabase.
 - Next: once `npm run load` fills Supabase, switch the read routes to `lib/db/queries` and make `/api/run` write a `runs` row.
+
+## Sagnik design checkpoint - 21 Nov 2026
+- Done: applied DESIGN.md from 8ead95f. IBM Plex Sans / Condensed / Mono through next/font/google, shared colour and motion tokens, brass rupees, dot statuses, link-label arrow cleanup. Existing layouts retained.
+- Done: total rupees rendered in the initial home HTML and aria-label; cosmetic 900 ms count-up once per session and shrinking row delays. Evidence thread, nodes and steps complete within 300 ms; repeated evidence opens skip the stagger.
+- Done: phone draft rejection sequence and Replay, with underline/stamp drawn from validation.rejected_numbers. Pulled 873988f, which supplies 18% and rupee 40,000. Template-card validation is labelled as the rejected draft's result. Reduced motion shows the template and static draft audit with zero animations.
+- Verified: production build and scoped ESLint pass, Impeccable detector returns no findings. Inspected desktop/mobile screenshots for home, manager brief and card. Playwright checked initial HTML total, no session replay, both rejected tokens, interruption by repeated Replay, final template, reduced motion, evidence reopening and no page overflow at 375 px.
+- Decision: compressed the evidence-step start delays to 40/60/75/85/95/100 ms with 200 ms duration, meeting the explicit 300 ms limit. The original table's last listed step would finish at 370 ms.
+- Next: integrate real engine/API data when the backend switches from sample stubs. No type, dependency, API route, environment or data-file edits were made by Sagnik.
