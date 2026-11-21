@@ -1,31 +1,26 @@
 # Store Coach demo, 1 minute 55 seconds
 
-Record the working site at https://blueberry-chromosome.vercel.app in a fresh incognito window. Use a 1440 px desktop viewport for the recording. The same flow works at 390 px.
+Record https://blueberry-chromosome.vercel.app at 1440 px in an incognito window. The first two clicks also work at 390 px. The data snapshot closes on 31 October 2026.
 
 ## Before recording
 
-1. Open home and wait for the scorecard, data-quality flags and latest run to finish loading. Keep the source labels visible.
-2. Check the biggest-problem button opens evidence and that its Open action card link reaches a card. The current biggest issue is Kanpur’s city slowdown, which opens a manager card. Return home. For PLAN.md’s LKO-02 recording beat, use the good-salesperson row instead. Both paths take two clicks from home to card.
-3. Check whether the card has Replay and a rejected draft. Live LKO-02 currently has a 46-word template card with validation Passed and no rejected draft. The sample rejection beat uses 18% and ₹40,000. Use the rejection alternative only when that draft and stamp are actually visible. Read the displayed values before recording.
-4. Scroll to Latest run. Start the recording here. Read its actual time, trigger and counts. If its counts are zero, describe it only as recorded pipeline activity.
+1. Open home. Confirm the store-only total is ₹7,60,100 and LKO-02 is ₹3,22,400. Kanpur’s ₹6,18,300 is a separate Market note. There are 21 issues and 13 checklist rows. Read the current API-backed figures again if the team reloads the dataset.
+2. Rehearse the two-click path. Click “Try demo: open the biggest problem”, then “Open action card”. The first opens LKO-02’s evidence; the second opens its manager card. Return home and scroll to Latest run for the opening shot.
+3. Open these two tabs for the salesperson and stress-test shots. Keep their headings and provenance visible.
+   - [Real Gemini salesperson card](https://blueberry-chromosome.vercel.app/cards/gemini:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson)
+   - [Labelled stress-test card](https://blueberry-chromosome.vercel.app/cards/stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson)
+4. Check the real PAT-01 card says Gemini and Passed, is 48 words, and has no Replay. Check the stress card says Template, Injected test draft and Failed, underlines 18% and ₹40,000, and has Replay. Its final template is 44 words; the validator’s 20-word count describes the rejected draft.
+5. Resolve the manager-card wording findings recorded for Naman in PROGRESS.md before the final take. Preserve the actual source and validation on screen. Keep “Sample data” visible if any screen serves a sample. Do not call a template a Gemini card.
 
 ## Clicks and voiceover
 
 | Time | Open or click | Say |
 |---|---|---|
-| 0:00–0:15 | Show Latest run. Point at its timestamp and counts. | “Store Coach tells an area manager which stores need attention and gives a salesperson one action for today. This log records the pipeline’s latest run.” |
-| 0:15–0:40 | Scroll to the headline and scorecard. Keep Sample data visible when present. Point at PAT-03 and BLR-05. | “This checklist follows the problems in Manyavar’s brief. Each row names a store and the rupees at stake. PAT-03 has eleven days with bills above walk-ins, so those days are excluded from conversion. BLR-05 is too new for a fair baseline.” |
-| 0:40–1:10 | Click “A good salesperson has left or keeps missing shifts”. Show LKO-02’s conversion, baseline, city and state peers, formulas, row counts and rupees at stake. | “Here is LKO-02. Since the seller stopped appearing on the roster, conversion is ten-point-four percent against a twelve-point-six percent baseline. City and state peers are shown alongside it. The calculated opportunity is three lakh twelve thousand nine hundred rupees. Every step has a formula and row count.” |
-| 1:10–1:38 | Click Open action card. Show the card’s action and the provenance panel. If a rejected draft is visible, use the alternative below and let its moment play; Replay repeats it. | “The second click gives a short action card. It names Sumit from this store, says what to do and when. The source here is Template and the validator result is Passed. You can inspect that result beside the card.” |
-| 1:38–1:55 | Use Back to evidence. If the good-salesperson row is collapsed, open it; otherwise leave it open. Show Moved? The current LKO-02 issue has no follow-up snapshot. | “This issue has no follow-up snapshot yet. When both snapshots are available, this section shows whether the metric moved. Store Coach gives the manager a priority and the salesperson an action, with the numbers available to inspect.” |
+| 0:00–0:15 | Show Latest run, including its actual time and counts. | “Store Coach gives an area manager a weekly priority and a salesperson an action today. Synthetic data supplied by the organisers. This log records the latest pipeline run.” |
+| 0:15–0:35 | Scroll to the headline, total and checklist. Briefly point at the data-quality guard and Market note. | “The brief has thirteen checks and seven lakh sixty thousand one hundred rupees at stake in store problems. Kanpur’s city slowdown is a separate market note. PAT-03’s eleven impossible days are excluded; BLR-05 has no fair baseline yet.” |
+| 0:35–1:00 | Click “Try demo: open the biggest problem”. Scroll through LKO-02’s conversion, peers, gap and ₹ steps. | “First click opens LKO-02. Conversion is ten-point-four percent against its twelve-point-six baseline. City and state peers help isolate the gap. The opportunity is three lakh twenty-two thousand four hundred rupees. Each step shows its formula and row count.” |
+| 1:00–1:20 | Click Open action card. Show For your stores, Gemini and Passed. Switch to the pre-opened real PAT-01 salesperson tab. | “Second click opens the manager’s card. This salesperson card gives Manoj an action with Mukesh from his store. It has forty-eight words, source Gemini, and passed validation. Its numbers come from the evidence.” |
+| 1:20–1:45 | Switch to the labelled stress-test tab. Click Replay. Let the underline, rejection stamp and template finish. Show the draft source and validator panel. | “This stress test was written by our team. Gemini did not make this mistake. Eighteen percent and forty thousand rupees are absent from the evidence. The validator rejects the injected draft and the template appears. The real Gemini card passed.” |
+| 1:45–1:55 | Return to the original home tab. Reopen the biggest problem if needed, then show Moved? | “There is no follow-up snapshot yet. When both snapshots exist, this shows whether the metric moved. The manager can inspect the evidence behind today’s action.” |
 
-When Sample data appears, add this sentence during the scorecard beat and shorten the opening sentence to stay within the timebox. “The label identifies this as an illustrative sample.”
-
-## Match the recording to the screen
-
-- Speak the values actually displayed if the engine has replaced the sample. Do not keep the sample numbers in the voiceover after they change.
-- Rejection alternative for 1:10–1:38, only when shown. “The draft introduced eighteen percent and forty thousand rupees, absent from the evidence. The validator rejected it and the template was used. This result describes the rejected draft.” Point at both underlines and the stamp. Replace those tokens with the actual displayed tokens when they differ.
-- If Moved? contains a comparison, read its actual dates and before/after values. The comparison does not establish that coaching caused a change. If no named peer appears, describe the who, what and when without claiming a peer exists.
-- The closing claim is limited to the working flow shown. Describe daily automation as configured scheduling only when its run history demonstrates it.
-
-The sequence follows the five beats in PLAN.md section 1, from run log and checklist to evidence, card provenance and follow-up. Finish by 1:55 to leave five seconds for the recorder to stop.
+The sequence follows PLAN.md section 1’s run, checklist, evidence, card/validator and follow-up beats. The stress draft is explicitly labelled. The current Latest run may show zero cards because it records the loader; it does not count cards generated in a separate run. Do not invent a 6 am run, a measured improvement, a scale claim, or a Gemini number error. Finish by 1:55 and stop recording before 2:00.
