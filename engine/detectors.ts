@@ -692,6 +692,11 @@ export function detectRepeat(ctx: Ctx): Issue[] {
   };
   const role = new Map<string, { sp: string; p: number }>();
   const candidates = [...by].filter(([sp, x]) => ctx.active(sp) && ctx.judged.has(x.store));
+  // Same-store colleagues with enough customers to have a fair rate: used to name a peer on every card.
+  const rated = candidates.filter(([, x]) => x.n >= T.repMin).map(([sp, x]) => ({ sp, store: x.store, p: rate(x) }));
+  const extreme = (store: string, not: string, dir: 1 | -1) =>
+    rated.filter((r) => r.store === store && r.sp !== not).sort((a, b) => dir * (b.p - a.p))[0] ?? null;
+  const asPeer = (r: { sp: string } | null, why: string) => (r ? { salesperson_id: r.sp, display_name: ctx.name.get(r.sp) ?? r.sp, why } : null);
   for (const [sp, x] of candidates) {
     const o = others(sp, x.store);
     if (x.n < T.repMin || o.n < T.repMin) continue;
@@ -710,7 +715,7 @@ export function detectRepeat(ctx: Ctx): Issue[] {
       ],
       cause: `${nm}'s customers come back ${fmt.pct(p)} of the time; the rest of ${x.store}: ${fmt.pct(p0)}. A role model to copy.`,
       action: { who: `Store manager, ${x.store}`, what: `Ask ${nm} to show the team how they follow up with customers`, when: "Saturday's morning huddle" },
-      peer: null,
+      peer: asPeer(extreme(x.store, sp, -1), `Lowest repeat rate in ${x.store}: learns most from this role model`),
       subject: { salesperson_id: sp, display_name: nm },
     }));
   }
@@ -738,7 +743,9 @@ export function detectRepeat(ctx: Ctx): Issue[] {
       ],
       cause: `Only ${fmt.pct(p)} of ${nm}'s customers come back; the rest of ${x.store}: ${fmt.pct(p0)}.`,
       action: { who: `${nm}, ${x.store}`, what: "Take the phone number on every bill and send a thank-you message the same evening", when: "From today" },
-      peer: rm ? { salesperson_id: rm.sp, display_name: ctx.name.get(rm.sp) ?? rm.sp, why: `Role model for repeat customers in ${x.store}` } : null,
+      peer: rm && rm.sp !== sp
+        ? asPeer(rm, `Role model for repeat customers in ${x.store}`)
+        : asPeer(extreme(x.store, sp, 1), `Best repeat rate in ${x.store}`),
       subject: { salesperson_id: sp, display_name: nm },
     }));
   }

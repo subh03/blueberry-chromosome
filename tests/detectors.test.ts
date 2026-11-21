@@ -226,6 +226,22 @@ test("role_model and low_repeat use all-time repeat, compared within the store",
   assert.equal(lo.lever, "more_repeat");
 });
 
+test("every salesperson-level issue names a different, same-store peer (cards must name one)", () => {
+  const w = rich().w;
+  const storeOf = new Map(w.salespeople.map((s) => [s.salesperson_id, s.store_id]));
+  for (const i of rich().issues.filter((x) => x.evidence.subject)) {
+    const p = i.evidence.peer;
+    assert.ok(p, `${i.id} has no peer`);
+    assert.equal(storeOf.get(p.salesperson_id), i.store_id, `${i.id}: peer not in the same store`);
+    assert.notEqual(p.salesperson_id, i.evidence.subject!.salesperson_id);
+  }
+});
+
+test("role_model card points the role model at the colleague who needs it most", () => {
+  const [rm] = find("role_model", "L4");
+  assert.equal(rm.evidence.peer?.display_name, "Lowrep F.");
+});
+
 // ---------- Evidence honesty ----------
 test("every number in cause, action and steps is in allowedNumbers", () => {
   for (const i of rich().issues) {

@@ -202,7 +202,11 @@
        }
       ],
       "cause": "Only 3.1% of Tushar N.'s customers come back; the rest of LKO-01: 8.2%.",
-      "peer": null,
+      "peer": {
+       "salesperson_id": "SP1012",
+       "display_name": "Manoj T.",
+       "why": "Best repeat rate in LKO-01"
+      },
       "subject": {
        "salesperson_id": "SP1015",
        "display_name": "Tushar N."
@@ -284,7 +288,11 @@
        }
       ],
       "cause": "Only 1.2% of Arif M.'s customers come back; the rest of LKO-01: 7.9%.",
-      "peer": null,
+      "peer": {
+       "salesperson_id": "SP1012",
+       "display_name": "Manoj T.",
+       "why": "Best repeat rate in LKO-01"
+      },
       "subject": {
        "salesperson_id": "SP1013",
        "display_name": "Arif M."
@@ -636,7 +644,11 @@
        }
       ],
       "cause": "Only 3.4% of Faizan K.'s customers come back; the rest of PAT-01: 7.9%.",
-      "peer": null,
+      "peer": {
+       "salesperson_id": "SP1070",
+       "display_name": "Mukesh D.",
+       "why": "Best repeat rate in PAT-01"
+      },
       "subject": {
        "salesperson_id": "SP1072",
        "display_name": "Faizan K."
@@ -718,7 +730,11 @@
        }
       ],
       "cause": "Only 1.6% of Saurabh P.'s customers come back; the rest of PAT-02: 8.3%.",
-      "peer": null,
+      "peer": {
+       "salesperson_id": "SP1087",
+       "display_name": "Arjun D.",
+       "why": "Best repeat rate in PAT-02"
+      },
       "subject": {
        "salesperson_id": "SP1088",
        "display_name": "Saurabh P."
@@ -878,7 +894,11 @@
        }
       ],
       "cause": "Only 1.6% of Jitendra K.'s customers come back; the rest of PAT-02: 8.3%.",
-      "peer": null,
+      "peer": {
+       "salesperson_id": "SP1087",
+       "display_name": "Arjun D.",
+       "why": "Best repeat rate in PAT-02"
+      },
       "subject": {
        "salesperson_id": "SP1090",
        "display_name": "Jitendra K."
