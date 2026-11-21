@@ -307,3 +307,23 @@ test("scorecard: a market note is labelled, valued apart, and never the store to
 test("numberTokens (evidence) uses the card validator's rules: hyphens and ranges are caught", () => {
   assert.deepEqual(numberTokens("cut -18% and 9-11%, week-2, LKO-02"), ["18%", "9%", "11%", "2"]);
 });
+
+test("scorecard: every row has a kind; every not_found / data_issue row has a plain reason from the real checks", () => {
+  const flags: DataQualityFlag[] = [
+    { id: "dq:b", store_id: "P3", kind: "bills_exceed_footfall", detail: "11 store-days with more bills than walk-ins; those days are left out of conversion", rows_affected: 11, alerted: false },
+    { id: "dq:n", store_id: "B5", kind: "new_store_no_baseline", detail: "Opened 2026-10-10: too new to judge, left out of peer comparisons", rows_affected: 22, alerted: false },
+  ];
+  const lead = "MYS-02: 0.79 pts below state peers, under the 1-point bar, and not statistically significant (z 1.57).";
+  const sc = buildBriefScorecard(AS_OF, [], flags, { conversion_drop_footfall_steady: lead });
+  for (const r of sc.rows) {
+    assert.ok(r.kind, `${r.type} has no kind`);
+    if (r.status === "found") assert.equal(r.reason, undefined, r.type);
+    else assert.ok(r.reason && r.reason.length > 20, `${r.type}: "${r.reason}"`);
+  }
+  const row = (t: string) => sc.rows.find((r) => r.type === t)!;
+  assert.match(row("conversion_drop_footfall_steady").reason!, /MYS-02.*z 1\.57/);
+  assert.match(row("bills_exceed_footfall").reason!, /P3: 11 store-days/);
+  assert.match(row("bills_exceed_footfall").reason!, /no alert/i);
+  assert.match(row("new_store_no_baseline").reason!, /B5: Opened 2026-10-10/);
+  assert.match(row("festival_dip").reason!, /no Diwali/i, "not_found DQ row explains itself too");
+});

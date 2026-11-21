@@ -33,22 +33,56 @@ export interface BriefScorecard {
   rows: ScorecardRow[];
 }
 
+/** Why a store/market row can come back not_found: the bar each detector applies (DECISIONS.md). */
+export const NOT_FOUND_REASON: Record<string, string> = {
+  staff_absent_or_left: "No store lost a top seller (1.3× an even share of bills) from the roster and then fell 1 point or more below both city and state peers.",
+  understaffed_busy_days: "No store had 7% or more fewer people on the floor on Sat and Sun while weekend conversion fell 1 point or more below peers.",
+  conversion_drop_footfall_steady: "No store had steady walk-ins and a conversion drop at least 1 point worse than both city and state peers, statistically real (z of 2 or more) and not already explained by a more specific cause.",
+  city_slowdown: "No city lost 8% or more of its walk-ins against the rest of the fleet in the last 28 days with every store down and the same weeks last year flat.",
+  missing_pair: "No active salesperson's pairing rate was 5 points or more below the rest of their store at p ≤ 0.001.",
+  category_avoidance: "No active salesperson sold a category on half or less of their city's share (z of −4 or lower).",
+  discount_above_norm: "No active salesperson discounted twice the rest of their store and 2 points or more above it.",
+  low_repeat: "No active salesperson's repeat rate was far below the rest of their store (z of −4 or lower, 150+ customers).",
+  role_model: "No active salesperson's customers came back at twice the rest of their store (z of 5 or more).",
+  festival_dip: "No Diwali fell inside the comparison windows, so there was no festival swing to set aside.",
+  bills_exceed_footfall: "No store-day had more bills than walk-ins.",
+  new_store_no_baseline: "No store opened after the baseline started.",
+  staff_no_exit_date: "No salesperson dropped off the roster 21+ days before the as-of date.",
+};
+
+const trimDot = (s: string) => s.trim().replace(/[.\s]+$/, "");
+
+/** data_issue rows: what the guard found and set aside, from the dq_flags themselves. */
+function dqReason(kind: string, flags: DataQualityFlag[]): string {
+  if (kind === "staff_no_exit_date") {
+    const n = flags.reduce((s, f) => s + f.rows_affected, 0);
+    const stores = flags.map((f) => f.store_id).filter(Boolean).join(", ");
+    return `${n} salespeople (${stores}) dropped off the roster 21+ days before the as-of date. No exit date is recorded, so "left" is read from the roster only (mentor rule). No alert.`;
+  }
+  const parts = flags.map((f) => (f.store_id ? `${f.store_id}: ${trimDot(f.detail)}` : trimDot(f.detail)));
+  const tail = kind === "festival_dip" ? "A normal festival swing, not an alert." : "Data issue, no alert.";
+  return `${parts.join("; ")}. ${tail}`;
+}
+
 const MARKET_TYPES = new Set(["city_slowdown"]);
 export const isMarketNote = (type: string) => MARKET_TYPES.has(type);
 
-export function buildBriefScorecard(asOf: string, issues: Issue[], flags: DataQualityFlag[]): BriefScorecard {
+/** notes: extra, computed explanations per row type (e.g. why a named lead was dropped), added to not_found reasons. */
+export function buildBriefScorecard(asOf: string, issues: Issue[], flags: DataQualityFlag[], notes: Partial<Record<string, string>> = {}): BriefScorecard {
+  const why = (type: string) => [NOT_FOUND_REASON[type], notes[type]].filter(Boolean).join(" ");
   const rows = BRIEF_PROBLEMS.map((p): ScorecardRow => {
     if (p.lever === "not_a_problem") {
       const mine = flags.filter((f) => f.kind === p.type);
       return {
         ...p, kind: "data_quality", status: mine.length ? "data_issue" : "not_found",
+        reason: mine.length ? dqReason(p.type, mine) : why(p.type),
         store_ids: [...new Set(mine.map((f) => f.store_id).filter((s): s is string => !!s))],
         top_issue_id: null, rupees_at_stake: null,
       };
     }
     const kind = isMarketNote(p.type) ? "market_note" as const : "store" as const;
     const m = issues.filter((i) => i.type === p.type).sort((a, b) => b.rupees_at_stake - a.rupees_at_stake || a.id.localeCompare(b.id));
-    if (!m.length) return { ...p, kind, status: "not_found", store_ids: [], top_issue_id: null, rupees_at_stake: null };
+    if (!m.length) return { ...p, kind, status: "not_found", reason: why(p.type), store_ids: [], top_issue_id: null, rupees_at_stake: null };
     return {
       ...p, kind, status: "found",
       store_ids: [...new Set(m.map((i) => i.store_id))],

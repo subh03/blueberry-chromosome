@@ -37,7 +37,21 @@ if (bad.length) throw new Error(`${bad.length} rows contain NaN/Infinity; refusi
 // ---------- Detectors: issues, evidence, scorecard, AM briefs, salesperson card inputs ----------
 const t1 = Date.now();
 const { issues, ctx } = detectAll(input);
-const scorecard = buildBriefScorecard(AS_OF, issues, dqFlags);
+// Computed notes for scorecard rows that come back not_found: named leads and stores explained by a sharper cause.
+const leadNote = (id: string) => {
+  const e = explainConversion(ctx, id);
+  if (!e || e.holds) return null;
+  const bits = [e.gap > -1 ? `${(-e.gap).toFixed(2)} pts worse than peers, under the 1-point bar` : null, e.z < 2 ? `not statistically significant (z ${e.z.toFixed(2)})` : null].filter(Boolean);
+  return `${id}: conversion ${e.before.toFixed(2)}% → ${e.after.toFixed(2)}%, ${bits.join(", ")}; dropped.`;
+};
+const explained = [...ctx.judged].filter((id) => explainConversion(ctx, id)?.holds && issues.some((i) => i.store_id === id && i.lever === "more_bills" && i.type !== "conversion_drop_footfall_steady"));
+const notes = {
+  conversion_drop_footfall_steady: [
+    explained.length ? `${explained.join(", ")}: the drop is there, but a sharper cause explains it (${explained.map((id) => issues.find((i) => i.store_id === id && i.lever === "more_bills")!.type).join(", ")}).` : null,
+    ...["MYS-02", "BLR-01"].map(leadNote),
+  ].filter(Boolean).join(" "),
+};
+const scorecard = buildBriefScorecard(AS_OF, issues, dqFlags, notes);
 const top = amTop(issues, 5);
 const briefs: AmBrief[] = ds.area_managers.map((am) => ({
   area_manager_id: am.area_manager_id, name: am.name, city: am.city, as_of: AS_OF, max_alerts_per_week: am.max_alerts_per_week,

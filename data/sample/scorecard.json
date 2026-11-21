@@ -34,7 +34,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "store"
+      "kind": "store",
+      "reason": "No store had steady walk-ins and a conversion drop at least 1 point worse than both city and state peers, statistically real (z of 2 or more) and not already explained by a more specific cause."
     },
     {
       "lever": "more_bills",
@@ -44,7 +45,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "market_note"
+      "kind": "market_note",
+      "reason": "No city lost 8% or more of its walk-ins against the rest of the fleet in the last 28 days with every store down and the same weeks last year flat."
     },
     {
       "lever": "bigger_baskets",
@@ -66,7 +68,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "store"
+      "kind": "store",
+      "reason": "No active salesperson sold a category on half or less of their city's share (z of −4 or lower)."
     },
     {
       "lever": "bigger_baskets",
@@ -88,7 +91,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "store"
+      "kind": "store",
+      "reason": "No active salesperson's repeat rate was far below the rest of their store (z of −4 or lower, 150+ customers)."
     },
     {
       "lever": "more_repeat",
@@ -98,7 +102,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "store"
+      "kind": "store",
+      "reason": "No active salesperson's customers came back at twice the rest of their store (z of 5 or more)."
     },
     {
       "lever": "not_a_problem",
@@ -108,7 +113,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "data_quality"
+      "kind": "data_quality",
+      "reason": "Diwali 2025-10-20: bills per day -8% vs the 3 weeks before; ±3 days left out of baselines. A normal festival swing, not an alert."
     },
     {
       "lever": "not_a_problem",
@@ -120,7 +126,8 @@
       ],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "data_quality"
+      "kind": "data_quality",
+      "reason": "PAT-03: 11 store-days with more bills than walk-ins; those days are left out of conversion. Data issue, no alert."
     },
     {
       "lever": "not_a_problem",
@@ -132,7 +139,8 @@
       ],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "data_quality"
+      "kind": "data_quality",
+      "reason": "BLR-05: Opened 2026-10-10: too new to judge, left out of peer comparisons. Data issue, no alert."
     },
     {
       "lever": "not_a_problem",
@@ -142,7 +150,8 @@
       "store_ids": [],
       "top_issue_id": null,
       "rupees_at_stake": null,
-      "kind": "data_quality"
+      "kind": "data_quality",
+      "reason": "9 salespeople (BLR-02, BLR-03, BLR-04, KNP-03, LKO-01, LKO-02, PAT-04) dropped off the roster 21+ days before the as-of date. No exit date is recorded, so \"left\" is read from the roster only (mentor rule). No alert."
     }
   ],
   "title": "Problems from the brief",
