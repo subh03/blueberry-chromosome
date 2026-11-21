@@ -14,6 +14,7 @@ import {
 } from "./metrics";
 import { addDays, rosterLeavers } from "./dq";
 import { rupeesAtStake, rupeesFromRate } from "./rupees";
+import { extractNumbers } from "./card-validator";
 
 // ---------------------------------------------------------------- thresholds
 export const T = {
@@ -170,7 +171,7 @@ export const fmt = {
 
 /** Number-looking tokens a reader would see, ignoring IDs such as LKO-02 or SP1018. */
 export function numberTokens(text: string): string[] {
-  return text.match(/(?<![A-Za-z0-9\-])₹?\d+(?:,\d+)*(?:\.\d+)?%?/g) ?? [];
+  return extractNumbers(text); // one tokenizer for evidence and cards (hyphens, ranges, ₹, words)
 }
 
 const step = (label: string, value: number, display: string, formula: string, rows: number, compare_to?: EvidenceStep["compare_to"]): EvidenceStep =>

@@ -157,3 +157,38 @@ test("a sentence-opening adverb with a comma (Currently, Also,) is not a name; a
   const bad = validateCard("Ravi, " + GOOD, ev);
   assert.ok(bad.reasons.includes("names someone not in the evidence: Ravi"), bad.reasons.join(" | "));
 });
+
+// ---------- hyphens (Shubh's review, 21 Nov) ----------
+test("a range sharing one % is two percentages: 6-7% and 9-11%", () => {
+  assert.deepEqual(extractNumbers("aim for 6-7% or 9-11% off"), ["6%", "7%", "9%", "11%"]);
+});
+
+test("2-3 weeks gives both ends", () => {
+  assert.deepEqual(extractNumbers("in 2-3 weeks"), ["2", "3"]);
+});
+
+test("a number after a word and a hyphen counts: week-2, top-3, Day-4", () => {
+  assert.deepEqual(extractNumbers("by week-2, the top-3 sellers, on Day-4"), ["2", "3", "4"]);
+});
+
+test("compound forms count: 2-week, 3-day", () => {
+  assert.deepEqual(extractNumbers("a 2-week plan, a 3-day push"), ["2", "3"]);
+});
+
+test("a leading minus or dash still yields the number: -18%, −5.0 pts", () => {
+  assert.deepEqual(extractNumbers("down -18% and −5.0 pts"), ["18%", "5.0"]);
+});
+
+test("store and staff codes stay excluded: LKO-02, BLR-05, KNP-03, SP1018, B5", () => {
+  assert.deepEqual(extractNumbers("LKO-02, BLR-05, KNP-03, SP1018 and B5"), []);
+});
+
+test("a draft with an invented number after a hyphen is rejected", () => {
+  const v = validateCard(GOOD + " Aim for 8.2-9.9% by week-2.", ev);
+  assert.equal(v.passed, false);
+  assert.deepEqual(v.rejected_numbers, ["9.9%", "2"]);
+});
+
+test("an allowed range written with a hyphen passes when both ends are allowed", () => {
+  assert.equal(validateCard(GOOD + " The store sits at 3.1-8.2% across sellers.", ev).passed, true);
+});

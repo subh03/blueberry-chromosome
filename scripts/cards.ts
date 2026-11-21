@@ -17,7 +17,11 @@ const GAP_MS = 4500; // ≤ 13 calls a minute (free tier: 15/min)
 if (!apiKey || !model) throw new Error("GEMINI_API_KEY / GEMINI_MODEL not set in .env.local");
 
 const { issues } = JSON.parse(readFileSync("data/generated/issues.json", "utf8")) as { issues: Issue[] };
-const targets = issues.filter((i) => i.evidence.subject);
+// --only=<issue_id>,<issue_id> regenerates just those cards; --log=<name> writes data/generated/<name>.json
+const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
+const only = arg("only")?.split(",");
+const logName = arg("log") ?? "card-run-log";
+const targets = issues.filter((i) => i.evidence.subject && (!only || only.includes(i.id)));
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 let lastCall = 0;
 
@@ -92,12 +96,12 @@ async function main() {
       [...drafts.flatMap((a) => a.validation!.reasons.map((r) => r.replace(/:.*/, "")))].reduce((m, r) => m.set(r, (m.get(r) ?? 0) + 1), new Map<string, number>()),
     ),
   };
-  writeFileSync("data/generated/card-run-log.json", JSON.stringify({
+  writeFileSync(`data/generated/${logName}.json`, JSON.stringify({
     _note: "Every real Gemini draft for the salesperson cards and the validator's verdict. Nothing injected.",
     model, ran_at: new Date().toISOString(), deadline_ms: timeoutMs, summary, entries,
   }, null, 1) + "\n");
   console.log(`summary ${JSON.stringify(summary)}`);
-  console.log("wrote   data/generated/card-run-log.json");
+  console.log(`wrote   data/generated/${logName}.json`);
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) { console.log("skipped Supabase (no keys)"); return; }

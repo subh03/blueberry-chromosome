@@ -303,3 +303,7 @@ test("scorecard: a market note is labelled, valued apart, and never the store to
   assert.equal(sc.market_rupees_at_stake, 900_000);
   assert.equal(sc.biggest_issue_id, "left");
 });
+
+test("numberTokens (evidence) uses the card validator's rules: hyphens and ranges are caught", () => {
+  assert.deepEqual(numberTokens("cut -18% and 9-11%, week-2, LKO-02"), ["18%", "9%", "11%", "2"]);
+});

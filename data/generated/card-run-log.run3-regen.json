@@ -1,0 +1,125 @@
+{
+ "_note": "Every real Gemini draft for the salesperson cards and the validator's verdict. Nothing injected.",
+ "model": "gemini-3.1-flash-lite",
+ "ran_at": "2026-11-21T08:15:56.160Z",
+ "deadline_ms": 8000,
+ "summary": {
+  "inputs": 4,
+  "gemini_calls": 4,
+  "drafts": 4,
+  "drafts_passed": 4,
+  "drafts_rejected": 0,
+  "cards_gemini_first_try": 4,
+  "cards_gemini_after_retry": 0,
+  "cards_template_after_two_rejections": 0,
+  "cards_template_error_or_timeout": 0,
+  "rejection_reasons": {}
+ },
+ "entries": [
+  {
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1013",
+   "type": "low_repeat",
+   "store_id": "LKO-01",
+   "salesperson_id": "SP1013",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 2632,
+     "draft": "Arif, shadow Manoj T. today to learn how to encourage customer returns. Your repeat rate is 1.2% while Manoj T. maintains the store average. Discuss with Manoj T. the specific engagement techniques that help bridge your current gap of 6.7 pts.",
+     "numbers_used": [
+      "1.2%",
+      "6.7 pts"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 41,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "type": "discount_above_norm",
+   "store_id": "PAT-01",
+   "salesperson_id": "SP1064",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 2651,
+     "draft": "Manoj, discuss your discount strategy with Mukesh D. today to understand how Mukesh D. maintains the lowest store discount. Review your current discounting of 7.1% compared to the store average of 1.9%. Ensure all transactions align with store norms before closing to protect the ₹14,200 currently at stake.",
+     "numbers_used": [
+      "7.1%",
+      "1.9%",
+      "₹14,200"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 48,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1090",
+   "type": "low_repeat",
+   "store_id": "PAT-02",
+   "salesperson_id": "SP1090",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1724,
+     "draft": "Jitendra, ask Arjun D. to demonstrate how to build relationships with repeat customers today. Observe how Arjun D. engages store visitors to bridge the gap of 6.7 pts. Focus on connecting with customers so your repeat rate improves from 1.6%.",
+     "numbers_used": [
+      "6.7 pts",
+      "1.6%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 40,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  },
+  {
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1120",
+   "type": "low_repeat",
+   "store_id": "BLR-01",
+   "salesperson_id": "SP1120",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 1008,
+     "draft": "Suresh, observe how Karthik J. manages customer follow-ups today to bridge your 4.3 pts gap. Partner with Karthik J. on the shop floor to learn client engagement techniques that improve retention beyond your current 4.8%.",
+     "numbers_used": [
+      "4.3 pts",
+      "4.8%"
+     ],
+     "validation": {
+      "passed": true,
+      "word_count": 35,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft"
+  }
+ ]
+}

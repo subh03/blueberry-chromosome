@@ -19,8 +19,9 @@ const WORDS: Record<string, number> = {
 
 const D = "[0-9०-९]";
 const NUM = new RegExp(
-  // not glued to a letter/digit/dot, and not the tail of a code like LKO-02 (a range like 4-8 is fine)
-  `(?<![\\p{L}\\p{N}.])(?<!\\p{L}[-–])` +
+  // not glued to a letter/digit/dot, and not the tail of an UPPERCASE code like LKO-02 or BLR-05.
+  // A number after a lowercase word and a hyphen (week-2, top-3) or in a range (4-8) still counts.
+  `(?<![\\p{L}\\p{N}.])(?<!\\b\\p{Lu}{2,}[-–])` +
     `(?:(?:₹|Rs\\.?|INR)\\s?)?${D}+(?:,${D}+)*(?:\\.${D}+)?` +
     `(?:\\s?%|\\s?per ?cent|[kK]|\\s?(?:thousand|lakhs?|crores?|cr|L)(?![\\p{L}]))?` +
     `(?![\\p{L}\\p{N}])`,
@@ -36,7 +37,13 @@ export function extractNumbers(text: string): string[] {
     if (hits.some((h) => m.index! >= h.i && m.index! < h.end)) continue; // "₹40 thousand" already taken
     hits.push({ i: m.index!, end: m.index! + m[0].length, t: m[0] });
   }
-  return hits.sort((a, b) => a.i - b.i).map((h) => h.t);
+  hits.sort((a, b) => a.i - b.i);
+  // A range shares its unit: "6-7%" is 6% to 7%, so the first end is a percentage too.
+  for (let k = 0; k + 1 < hits.length; k++) {
+    const a = hits[k], b = hits[k + 1];
+    if (/^[-–]$/.test(text.slice(a.end, b.i)) && /%$/.test(b.t) && /^[0-9०-९.,]+$/.test(a.t)) a.t = `${a.t}%`;
+  }
+  return hits.map((h) => h.t);
 }
 
 /** Canonical key: percentages are "pct:v", everything else (₹, plain, k, lakh, words) is "n:v". */
