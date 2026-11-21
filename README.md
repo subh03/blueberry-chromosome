@@ -6,6 +6,7 @@ Our own code computes every number on screen from the store data, and you can ta
 
 **Live:** https://blueberry-chromosome.vercel.app
 **Built at:** Vibe Coders Hackathon Edition 3 (Calcutta AI Club), 21 Nov 2026, on Manyavar's Store Coach problem statement.
+**Data:** synthetic data supplied by the hackathon organisers for this problem statement, not real Manyavar customer or staff records.
 
 ## Who it is for
 
@@ -37,9 +38,9 @@ They need one behaviour to change today, shown against a colleague in the same s
 
 A daily run (Vercel cron at 06:00 IST) regenerates the cards from the stored evidence and records what happened in a run log, which the home page shows.
 
-### Results on Manyavar's data
+### Results on the hackathon dataset
 
-The engine already reproduces the fleet baseline, checked against an independent pandas script:
+The engine reproduces the fleet baseline, checked against an independent pandas script:
 
 | Metric | Formula | Fleet value |
 |---|---|---|
@@ -48,12 +49,26 @@ The engine already reproduces the fleet baseline, checked against an independent
 
 `npm run check:baseline` flags LKO-02 (conversion 12.61% in May-Jul, 11.01% in the last 28 days) and BLR-03 (staff presence 80.1% down to 76.5%).
 
-The detectors are not finished yet, so these lines are placeholders until the engine fills them:
+As of 31 Oct 2026 the detectors find 21 issues across the 20 stores: 20 store and salesperson alerts worth ₹7,54,200 over 28 days, and one city-wide market note.
+The brief checklist has 13 rows: 8 problems found, 1 not found (walk-ins steady but fewer buying), and 4 data issues that are shown but never alerted.
+The biggest store problems:
 
-- Issues found across the 20 stores: **[[TBD: number of issues from the detectors]]**
-- Total rupees at stake (28 days): **[[TBD: ₹ total from the engine]]**
-- Top issue and its cause: **[[TBD: store, type, cause]]**
-- Cards generated in the last run, and how many came from Gemini vs the template: **[[TBD: from the runs table]]**
+| Store | Problem | ₹ at stake (28 days) | Cause, as the engine writes it |
+|---|---|---|---|
+| LKO-02 | a good salesperson has left | ₹3,12,900 | the top seller (23.3% of bills) has not been on the roster since 14 Sep; conversion fell from 12.6% to 10.4% |
+| BLR-03 | too few people on busy days | ₹2,02,800 | fewer people on the floor on Saturdays and Sundays (7.4 down to 6.6) |
+| BLR-02 | a category the city buys is avoided | ₹54,000 | one seller sells Indo-Western on 1.3% of bills, against 8.1% in the rest of Bengaluru |
+
+The other 17 issues are salesperson-level: missing pairs (4), discounts above the store's norm (3), low repeat customers (9) and one role model to copy.
+All 3 Kanpur stores also lost walk-ins against the rest of the fleet (KNP-01 down 19.3%).
+The engine puts that at ₹6,21,100, but it is a market note for the area manager, not a store alert, so it is not in the ₹7,54,200.
+
+Cards (model `gemini-3.1-flash-lite`, 8 s deadline):
+
+- 18 of 18 salesperson cards were written by Gemini and passed the validator (17 on the first draft, 1 after a retry).
+- Across two full runs, Gemini wrote 37 drafts and none of them used a number outside the evidence.
+- The validator raised 7 false alarms in those runs (for example it read "Kurta Sets" and "Currently," as names); all 7 are fixed and covered by tests.
+- The 4 area-manager cards are also Gemini-written and validated, and every card is stored, so the demo never waits on a live Gemini call.
 
 ## How the numbers are made
 
@@ -80,14 +95,18 @@ It gets one `Evidence` object per issue (the steps, the cause, the peer, and an 
 
 Then our code checks the draft:
 
-- A validator rejects the card if it contains any number that is not in `allowedNumbers`, if it is longer than 60 words, or if it names no peer.
+- A validator (`engine/card-validator.ts`) rejects the card if it uses a number that is not in `allowedNumbers` (after normalising formats, so 18% and 18 % match), names a person who is not in the evidence, names no peer, has no action or no "today"/"by", or runs over 60 words.
 - A rejected draft is retried once.
-- If the second draft also fails, Gemini takes longer than 8 seconds, or the call errors, the card falls back to a template written from the issue's own action and cause, so the screen always has a card.
+- If the second draft also fails, Gemini takes longer than 8 seconds, or the call errors, the card falls back to a template filled only from the evidence, so the screen always has a card.
 - The card records its `source` (`gemini` or `template`), and a rejected draft is kept so the UI can show exactly which number was invented.
 
-The model is `gemini-3.1-flash-lite`, called from `app/api/_lib/gemini.ts`.
-Status: the Gemini call, the timeout, the retry and the template fallback are live.
-**[[TBD: the prompt and the number validator are being finished in `engine/`; until they are wired into `app/api/_lib/make-card.ts`, every card is the template.]]**
+The model is `gemini-3.1-flash-lite`, called from `app/api/_lib/gemini.ts`; the prompt is `engine/card-prompt.ts`.
+Cards are generated ahead of time and stored, and `/api/card` serves the stored card first.
+
+Gemini never made a number up in our runs, so there is no real mistake to show.
+To prove the validator works, the team wrote one bad draft by hand and stored it as a stress-test card (id `stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson`).
+Its draft starts with "Injected test draft (written by the team, not by Gemini):", the validator rejects its two invented numbers (18% and ₹40,000), and the template card is shown instead.
+It is a team-written test, not a Gemini mistake, and the app and the demo video must call it a stress test.
 
 ## Tech stack
 
@@ -109,7 +128,8 @@ The response carries `"source": "db"` or `"source": "sample"`, so you can always
 | `GET /api/brief?am=AM-01` | `area_managers` + `issues` |
 | `GET /api/dq-flags` | `dq_flags` |
 | `GET /api/run-log` | `runs` |
-| `POST /api/card` | one issue, then Gemini or the template |
+| `POST /api/card` `{ issue_id, audience? }` | the stored card for an issue; if there is none, Gemini or the template |
+| `GET /api/card?id=…` or `POST /api/card` `{ card_id }` | one stored card by id (for example the stress-test card); unknown id returns 404 |
 | `GET`/`POST /api/run` | writes `runs` and `cards`; needs `Authorization: Bearer <CRON_SECRET>` |
 
 The schema is in `supabase/migrations/`, and `supabase/README-DB.md` says how to re-create it.
@@ -163,6 +183,4 @@ npm run build
 
 ## Open items
 
-- Detector results and rupee totals above: Naman, before the 15:30 freeze.
-- Prompt and number validator wired into `/api/card`: Naman.
 - Whether Vercel's hobby plan fires the 06:00 cron reliably is not yet confirmed; `POST /api/run` triggers the same run by hand.

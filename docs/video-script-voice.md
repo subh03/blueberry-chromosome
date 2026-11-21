@@ -51,7 +51,7 @@ Never say a number that is not on screen at that moment.
 
 > A week later we check whether the number moved: [[TBD: follow-up display, e.g. "11.0% to 11.4%", or cut this line if F4 is cut]].
 > It runs every morning, with no login.
-> It can sit on top of Manyavar's existing systems for all [[to verify: 650]] stores.
+> It can sit on top of Manyavar's existing systems and cover every store.
 
 ---
 
