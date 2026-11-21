@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import type { DataQualityFlag } from "@/types";
-import { getFlags } from "@/lib/ui/data";
+import { getFlags, type DataSource } from "@/lib/ui/data";
+import { DataSourceLabel } from "@/components/data-source-label";
 import { Button } from "@/components/ui/button";
 
 export function DataQualityStrip() {
   const [flags, setFlags] = useState<DataQualityFlag[]>([]);
+  const [source, setSource] = useState<DataSource>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -14,7 +16,10 @@ export function DataQualityStrip() {
     let active = true;
     getFlags()
       .then((data) => {
-        if (active) setFlags(data.flags);
+        if (active) {
+          setFlags(data.flags);
+          setSource(data.dataSource);
+        }
       })
       .catch(() => {
         if (active) setError(true);
@@ -32,6 +37,7 @@ export function DataQualityStrip() {
         <h2 id="quality-title">Data-quality guard</h2>
         <p>Excluded or qualified before any manager alert.</p>
       </div>
+      <DataSourceLabel source={source} />
       {loading ? (
         <p role="status">Loading data-quality flags…</p>
       ) : error ? (

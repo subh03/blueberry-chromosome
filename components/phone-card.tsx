@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import type { ActionCard } from "@/types";
-import { getCard, usesSample } from "@/lib/ui/data";
+import { getCard, type UiData } from "@/lib/ui/data";
+import { DataSourceLabel } from "@/components/data-source-label";
 import { Button } from "@/components/ui/button";
 import { CardRejection, RejectedDraft } from "@/components/card-rejection";
 
@@ -14,7 +15,7 @@ export function PhoneCard({
   cardId: string;
   issueId?: string;
 }) {
-  const [card, setCard] = useState<ActionCard | null>(null);
+  const [card, setCard] = useState<UiData<ActionCard> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -49,7 +50,9 @@ export function PhoneCard({
           <h1>One action for today</h1>
           <p>The card and the evidence behind its words.</p>
         </div>
-        <p className="snapshot">{usesSample && "Illustrative sample"}</p>
+        <p className="snapshot">
+          <DataSourceLabel source={card?.dataSource} />
+        </p>
       </div>
       {loading ? (
         <p role="status" className="state">
@@ -72,7 +75,12 @@ export function PhoneCard({
           </Button>
         </div>
       ) : !card ? (
-        <div className="state"><p>No card is available for this issue yet.</p><Link className="text-link" href="/">Choose another store problem</Link></div>
+        <div className="state">
+          <p>No card is available for this issue yet.</p>
+          <Link className="text-link" href="/">
+            Choose another store problem
+          </Link>
+        </div>
       ) : (
         <div className="card-layout">
           <section className="phone-frame" aria-label="Phone preview">

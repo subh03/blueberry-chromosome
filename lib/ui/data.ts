@@ -6,81 +6,118 @@ import type {
   RunLog,
   ScorecardRow,
 } from "@/types";
+export type DataSource = "sample" | "db";
+export type UiData<T> = T & { dataSource?: DataSource };
+
 export const usesSample = process.env.NEXT_PUBLIC_USE_SAMPLE === "1";
-async function readApi<T>(path: string): Promise<T> {
+async function readApi<T>(path: string): Promise<UiData<T>> {
   const response = await fetch(path, {
     signal: AbortSignal.timeout(8000),
     cache: "no-store",
   });
   if (!response.ok)
     throw new Error("Store data is unavailable. Please try again.");
-  return response.json() as Promise<T>;
+  const body = (await response.json()) as T & { source?: unknown };
+  return {
+    ...body,
+    dataSource:
+      body.source === "sample" || body.source === "db"
+        ? body.source
+        : undefined,
+  };
 }
-export async function getScorecard(origin = ""): Promise<{
-  as_of: string;
-  rows: ScorecardRow[];
-}> {
+export async function getScorecard(origin = ""): Promise<
+  UiData<{
+    as_of: string;
+    rows: ScorecardRow[];
+  }>
+> {
   if (usesSample)
-    return (await import("@/data/sample/scorecard.json")).default as {
-      as_of: string;
-      rows: ScorecardRow[];
+    return {
+      ...((await import("@/data/sample/scorecard.json")).default as {
+        as_of: string;
+        rows: ScorecardRow[];
+      }),
+      dataSource: "sample",
     };
   return readApi(`${origin}/api/scorecard`);
 }
-export async function getIssues(origin = ""): Promise<{ issues: Issue[] }> {
+export async function getIssues(
+  origin = "",
+): Promise<UiData<{ issues: Issue[] }>> {
   if (usesSample)
-    return (await import("@/data/sample/issues.json")).default as {
-      issues: Issue[];
+    return {
+      ...((await import("@/data/sample/issues.json")).default as {
+        issues: Issue[];
+      }),
+      dataSource: "sample",
     };
   return readApi(`${origin}/api/issues`);
 }
-export async function getBrief(amId: string): Promise<AmBrief> {
+export async function getBrief(amId: string): Promise<UiData<AmBrief>> {
   if (usesSample) {
     const brief = (await import("@/data/sample/am-brief.json"))
       .default as AmBrief;
     if (brief.area_manager_id !== amId)
       throw new Error("No sample brief is available for this manager.");
-    return brief;
+    return { ...brief, dataSource: "sample" };
   }
   return readApi(`/api/brief?am=${encodeURIComponent(amId)}`);
 }
 export async function getCard(
   cardId: string,
   issueId?: string,
-): Promise<ActionCard | null> {
+): Promise<UiData<ActionCard> | null> {
   if (usesSample) {
     const { cards } = (await import("@/data/sample/cards.json")).default as {
       cards: ActionCard[];
     };
-    return (
+    const card =
       cards.find((card) =>
         issueId ? card.issue_id === issueId : card.id === cardId,
-      ) ?? null
-    );
+      ) ?? null;
+    return card ? { ...card, dataSource: "sample" } : null;
   }
   if (!issueId) throw new Error("Open an action card from its evidence chain.");
-  const response = await fetch("/api/card", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
-    signal: AbortSignal.timeout(10000),
-  });
+  const [response, provenance] = await Promise.all([
+    fetch("/api/card", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
+      signal: AbortSignal.timeout(10000),
+    }),
+    getIssues().catch(() => null),
+  ]);
   if (response.status === 404) return null;
   if (!response.ok)
     throw new Error("The action card is unavailable. Please try again.");
-  return response.json() as Promise<ActionCard>;
+  const card = (await response.json()) as ActionCard;
+  return {
+    ...card,
+    dataSource: provenance?.issues.some((issue) => issue.id === issueId)
+      ? provenance.dataSource
+      : undefined,
+  };
 }
-export async function getFlags(): Promise<{ flags: DataQualityFlag[] }> {
+export async function getFlags(): Promise<
+  UiData<{ flags: DataQualityFlag[] }>
+> {
   if (usesSample)
-    return (await import("@/data/sample/dq-flags.json")).default as {
-      flags: DataQualityFlag[];
+    return {
+      ...((await import("@/data/sample/dq-flags.json")).default as {
+        flags: DataQualityFlag[];
+      }),
+      dataSource: "sample",
     };
   return readApi("/api/dq-flags");
 }
-export async function getRuns(): Promise<{ runs: RunLog[] }> {
+export async function getRuns(): Promise<UiData<{ runs: RunLog[] }>> {
   if (usesSample)
-    return (await import("@/data/sample/run-log.json")).default as {
-      runs: RunLog[];
+    return {
+      ...((await import("@/data/sample/run-log.json")).default as {
+        runs: RunLog[];
+      }),
+      dataSource: "sample",
     };
   return readApi("/api/run-log");
 }

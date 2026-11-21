@@ -19,6 +19,7 @@ async function StoreBrief() {
     <Scorecard
       initialScorecard={initial?.[0]}
       initialIssues={initial?.[1].issues}
+      initialIssueSource={initial?.[1].dataSource}
     />
   );
 }

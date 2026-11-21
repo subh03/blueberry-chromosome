@@ -58,3 +58,8 @@
 ## Sagnik list-state QA - task 2
 - AM-02's empty brief now states that no issues were returned and offers a scorecard link. Missing cards (404) show an empty state with a recovery link. Empty metric-step lists have an explicit message. Error-page skip navigation now reaches main content.
 - Verified delayed, empty and failed AM responses plus retry recovery in Playwright. Verified missing-card empty state. Forced flags/run-history loading, empty, error and retry states in a fresh context. Home list loading/empty/error branches and cancellation guards reviewed. Build passed; Impeccable returned no findings; phone and desktop empty-state screenshots inspected.
+
+## Sagnik provenance - task 3
+- API response source is read in lib/ui/data.ts and preserved as UI-only dataSource metadata. Sample data is shown quietly on home, manager, card and individual flag/run sections; db responses have no label. Static sample mode also labels its imports. Shared types and API files were untouched.
+- Note for Naman: ActionCard.source already means gemini/template. The card label therefore uses the matching issue response's sample/db provenance, without overwriting generation source. A future card-specific provenance field can be consumed in this adapter if the backend supplies one.
+- Verified sample and db fixtures on home, manager and card. Sample labels appeared in all relevant sections, db labels were absent. Production build passed, Impeccable returned no findings, desktop/mobile source screenshots inspected.

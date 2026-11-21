@@ -3,12 +3,13 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import type { AmBrief } from "@/types";
-import { getBrief, usesSample } from "@/lib/ui/data";
+import { getBrief, type UiData } from "@/lib/ui/data";
+import { DataSourceLabel } from "@/components/data-source-label";
 import { Button } from "@/components/ui/button";
 import { EvidenceChain } from "@/components/evidence-chain";
 
 export function ManagerBrief({ amId }: { amId: string }) {
-  const [brief, setBrief] = useState<AmBrief | null>(null);
+  const [brief, setBrief] = useState<UiData<AmBrief> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -45,7 +46,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
           <p>{brief ? `${brief.name} · ${brief.city}` : amId}</p>
         </div>
         <p className="snapshot">
-          {usesSample && "Illustrative sample"}
+          <DataSourceLabel source={brief?.dataSource} />
           <br />
           {brief?.as_of}
         </p>
@@ -77,7 +78,12 @@ export function ManagerBrief({ amId }: { amId: string }) {
             <p className="market-note">{brief.market_note}</p>
           )}
           {issues.length === 0 ? (
-            <div className="state" role="status"><p>No issues in this manager’s weekly brief.</p><Link className="text-link" href="/">Review the store scorecard</Link></div>
+            <div className="state" role="status">
+              <p>No issues in this manager’s weekly brief.</p>
+              <Link className="text-link" href="/">
+                Review the store scorecard
+              </Link>
+            </div>
           ) : (
             <ol className="brief-list">
               {issues.map((issue) => (

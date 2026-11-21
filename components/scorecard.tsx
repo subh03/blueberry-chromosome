@@ -5,22 +5,35 @@ import { Button } from "@/components/ui/button";
 import { EvidenceChain } from "@/components/evidence-chain";
 import { DataQualityStrip } from "@/components/data-quality-strip";
 import { RunLogStrip } from "@/components/run-log-strip";
-import { getScorecard, getIssues, usesSample } from "@/lib/ui/data";
+import {
+  getScorecard,
+  getIssues,
+  type UiData,
+  type DataSource,
+} from "@/lib/ui/data";
+import { DataSourceLabel } from "@/components/data-source-label";
 import type { Issue, ScorecardRow } from "@/types";
 import { RupeeTotal } from "@/components/rupee-total";
 import type { CSSProperties } from "react";
 export function Scorecard({
   initialScorecard,
   initialIssues = [],
+  initialIssueSource,
 }: {
-  initialScorecard?: { as_of: string; rows: ScorecardRow[] };
+  initialScorecard?: UiData<{ as_of: string; rows: ScorecardRow[] }>;
   initialIssues?: Issue[];
+  initialIssueSource?: DataSource;
 }) {
   const [rows, setRows] = useState<ScorecardRow[]>(
     initialScorecard?.rows ?? [],
   );
   const [issues, setIssues] = useState<Issue[]>(initialIssues);
   const [asOf, setAsOf] = useState(initialScorecard?.as_of ?? "");
+  const [source, setSource] = useState<DataSource | undefined>(
+    initialScorecard?.dataSource === "sample" || initialIssueSource === "sample"
+      ? "sample"
+      : initialScorecard?.dataSource,
+  );
   const [loading, setLoading] = useState(!initialScorecard);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -34,6 +47,11 @@ export function Scorecard({
         setRows(scorecard.rows);
         setAsOf(scorecard.as_of);
         setIssues(evidence.issues);
+        setSource(
+          scorecard.dataSource === "sample" || evidence.dataSource === "sample"
+            ? "sample"
+            : scorecard.dataSource,
+        );
       })
       .catch(() => {
         if (active) setError(true);
@@ -61,7 +79,7 @@ export function Scorecard({
           </p>
         </div>
         <p className="snapshot">
-          {usesSample ? "Illustrative sample" : "Store data"}
+          <DataSourceLabel source={source} />
           {asOf && (
             <>
               <br />
@@ -193,7 +211,7 @@ export function Scorecard({
       <RunLogStrip />
       <footer className="page-footer">
         Every number comes from the evidence.{" "}
-        {usesSample && "Sample values are illustrative."}
+        {source === "sample" && "Sample values are illustrative."}
       </footer>
     </main>
   );
