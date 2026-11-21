@@ -739,18 +739,44 @@ a {
   margin-top: 4px;
   font-size: 16px;
 }
+/* Follow-up: coloured by `improved`, never by direction alone. */
 .followup {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  justify-self: start;
+  padding: 8px 12px;
+  border-radius: 10px;
   font-size: 15px;
+  line-height: 1.4;
+  background: var(--paper);
   color: var(--ink-2);
 }
-.followup small {
-  display: block;
+.followup-label {
+  font-size: 14px;
+  font-weight: 600;
 }
-.delta-down {
-  display: inline;
-  vertical-align: middle;
-  margin-right: 4px;
-  color: var(--high);
+.followup-compact {
+  padding: 4px 10px;
+  font-size: 14px;
+}
+.followup-better {
+  background: var(--low-bg);
+  color: var(--low);
+}
+.followup-worse {
+  background: var(--mid-bg);
+  color: var(--mid);
+}
+.followup-flat,
+.followup-new {
+  background: #edf1ef;
+  color: var(--ink-2);
+}
+.problem[data-open] .followup-flat,
+.problem[data-open] .followup-new {
+  background: var(--surface);
 }
 .trace summary {
   cursor: pointer;

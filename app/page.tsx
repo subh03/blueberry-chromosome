@@ -7,6 +7,7 @@ import cardAuditJson from "@/data/generated/card-semantic-audit.after.json";
 import { HeroFigure, OpenBiggestButton } from "@/components/home-hero";
 import { ProblemList, type ProblemItem } from "@/components/problem-list";
 import { EvidencePanel } from "@/components/evidence-panel";
+import { FollowupBadge } from "@/components/followup-badge";
 import { inr, isMarketNote, isStoreRow } from "@/lib/ui/home";
 
 // First paint is real content: the committed output of `npm run load`, read at build time.
@@ -129,6 +130,7 @@ export default function Home() {
               <p className="market-label">Market note</p>
               <h3>{row.brief_problem}</h3>
               {issue && <p>{issue.cause}</p>}
+              {issue && <FollowupBadge issue={issue} compact />}
               <p className="muted">
                 {inr(row.rupees_at_stake ?? 0)} at stake for {row.store_ids.join(", ")}.
                 This is for the area manager and is not added to the store total

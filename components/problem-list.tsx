@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ChevronDown } from "lucide-react";
 import type { Issue, ScorecardRow } from "@/types";
 import { EvidencePanel } from "@/components/evidence-panel";
+import { FollowupBadge } from "@/components/followup-badge";
 import { inr, severityLabel, severityOf } from "@/lib/ui/home";
 
 export type ProblemItem = { row: ScorecardRow; issue: Issue | null };
@@ -93,6 +94,7 @@ export function ProblemList({ items }: { items: ProblemItem[] }) {
                       {row.store_ids.length > 1 ? `Biggest case: ${issue.cause}` : issue.cause}
                     </span>
                   )}
+                  {issue && <FollowupBadge issue={issue} compact />}
                 </span>
                 {severity !== "model" && (
                   <span className="problem-money">

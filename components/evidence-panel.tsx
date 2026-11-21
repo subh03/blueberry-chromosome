@@ -89,7 +89,7 @@ export function EvidencePanel({
           )}
         </li>
       </ol>
-      <FollowupBadge followup={issue.followup} />
+      <FollowupBadge issue={issue} />
       <details className="trace">
         <summary>Show every number with its formula ({issue.evidence.steps.length})</summary>
         <ul>

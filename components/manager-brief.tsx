@@ -6,6 +6,7 @@ import type { AmBrief } from "@/types";
 import { getBrief, type UiData } from "@/lib/ui/data";
 import { DataSourceLabel } from "@/components/data-source-label";
 import { EvidencePanel } from "@/components/evidence-panel";
+import { FollowupBadge } from "@/components/followup-badge";
 import { cardHref, inr } from "@/lib/ui/home";
 
 export function ManagerBrief({ amId }: { amId: string }) {
@@ -96,6 +97,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
                     </strong>
                   </div>
                   <h2 style={{ fontSize: 21 }}>{issue.cause}</h2>
+                  <FollowupBadge issue={issue} compact />
                   <p className="action-box">
                     <strong>{issue.action.who}</strong>: {issue.action.what}.{" "}
                     {issue.action.when}.
