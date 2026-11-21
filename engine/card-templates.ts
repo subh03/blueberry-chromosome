@@ -34,7 +34,7 @@ function render(i: CardIssue): string | null {
 
   switch (i.type) {
     case "missing_pair": {
-      const m = s0?.label.match(/: (.+?) bills with a (.+?),/);
+      const m = s0?.label.match(/: (.+?) bills with a (.+?), last /);
       if (!pp || !m || !you || !peer) return null;
       const base = m[1] === "Kurta Set" ? "kurta" : m[1].toLowerCase();
       return `${you}, today ${lower1(i.action.what)}. You add a ${m[2]} to ${pp.p} of ${base} bills, and the rest of ${store} manage ${pp.p0}. ${peer} does this best in ${store}, so watch how they bring it out. If the customer says no, that's fine, but let them hold it first.`;
@@ -43,17 +43,17 @@ function render(i: CardIssue): string | null {
       const cat = s0?.label.match(/bills with (.+?),/)?.[1];
       const city = s0?.compare_to?.label.replace(/^Rest of /, "");
       if (!pp || !cat || !city || !you || !peer) return null;
-      return `${you}, today bring out one ${cat} piece for every customer you serve, even if they came in for something else. ${cat} is on ${pp.p0} of bills across ${city} and on ${pp.p} of yours. ${peer} sells the most ${cat} in ${store}: ask which pieces they show first.`;
+      return `${you}, today ${lower1(i.action.what)}, even if they came in for something else. ${cat} is on ${pp.p0} of bills across ${city} and on ${pp.p} of yours. ${peer} sells the most ${cat} in ${store}: ask which pieces they show first.`;
     }
     case "discount_above_norm":
       if (!pp || !you || !peer) return null;
-      return `${you}, from today check with the store manager before you give any discount. Your bills average ${pp.p} off MRP, and the rest of ${store} gives ${pp.p0}. ${peer} discounts the least here. Ask them what they say when a customer wants a better price.`;
+      return `${you}, from today ${lower1(i.action.what)}. Your bills average ${pp.p} off MRP, and the rest of ${store} gives ${pp.p0}. ${peer} discounts the least here. Ask them what they say when a customer wants a better price.`;
     case "low_repeat":
       if (!pp || !you || !peer) return null;
-      return `${you}, today take the phone number on every bill and send a short thank-you that evening. ${pp.p} of your customers have come back, against ${pp.p0} for the rest of ${store}. Ask ${peer} what they say to customers on the way out.`;
+      return `${you}, from today ${lower1(i.action.what)}. ${pp.p} of your customers have come back, against ${pp.p0} for the rest of ${store}. Ask ${peer} what they say to customers on the way out.`;
     case "role_model":
       if (!pp || !you || !peer) return null;
-      return `${you}, today spend a few minutes with ${peer} and show them how you follow up after a sale. ${pp.p} of your customers come back, and the rest of ${store} is at ${pp.p0}.`;
+      return `${you}, today show the team how you follow up with customers. Start with ${peer}. ${pp.p} of your customers come back, and the rest of ${store} is at ${pp.p0}.`;
     case "staff_absent_or_left": {
       const conv = byLabel(steps, /^Conversion, since/);
       const last = byLabel(steps, / last on roster$/);

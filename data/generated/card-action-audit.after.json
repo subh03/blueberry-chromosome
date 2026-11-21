@@ -1,0 +1,298 @@
+{
+ "_note": "Every stored card's shown text re-checked with the number validator plus the semantic checks (engine/card-semantics.ts).",
+ "ran_at": "2026-11-21T09:54:03.958Z",
+ "cards": 29,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "injected_test",
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:KNP-01:missing_pair:SP1054:salesperson",
+   "issue_id": "2026-10-31:KNP-01:missing_pair:SP1054",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 52,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:PAT-01:low_repeat:SP1072:salesperson",
+   "issue_id": "2026-10-31:PAT-01:low_repeat:SP1072",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 42,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:BLR-02:category_avoidance:SP1125:salesperson",
+   "issue_id": "2026-10-31:BLR-02:category_avoidance:SP1125",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 47,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:BLR-04:low_repeat:SP1162:salesperson",
+   "issue_id": "2026-10-31:BLR-04:low_repeat:SP1162",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 42,
+   "reasons": []
+  },
+  {
+   "id": "template:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 52,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:role_model:SP1110:salesperson",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 33,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-01:low_repeat:SP1072:salesperson",
+   "issue_id": "2026-10-31:PAT-01:low_repeat:SP1072",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 47,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 39,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:low_repeat:SP1088:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1088",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-02:category_avoidance:SP1125:salesperson",
+   "issue_id": "2026-10-31:BLR-02:category_avoidance:SP1125",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 47,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-03:understaffed_busy_days:am",
+   "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+   "audience": "am",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 41,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:role_model:SP1110:am",
+   "issue_id": "2026-10-31:BLR-01:role_model:SP1110",
+   "audience": "am",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 46,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:KNP-01:city_slowdown:am",
+   "issue_id": "2026-10-31:KNP-01:city_slowdown",
+   "audience": "am",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 56,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:missing_pair:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:missing_pair:SP1120",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 28,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-02:staff_absent_or_left:am",
+   "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+   "audience": "am",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 50,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-01:low_repeat:SP1015:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1015",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:low_repeat:SP1090:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1090",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 39,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1120",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:KNP-01:missing_pair:SP1054:salesperson",
+   "issue_id": "2026-10-31:KNP-01:missing_pair:SP1054",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 34,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-01:low_repeat:SP1013:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1013",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:missing_pair:SP1087:salesperson",
+   "issue_id": "2026-10-31:PAT-02:missing_pair:SP1087",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 57,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1065:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1065",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 43,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-01:missing_pair:SP1009:salesperson",
+   "issue_id": "2026-10-31:LKO-01:missing_pair:SP1009",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 52,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1114:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1114",
+   "audience": "salesperson",
+   "source": "gemini",
+   "origin": "gemini",
+   "passed": true,
+   "word_count": 43,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1116:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1116",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-04:low_repeat:SP1162:salesperson",
+   "issue_id": "2026-10-31:BLR-04:low_repeat:SP1162",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 44,
+   "reasons": []
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:discount_above_norm:SP1122:salesperson",
+   "issue_id": "2026-10-31:BLR-01:discount_above_norm:SP1122",
+   "audience": "salesperson",
+   "source": "template",
+   "origin": null,
+   "passed": true,
+   "word_count": 43,
+   "reasons": []
+  }
+ ]
+}

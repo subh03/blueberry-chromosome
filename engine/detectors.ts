@@ -207,7 +207,7 @@ function issue(ctx: Ctx, o: {
     action: o.action,
     evidence: evidence({
       store_id: o.store_id, as_of: ctx.asOf, lever: o.lever, type: o.type, steps: o.steps, cause: o.cause,
-      peer: o.peer, subject: o.subject ?? null,
+      peer: o.peer, subject: o.subject ?? null, action: o.action,
     }),
     followup: null,
   };
@@ -284,7 +284,7 @@ function conversionSteps(ctx: Ctx, storeId: string, c: ConvCheck, o: { afterLabe
     step("Conversion gap vs peers", gapPts, fmt.pts(gapPts), "−(store change − peer change); the smaller of the city and state gaps", c.store.A.days + c.store.B.days),
     step(`Walk-ins (footfall)${scope}, last 28 days`, ff.footfall, fmt.int(ff.footfall), "Σ footfall, clean days", ff.days),
     step("Average bill value, last 28 days", Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", val.bills),
-    step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100", ff.days),
+    step("₹ at stake per 28 days, based on the last 28 days of walk-ins", rupees, fmt.rupees(rupees), "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100", ff.days),
   );
   return { steps, rupees };
 }
@@ -478,7 +478,7 @@ export function detectCitySlowdown(ctx: Ctx): Issue[] {
       step("Walk-ins lost, last 28 days", lost, fmt.int(lost), "city footfall × (1 ÷ (1 + change) − 1)", t.days),
       step("City conversion, last 28 days", conv, fmt.pct(conv), "bills ÷ footfall × 100", t.days),
       step("Average bill value, last 28 days", Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", v.bills),
-      step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "walk-ins lost × conversion ÷ 100 × average bill value, rounded to ₹100", t.days),
+      step("₹ at stake per 28 days, based on the last 28 days of walk-ins", rupees, fmt.rupees(rupees), "walk-ins lost × conversion ÷ 100 × average bill value, rounded to ₹100", t.days),
     ];
     out.push(issue(ctx, {
       store_id: biggest, lever: "more_bills", type: "city_slowdown", rupees, steps,
@@ -556,7 +556,7 @@ export function detectMissingPair(ctx: Ctx): Issue[] {
         step("Pair gap vs the rest of the store", gap, fmt.pts(gap), "store rate − salesperson rate", me.n + ot.n),
         step(`${nm}: ${pair.base} bills per 28 days`, per28, fmt.one(per28), "12-month count × 28 ÷ 365", me.n),
         step(`Average ${pair.addLabel} price`, Math.round(unit), fmt.rupees(unit), "Σ add-on selling value ÷ bills with the add-on", addN),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100", me.n),
+        step("₹ at stake per 28 days, based on the last 28 days of bills", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100", me.n),
       ];
       const cand = issue(ctx, {
         store_id: x.store, lever: "bigger_baskets", type: "missing_pair", rupees, steps, idSuffix: x.sp,
@@ -611,7 +611,7 @@ export function detectCategoryAvoidance(ctx: Ctx): Issue[] {
         step("Category gap vs the city", gap, fmt.pts(gap), "city share − salesperson share", x.bills.length + others.length),
         step(`${nm}: bills per 28 days`, per28, fmt.one(per28), "12-month count × 28 ÷ 365", x.bills.length),
         step(`Average ${worst.cat} value per bill in ${x.store}`, Math.round(unit), fmt.rupees(unit), `Σ ${worst.cat} selling value ÷ bills with ${worst.cat}`, catN),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × category value, rounded to ₹100", x.bills.length),
+        step("₹ at stake per 28 days, based on the last 28 days of bills", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × category value, rounded to ₹100", x.bills.length),
       ],
       cause: `${nm} sells ${worst.cat} on ${fmt.pct(worst.p)} of bills; the rest of ${city} sells it on ${fmt.pct(worst.p0)}.`,
       action: { who: `${nm}, ${x.store}`, what: `Show at least one ${worst.cat} option to every customer you serve`, when: "Today" },
@@ -650,7 +650,7 @@ export function detectDiscountAboveNorm(ctx: Ctx): Issue[] {
           { label: `Rest of ${x.store}`, value: r2(ot.pct), display: fmt.pct(ot.pct) }),
         step("Discount above the store's norm", gap, fmt.pts(gap), "salesperson − rest of store", me.lines + ot.lines),
         step(`${nm}: MRP value sold per 28 days`, mrp28, fmt.rupees(mrp28), `Σ mrp × qty, ${ctx.recent.label} × 28 ÷ ${days}`, me.lines),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × MRP value per 28 days, rounded to ₹100", me.lines),
+        step("₹ at stake per 28 days, based on the last 28 days of MRP sales", rupees, fmt.rupees(rupees), "gap ÷ 100 × MRP value per 28 days, rounded to ₹100", me.lines),
       ],
       cause: `${nm} gives ${fmt.pct(me.pct)} off MRP; the rest of ${x.store} gives ${fmt.pct(ot.pct)}.`,
       action: { who: `${nm}, ${x.store}`, what: "Check with the store manager before giving any discount", when: "From today" },
@@ -743,7 +743,7 @@ export function detectRepeat(ctx: Ctx): Issue[] {
         step("Repeat gap vs the rest of the store", gap, fmt.pts(gap), "store rate − salesperson rate", x.n + o.n),
         step(`${nm}: new customers per 28 days`, per28, fmt.one(per28), "first bills in the last 12 months × 28 ÷ 365", x.recent),
         step(`Average bill value in ${x.store}, ${ctx.year.label}`, Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", v.bills),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100", x.n),
+        step("₹ at stake per 28 days, based on the last 28 days of new customers", rupees, fmt.rupees(rupees), "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100", x.n),
       ],
       cause: `Only ${fmt.pct(p)} of ${nm}'s customers come back; the rest of ${x.store}: ${fmt.pct(p0)}.`,
       action: { who: `${nm}, ${x.store}`, what: "Take the phone number on every bill and send a thank-you message the same evening", when: "From today" },

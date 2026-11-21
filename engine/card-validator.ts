@@ -3,7 +3,7 @@
 // names someone the evidence does not name, or has no peer, no action or no time for today.
 // "Every number is computed in our code": Gemini may only repeat numbers in evidence.allowedNumbers.
 import type { CardValidation, Evidence, IssueAction } from "../types";
-import { semanticCheck } from "./card-semantics";
+import { actionCheck, semanticCheck } from "./card-semantics";
 
 export const MAX_WORDS = 60;
 
@@ -130,7 +130,8 @@ export function validateCard(text: string, ev: Evidence, action?: IssueAction | 
   }
   if (!ACTION.test(text)) reasons.push("no action for today");
   if (!TIME.test(text)) reasons.push("no time (today / by …)");
-  for (const r of semanticCheck(text, ev, action)) reasons.push(r);
+  const act = action ?? ev.action ?? null;
+  for (const r of [...semanticCheck(text, ev, act), ...actionCheck(text, act)]) reasons.push(r);
 
   return { passed: reasons.length === 0, word_count, rejected_numbers, reasons };
 }

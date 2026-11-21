@@ -1,0 +1,423 @@
+{
+ "_note": "Regeneration of stored cards that failed the semantic audit. Every real Gemini draft and the full validator verdict. Nothing injected. Template rows: Gemini timed out or returned 503 (no draft), so they are pure templates with no draft_origin.",
+ "model": "gemini-3.1-flash-lite",
+ "ran_at": "2026-11-21T09:52:43.401Z",
+ "deadline_ms": 8000,
+ "gemini_calls": 12,
+ "max_calls": 12,
+ "entries": [
+  {
+   "card_id": "gemini:2026-10-31:LKO-01:low_repeat:SP1015:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1015",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8002,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Tushar, from today take the phone number on every bill and send a thank-you message the same evening. 3.1% of your customers have come back, against 8.2% for the rest of LKO-01. Ask Manoj T. what they say to customers on the way out."
+  },
+  {
+   "card_id": "gemini:2026-10-31:LKO-01:missing_pair:SP1009:salesperson",
+   "issue_id": "2026-10-31:LKO-01:missing_pair:SP1009",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8000,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Ashish, today show a jacket with every kurta trial. You add a jacket to 10.3% of kurta bills, and the rest of LKO-01 manage 17.9%. Shahid K. does this best in LKO-01, so watch how they bring it out. If the customer says no, that's fine, but let them hold it first."
+  },
+  {
+   "card_id": "gemini:2026-10-31:KNP-01:missing_pair:SP1054:salesperson",
+   "issue_id": "2026-10-31:KNP-01:missing_pair:SP1054",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 7695,
+     "draft": "Shahid, today, show a jacket with every kurta trial. You can ask Rohit V. for a tip on this performance, as you add a jacket to 14.5% of bills while the store achieves 23.2%.",
+     "validation": {
+      "passed": true,
+      "word_count": 34,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Shahid, today, show a jacket with every kurta trial. You can ask Rohit V. for a tip on this performance, as you add a jacket to 14.5% of bills while the store achieves 23.2%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1065:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1065",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8002,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Sanjay, from today check with the store manager before giving any discount. Your bills average 6.2% off MRP, and the rest of PAT-01 gives 2.0%. Mukesh D. discounts the least here. Ask them what they say when a customer wants a better price."
+  },
+  {
+   "card_id": "gemini:2026-10-31:PAT-02:missing_pair:SP1087:salesperson",
+   "issue_id": "2026-10-31:PAT-02:missing_pair:SP1087",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8002,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Arjun, today show a safa and mojari with every sherwani trial. You add a safa, mojari or mala to 47.8% of sherwani bills, and the rest of PAT-02 manage 82.7%. Prakash J. does this best in PAT-02, so watch how they bring it out. If the customer says no, that's fine, but let them hold it first."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:low_repeat:SP1114:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1114",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 4837,
+     "draft": "Manjunath, from today, take the phone number on every bill and send a thank-you message the same evening. You can ask Karthik J. for a tip regarding this task. Only 5.0% of your customers come back while the rest of BLR-01 achieves 9.1%.",
+     "validation": {
+      "passed": true,
+      "word_count": 43,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Manjunath, from today, take the phone number on every bill and send a thank-you message the same evening. You can ask Karthik J. for a tip regarding this task. Only 5.0% of your customers come back while the rest of BLR-01 achieves 9.1%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:low_repeat:SP1116:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1116",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 5610,
+     "draft": null,
+     "validation": null,
+     "error": "Gemini HTTP 503"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Chetan, from today take the phone number on every bill and send a thank-you message the same evening. 4.6% of your customers have come back, against 9.0% for the rest of BLR-01. Ask Karthik J. what they say to customers on the way out."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-04:low_repeat:SP1162:salesperson",
+   "issue_id": "2026-10-31:BLR-04:low_repeat:SP1162",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8000,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Sachin, from today take the phone number on every bill and send a thank-you message the same evening. 1.3% of your customers have come back, against 7.8% for the rest of BLR-04. Ask Kumar B. what they say to customers on the way out."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:discount_above_norm:SP1122:salesperson",
+   "issue_id": "2026-10-31:BLR-01:discount_above_norm:SP1122",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8001,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Sunil, from today check with the store manager before giving any discount. Your bills average 3.8% off MRP, and the rest of BLR-01 gives 1.2%. Nithin J. discounts the least here. Ask them what they say when a customer wants a better price."
+  },
+  {
+   "card_id": "gemini:2026-10-31:LKO-01:low_repeat:SP1013:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1013",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8001,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Arif, from today take the phone number on every bill and send a thank-you message the same evening. 1.2% of your customers have come back, against 7.9% for the rest of LKO-01. Ask Manoj T. what they say to customers on the way out."
+  },
+  {
+   "card_id": "gemini:2026-10-31:PAT-02:low_repeat:SP1090:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1090",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 3987,
+     "draft": "Jitendra, from today, take the phone number on every bill and send a thank-you message the same evening. Ask Arjun D. for a tip regarding this task. Your repeat rate is 1.6% while the rest of PAT-02 achieves 8.3%.",
+     "validation": {
+      "passed": true,
+      "word_count": 39,
+      "rejected_numbers": [],
+      "reasons": []
+     },
+     "error": null
+    }
+   ],
+   "final_source": "gemini",
+   "outcome": "gemini: passed first draft",
+   "final_text": "Jitendra, from today, take the phone number on every bill and send a thank-you message the same evening. Ask Arjun D. for a tip regarding this task. Your repeat rate is 1.6% while the rest of PAT-02 achieves 8.3%."
+  },
+  {
+   "card_id": "gemini:2026-10-31:BLR-01:low_repeat:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1120",
+   "audience": "salesperson",
+   "attempts": [
+    {
+     "attempt": 1,
+     "ms": 8001,
+     "draft": null,
+     "validation": null,
+     "error": "The operation was aborted due to timeout"
+    }
+   ],
+   "final_source": "template",
+   "outcome": "template: drafts rejected or failed",
+   "final_text": "Suresh, from today take the phone number on every bill and send a thank-you message the same evening. 4.8% of your customers have come back, against 9.1% for the rest of BLR-01. Ask Karthik J. what they say to customers on the way out."
+  }
+ ],
+ "rows": [
+  {
+   "id": "gemini:2026-10-31:LKO-01:low_repeat:SP1015:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1015",
+   "audience": "salesperson",
+   "salesperson_id": "SP1015",
+   "text": "Tushar, from today take the phone number on every bill and send a thank-you message the same evening. 3.1% of your customers have come back, against 8.2% for the rest of LKO-01. Ask Manoj T. what they say to customers on the way out.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:51:24.643Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-01:missing_pair:SP1009:salesperson",
+   "issue_id": "2026-10-31:LKO-01:missing_pair:SP1009",
+   "audience": "salesperson",
+   "salesperson_id": "SP1009",
+   "text": "Ashish, today show a jacket with every kurta trial. You add a jacket to 10.3% of kurta bills, and the rest of LKO-01 manage 17.9%. Shahid K. does this best in LKO-01, so watch how they bring it out. If the customer says no, that's fine, but let them hold it first.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 52,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:51:32.646Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:KNP-01:missing_pair:SP1054:salesperson",
+   "issue_id": "2026-10-31:KNP-01:missing_pair:SP1054",
+   "audience": "salesperson",
+   "salesperson_id": "SP1054",
+   "text": "Shahid, today, show a jacket with every kurta trial. You can ask Rohit V. for a tip on this performance, as you add a jacket to 14.5% of bills while the store achieves 23.2%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 34,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "created_at": "2026-11-21T09:51:40.341Z"
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-01:discount_above_norm:SP1065:salesperson",
+   "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1065",
+   "audience": "salesperson",
+   "salesperson_id": "SP1065",
+   "text": "Sanjay, from today check with the store manager before giving any discount. Your bills average 6.2% off MRP, and the rest of PAT-01 gives 2.0%. Mukesh D. discounts the least here. Ask them what they say when a customer wants a better price.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 43,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:51:48.344Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:missing_pair:SP1087:salesperson",
+   "issue_id": "2026-10-31:PAT-02:missing_pair:SP1087",
+   "audience": "salesperson",
+   "salesperson_id": "SP1087",
+   "text": "Arjun, today show a safa and mojari with every sherwani trial. You add a safa, mojari or mala to 47.8% of sherwani bills, and the rest of PAT-02 manage 82.7%. Prakash J. does this best in PAT-02, so watch how they bring it out. If the customer says no, that's fine, but let them hold it first.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 57,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:51:56.346Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1114:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1114",
+   "audience": "salesperson",
+   "salesperson_id": "SP1114",
+   "text": "Manjunath, from today, take the phone number on every bill and send a thank-you message the same evening. You can ask Karthik J. for a tip regarding this task. Only 5.0% of your customers come back while the rest of BLR-01 achieves 9.1%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 43,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "created_at": "2026-11-21T09:52:01.183Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1116:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1116",
+   "audience": "salesperson",
+   "salesperson_id": "SP1116",
+   "text": "Chetan, from today take the phone number on every bill and send a thank-you message the same evening. 4.6% of your customers have come back, against 9.0% for the rest of BLR-01. Ask Karthik J. what they say to customers on the way out.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:52:06.793Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-04:low_repeat:SP1162:salesperson",
+   "issue_id": "2026-10-31:BLR-04:low_repeat:SP1162",
+   "audience": "salesperson",
+   "salesperson_id": "SP1162",
+   "text": "Sachin, from today take the phone number on every bill and send a thank-you message the same evening. 1.3% of your customers have come back, against 7.8% for the rest of BLR-04. Ask Kumar B. what they say to customers on the way out.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:52:14.795Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:discount_above_norm:SP1122:salesperson",
+   "issue_id": "2026-10-31:BLR-01:discount_above_norm:SP1122",
+   "audience": "salesperson",
+   "salesperson_id": "SP1122",
+   "text": "Sunil, from today check with the store manager before giving any discount. Your bills average 3.8% off MRP, and the rest of BLR-01 gives 1.2%. Nithin J. discounts the least here. Ask them what they say when a customer wants a better price.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 43,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:52:22.796Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:LKO-01:low_repeat:SP1013:salesperson",
+   "issue_id": "2026-10-31:LKO-01:low_repeat:SP1013",
+   "audience": "salesperson",
+   "salesperson_id": "SP1013",
+   "text": "Arif, from today take the phone number on every bill and send a thank-you message the same evening. 1.2% of your customers have come back, against 7.9% for the rest of LKO-01. Ask Manoj T. what they say to customers on the way out.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:52:30.797Z",
+   "rejected_draft": null
+  },
+  {
+   "id": "gemini:2026-10-31:PAT-02:low_repeat:SP1090:salesperson",
+   "issue_id": "2026-10-31:PAT-02:low_repeat:SP1090",
+   "audience": "salesperson",
+   "salesperson_id": "SP1090",
+   "text": "Jitendra, from today, take the phone number on every bill and send a thank-you message the same evening. Ask Arjun D. for a tip regarding this task. Your repeat rate is 1.6% while the rest of PAT-02 achieves 8.3%.",
+   "source": "gemini",
+   "validation": {
+    "passed": true,
+    "word_count": 39,
+    "rejected_numbers": [],
+    "reasons": [],
+    "draft_origin": "gemini"
+   },
+   "created_at": "2026-11-21T09:52:34.785Z"
+  },
+  {
+   "id": "gemini:2026-10-31:BLR-01:low_repeat:SP1120:salesperson",
+   "issue_id": "2026-10-31:BLR-01:low_repeat:SP1120",
+   "audience": "salesperson",
+   "salesperson_id": "SP1120",
+   "text": "Suresh, from today take the phone number on every bill and send a thank-you message the same evening. 4.8% of your customers have come back, against 9.1% for the rest of BLR-01. Ask Karthik J. what they say to customers on the way out.",
+   "source": "template",
+   "validation": {
+    "passed": true,
+    "word_count": 44,
+    "rejected_numbers": [],
+    "reasons": []
+   },
+   "created_at": "2026-11-21T09:52:43.401Z",
+   "rejected_draft": null
+  }
+ ]
+}
