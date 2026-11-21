@@ -32,13 +32,16 @@ export function EvidenceChain({ issue }: { issue: Issue }) {
   return (
     <section
       ref={panel}
+      tabIndex={-1}
       className="evidence"
       aria-label={`Evidence for ${issue.store_id}`}
     >
       <h3>{issue.store_id}, evidence chain</h3>
       <p>{issue.cause}</p>
       <ol className="evidence-steps">
-        {issue.evidence.steps.length === 0 && <li>No metric steps were supplied for this issue.</li>}
+        {issue.evidence.steps.length === 0 && (
+          <li>No metric steps were supplied for this issue.</li>
+        )}
         {issue.evidence.steps.map((step, index) => (
           <li
             key={step.label}

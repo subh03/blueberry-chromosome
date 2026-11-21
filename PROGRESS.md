@@ -63,3 +63,7 @@
 - API response source is read in lib/ui/data.ts and preserved as UI-only dataSource metadata. Sample data is shown quietly on home, manager, card and individual flag/run sections; db responses have no label. Static sample mode also labels its imports. Shared types and API files were untouched.
 - Note for Naman: ActionCard.source already means gemini/template. The card label therefore uses the matching issue response's sample/db provenance, without overwriting generation source. A future card-specific provenance field can be consumed in this adapter if the backend supplies one.
 - Verified sample and db fixtures on home, manager and card. Sample labels appeared in all relevant sections, db labels were absent. Production build passed, Impeccable returned no findings, desktop/mobile source screenshots inspected.
+
+## Sagnik judge guidance - task 4
+- Added a short How to read this line under the headline and the requested Try demo: open the biggest problem button. It opens the highest-rupee scorecard problem with available evidence, focuses the evidence region, and exposes the existing action-card link. If no evidence is available the demo button is disabled with an explanation.
+- Verified at 390 px and desktop: exactly two clicks from home to evidence to card, focus moves into evidence, Replay is available and there is no page overflow. Production build, ESLint and Impeccable passed; screenshots inspected.

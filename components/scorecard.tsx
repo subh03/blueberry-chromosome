@@ -63,6 +63,25 @@ export function Scorecard({
       active = false;
     };
   }, [attempt, initialScorecard]);
+  const biggestProblem = [...rows]
+    .filter(
+      (row) =>
+        row.top_issue_id &&
+        issues.some((issue) => issue.id === row.top_issue_id),
+    )
+    .sort((a, b) => (b.rupees_at_stake ?? 0) - (a.rupees_at_stake ?? 0))[0];
+
+  const openDemo = () => {
+    if (!biggestProblem) return;
+    setOpen(biggestProblem.type);
+    requestAnimationFrame(() => {
+      const panel = document
+        .getElementById(`evidence-${biggestProblem.type}`)
+        ?.querySelector<HTMLElement>(".evidence");
+      panel?.focus({ preventScroll: true });
+      panel?.scrollIntoView({ behavior: "instant", block: "start" });
+    });
+  };
   return (
     <main className="coach-shell" id="main-content">
       <header className="masthead">
@@ -77,6 +96,10 @@ export function Scorecard({
           <p>
             Which stores need attention, and the evidence behind each problem.
           </p>
+          <p className="reading-hint">
+            How to read this. Open a problem to trace its numbers, then choose
+            “Open action card” for today’s action.
+          </p>
         </div>
         <p className="snapshot">
           <DataSourceLabel source={source} />
@@ -88,6 +111,16 @@ export function Scorecard({
           )}
         </p>
       </div>
+      {!loading && !error && (
+        <div className="demo-entry">
+          <Button onClick={openDemo} disabled={!biggestProblem}>
+            Try demo: open the biggest problem
+          </Button>
+          {!biggestProblem && (
+            <p>No problem with evidence is available in this snapshot.</p>
+          )}
+        </div>
+      )}
       <section aria-labelledby="scorecard-title">
         {!loading && !error && rows.length > 0 && (
           <RupeeTotal
