@@ -1,0 +1,181 @@
+// Handshake contract for Store Coach. Owner: Naman. Ask before changing.
+// Every number here is computed by our code (engine/), never by an LLM.
+// "Today" in the data = 2026-10-31 (close).
+
+export type ISODate = string; // "2026-10-31"
+export type StoreId = string; // "LKO-02" (always text, never a number)
+export type SalespersonId = string; // "SP1030"
+export type AreaManagerId = string; // "AM-01"
+
+export type Lever = "more_bills" | "bigger_baskets" | "more_repeat";
+
+export type IssueType =
+  // P1
+  | "staff_absent_or_left"
+  | "understaffed_busy_days"
+  | "conversion_drop_footfall_steady"
+  | "city_slowdown"
+  | "missing_pair"
+  | "discount_above_norm"
+  // P2
+  | "category_avoidance"
+  | "low_repeat"
+  | "role_model";
+
+export type WindowName = "current_28d" | "baseline_mayjul" | "all_time";
+
+/** One store over one window. Rates are plain numbers: conversion 12.95 means 12.95%. */
+export interface StoreMetrics {
+  store_id: StoreId;
+  as_of: ISODate;
+  window: WindowName;
+  footfall: number;
+  bills: number;
+  conversion: number; // bills / footfall * 100
+  ipb: number; // non-packaging qty / bills
+  discount_pct: number; // sum((mrp-sp)*qty) / sum(mrp*qty) * 100, non-packaging
+  repeat_rate: number | null; // %; null when too few customers
+  avg_bill_value: number; // ₹ incl. GST
+  presence: number | null; // % Present of roster rows; null outside May-Oct 2026
+}
+
+export interface SalespersonMetrics {
+  salesperson_id: SalespersonId;
+  store_id: StoreId;
+  as_of: ISODate;
+  display_name: string; // first name + initial, as in data
+  bills: number;
+  ipb: number;
+  discount_pct: number;
+  repeat_rate: number | null;
+  presence: number | null;
+  pair_attach_sherwani: number | null; // % of sherwani bills with safa/mojari/mala
+  pair_attach_kurta: number | null; // % of kurta bills with a jacket
+  last_active: ISODate | null; // last Present roster day or last bill
+  inferred_left: boolean; // inactive 21+ days after being active
+}
+
+/** One link in the evidence chain shown in the UI. */
+export interface EvidenceStep {
+  label: string; // "Conversion, last 28 days"
+  value: number;
+  display: string; // "11.0%" — exactly what the UI and the card may show
+  formula: string; // "bills ÷ footfall × 100"
+  rows: number; // rows behind this number
+  compare_to?: { label: string; value: number; display: string };
+}
+
+/** The only input Gemini sees. */
+export interface Evidence {
+  store_id: StoreId;
+  as_of: ISODate;
+  lever: Lever;
+  type: IssueType;
+  steps: EvidenceStep[];
+  cause: string; // written by code from the detector, e.g. "Top seller not on roster since 2026-09-14"
+  peer: { salesperson_id: SalespersonId; display_name: string; why: string } | null;
+  /** Every number-looking token the card is allowed to contain, as displayed. */
+  allowedNumbers: string[]; // ["11.0%", "12.6%", "6", "4-8 pm", "₹1,24,000"]
+}
+
+export interface IssueAction {
+  who: string; // "Store manager, LKO-02"
+  what: string; // "Keep six people on the floor"
+  when: string; // "Sat and Sun, 4-8 pm"
+}
+
+export interface Issue {
+  id: string; // `${as_of}:${store_id}:${type}`
+  as_of: ISODate;
+  store_id: StoreId;
+  area_manager_id: AreaManagerId;
+  lever: Lever;
+  type: IssueType;
+  rupees_at_stake: number; // 28-day ₹, computed in engine/rupees.ts
+  rank: number; // 1 = biggest ₹ within this AM
+  cause: string;
+  action: IssueAction;
+  evidence: Evidence;
+  followup: Followup | null;
+}
+
+export interface Followup {
+  metric: string; // "conversion"
+  before_as_of: ISODate; // "2026-10-24"
+  before: number;
+  after_as_of: ISODate; // "2026-10-31"
+  after: number;
+  direction: "up" | "down" | "flat";
+  display: string; // "11.0% → 11.4%"
+}
+
+export interface CardValidation {
+  passed: boolean;
+  word_count: number;
+  rejected_numbers: string[]; // tokens in Gemini text that are not in allowedNumbers
+  reasons: string[]; // "over 60 words", "no peer named", ...
+}
+
+export interface ActionCard {
+  id: string;
+  issue_id: string;
+  audience: "am" | "salesperson";
+  salesperson_id: SalespersonId | null;
+  text: string; // ≤60 words for salesperson cards
+  source: "gemini" | "template";
+  validation: CardValidation;
+  rejected_draft?: string; // Gemini draft that failed (shown in demo beat 4)
+  created_at: string; // ISO timestamp
+}
+
+export type DqKind =
+  | "packaging_rows"
+  | "bills_exceed_footfall"
+  | "new_store_no_baseline"
+  | "staff_no_exit_date"
+  | "festival_dip";
+
+export interface DataQualityFlag {
+  id: string;
+  store_id: StoreId | null;
+  kind: DqKind;
+  detail: string;
+  rows_affected: number;
+  alerted: false; // DQ flags are never sent to area managers
+}
+
+/** One row of the home-page "Brief checklist" scorecard. */
+export interface ScorecardRow {
+  lever: Lever | "not_a_problem";
+  brief_problem: string; // wording from the brief
+  type: IssueType | DqKind;
+  status: "found" | "not_found" | "data_issue";
+  store_ids: StoreId[];
+  top_issue_id: string | null;
+  rupees_at_stake: number | null;
+}
+
+export interface AmBrief {
+  area_manager_id: AreaManagerId;
+  name: string;
+  city: string;
+  as_of: ISODate;
+  max_alerts_per_week: number;
+  issues: Issue[]; // length ≤ max_alerts_per_week, sorted by rupees_at_stake desc
+  market_note: string | null; // city_slowdown goes here, not as a store alert
+}
+
+export interface RunLog {
+  id: string;
+  trigger: "cron" | "manual" | "load";
+  started_at: string;
+  finished_at: string | null;
+  as_of: ISODate;
+  rows_read: number;
+  issues: number;
+  cards: number;
+  gemini_ok: number;
+  gemini_fallback: number;
+  ok: boolean;
+  error: string | null;
+}

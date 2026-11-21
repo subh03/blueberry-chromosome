@@ -1,0 +1,151 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "issues": [
+    {
+      "id": "2026-10-31:LKO-02:staff_absent_or_left",
+      "as_of": "2026-10-31",
+      "store_id": "LKO-02",
+      "area_manager_id": "AM-01",
+      "lever": "more_bills",
+      "type": "staff_absent_or_left",
+      "rupees_at_stake": 124000,
+      "rank": 1,
+      "cause": "Top seller (Sample Seller A) not on roster since 14 Sep; footfall steady, fewer walk-ins buying.",
+      "action": {
+        "who": "Store manager, LKO-02",
+        "what": "Put Sample Seller B on the floor at peak hours and pair the newest seller with them",
+        "when": "Sat and Sun, 4-8 pm"
+      },
+      "evidence": {
+        "store_id": "LKO-02",
+        "as_of": "2026-10-31",
+        "lever": "more_bills",
+        "type": "staff_absent_or_left",
+        "steps": [
+          {
+            "label": "Conversion, Aug-Oct 2026",
+            "value": 11.01,
+            "display": "11.0%",
+            "formula": "bills ÷ footfall × 100",
+            "rows": 4159,
+            "compare_to": {
+              "label": "Same store, May-Jul 2026",
+              "value": 12.61,
+              "display": "12.6%"
+            }
+          },
+          {
+            "label": "Items per bill, Aug-Oct 2026",
+            "value": 1.87,
+            "display": "1.87",
+            "formula": "non-packaging qty ÷ bills",
+            "rows": 458,
+            "compare_to": {
+              "label": "Same store, May-Jul 2026",
+              "value": 2.13,
+              "display": "2.13"
+            }
+          },
+          {
+            "label": "Top seller last on roster",
+            "value": 0,
+            "display": "14 Sep",
+            "formula": "last Present roster day",
+            "rows": 184
+          },
+          {
+            "label": "₹ at stake, next 28 days",
+            "value": 124000,
+            "display": "₹1,24,000",
+            "formula": "(peer conv − store conv) × footfall × avg bill value",
+            "rows": 4159
+          }
+        ],
+        "cause": "Top seller (Sample Seller A) not on roster since 14 Sep; footfall steady, fewer walk-ins buying.",
+        "peer": {
+          "salesperson_id": "SP9002",
+          "display_name": "Sample Seller B",
+          "why": "Highest items per bill in LKO-02 this month"
+        },
+        "allowedNumbers": [
+          "11.0%",
+          "12.6%",
+          "1.87",
+          "2.13",
+          "14 Sep",
+          "₹1,24,000",
+          "4-8 pm"
+        ]
+      },
+      "followup": {
+        "metric": "conversion",
+        "before_as_of": "2026-10-24",
+        "before": 10.8,
+        "after_as_of": "2026-10-31",
+        "after": 11.0,
+        "direction": "up",
+        "display": "10.8% → 11.0%"
+      }
+    },
+    {
+      "id": "2026-10-31:BLR-03:understaffed_busy_days",
+      "as_of": "2026-10-31",
+      "store_id": "BLR-03",
+      "area_manager_id": "AM-05",
+      "lever": "more_bills",
+      "type": "understaffed_busy_days",
+      "rupees_at_stake": 98000,
+      "rank": 1,
+      "cause": "Fewer people on the floor on the busiest days; walk-ins up, buyers down.",
+      "action": {
+        "who": "Store manager, BLR-03",
+        "what": "Keep six people on the floor; move one weekly off to Tuesday",
+        "when": "Sat and Sun, 4-8 pm"
+      },
+      "evidence": {
+        "store_id": "BLR-03",
+        "as_of": "2026-10-31",
+        "lever": "more_bills",
+        "type": "understaffed_busy_days",
+        "steps": [
+          {
+            "label": "Presence, Aug-Oct 2026",
+            "value": 76.5,
+            "display": "76.5%",
+            "formula": "Present ÷ roster rows × 100",
+            "rows": 1820,
+            "compare_to": {
+              "label": "Same store, May-Jul 2026",
+              "value": 80.1,
+              "display": "80.1%"
+            }
+          },
+          {
+            "label": "Conversion, Aug-Oct 2026",
+            "value": 11.39,
+            "display": "11.4%",
+            "formula": "bills ÷ footfall × 100",
+            "rows": 4233,
+            "compare_to": {
+              "label": "Same store, May-Jul 2026",
+              "value": 13.0,
+              "display": "13.0%"
+            }
+          }
+        ],
+        "cause": "Fewer people on the floor on the busiest days; walk-ins up, buyers down.",
+        "peer": null,
+        "allowedNumbers": [
+          "76.5%",
+          "80.1%",
+          "11.4%",
+          "13.0%",
+          "6",
+          "4-8 pm",
+          "₹98,000"
+        ]
+      },
+      "followup": null
+    }
+  ]
+}

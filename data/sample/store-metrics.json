@@ -1,0 +1,44 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "metrics": [
+    {
+      "store_id": "LKO-02",
+      "as_of": "2026-10-31",
+      "window": "baseline_mayjul",
+      "footfall": 3600,
+      "bills": 454,
+      "conversion": 12.61,
+      "ipb": 2.13,
+      "discount_pct": 0.6,
+      "repeat_rate": null,
+      "avg_bill_value": 17500,
+      "presence": 81.4
+    },
+    {
+      "store_id": "LKO-02",
+      "as_of": "2026-10-31",
+      "window": "current_28d",
+      "footfall": 4159,
+      "bills": 458,
+      "conversion": 11.01,
+      "ipb": 1.87,
+      "discount_pct": 0.6,
+      "repeat_rate": null,
+      "avg_bill_value": 17200,
+      "presence": 80.3
+    },
+    {
+      "store_id": "ALL",
+      "as_of": "2026-10-31",
+      "window": "all_time",
+      "footfall": 701280,
+      "bills": 90805,
+      "conversion": 12.95,
+      "ipb": 1.96,
+      "discount_pct": 0.8,
+      "repeat_rate": null,
+      "avg_bill_value": 17000,
+      "presence": null
+    }
+  ]
+}

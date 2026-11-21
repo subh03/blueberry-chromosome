@@ -1,0 +1,36 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "cards": [
+    {
+      "id": "card-1",
+      "issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+      "audience": "salesperson",
+      "salesperson_id": "SP9003",
+      "text": "Today, show a safa and mojari with every sherwani trial. Sample Seller B does this on most sherwani bills and averages more items per bill than anyone in LKO-02. Stand with them for the first sherwani trial after 4 pm and copy their pairing line.",
+      "source": "template",
+      "validation": {
+        "passed": true,
+        "word_count": 44,
+        "rejected_numbers": [],
+        "reasons": []
+      },
+      "rejected_draft": "Show a safa with every sherwani today. This will lift your basket by 18% and add ₹40,000 this week.",
+      "created_at": "2026-10-31T06:00:12+05:30"
+    },
+    {
+      "id": "card-2",
+      "issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+      "audience": "am",
+      "salesperson_id": null,
+      "text": "BLR-03: presence fell from 80.1% to 76.5% while walk-ins rose. Keep six people on the floor Sat and Sun, 4-8 pm, and move one weekly off to Tuesday.",
+      "source": "gemini",
+      "validation": {
+        "passed": true,
+        "word_count": 30,
+        "rejected_numbers": [],
+        "reasons": []
+      },
+      "created_at": "2026-10-31T06:00:14+05:30"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "as_of": "2026-10-31",
+  "rows": [
+    {
+      "lever": "more_bills",
+      "brief_problem": "A good salesperson has left or keeps missing shifts",
+      "type": "staff_absent_or_left",
+      "status": "found",
+      "store_ids": [
+        "LKO-02"
+      ],
+      "top_issue_id": "2026-10-31:LKO-02:staff_absent_or_left",
+      "rupees_at_stake": 124000
+    },
+    {
+      "lever": "more_bills",
+      "brief_problem": "Too few people on the floor on busy days",
+      "type": "understaffed_busy_days",
+      "status": "found",
+      "store_ids": [
+        "BLR-03"
+      ],
+      "top_issue_id": "2026-10-31:BLR-03:understaffed_busy_days",
+      "rupees_at_stake": 98000
+    },
+    {
+      "lever": "more_bills",
+      "brief_problem": "Walk-ins steady but fewer of them buying",
+      "type": "conversion_drop_footfall_steady",
+      "status": "found",
+      "store_ids": [
+        "MYS-02"
+      ],
+      "top_issue_id": null,
+      "rupees_at_stake": 41000
+    },
+    {
+      "lever": "more_bills",
+      "brief_problem": "A whole city slowing down (market problem)",
+      "type": "city_slowdown",
+      "status": "not_found",
+      "store_ids": [],
+      "top_issue_id": null,
+      "rupees_at_stake": null
+    },
+    {
+      "lever": "bigger_baskets",
+      "brief_problem": "Not adding the obvious pair",
+      "type": "missing_pair",
+      "status": "found",
+      "store_ids": [
+        "LKO-02"
+      ],
+      "top_issue_id": null,
+      "rupees_at_stake": 56000
+    },
+    {
+      "lever": "bigger_baskets",
+      "brief_problem": "Discounts well above the store's norm",
+      "type": "discount_above_norm",
+      "status": "found",
+      "store_ids": [
+        "KNP-03",
+        "PAT-01"
+      ],
+      "top_issue_id": null,
+      "rupees_at_stake": 33000
+    },
+    {
+      "lever": "more_repeat",
+      "brief_problem": "Role models whose customers come back",
+      "type": "role_model",
+      "status": "not_found",
+      "store_ids": [],
+      "top_issue_id": null,
+      "rupees_at_stake": null
+    },
+    {
+      "lever": "not_a_problem",
+      "brief_problem": "A number that can't be right: data issue, no alert",
+      "type": "bills_exceed_footfall",
+      "status": "data_issue",
+      "store_ids": [
+        "PAT-03"
+      ],
+      "top_issue_id": null,
+      "rupees_at_stake": null
+    },
+    {
+      "lever": "not_a_problem",
+      "brief_problem": "Brand-new store: no fair baseline yet",
+      "type": "new_store_no_baseline",
+      "status": "data_issue",
+      "store_ids": [
+        "BLR-05"
+      ],
+      "top_issue_id": null,
+      "rupees_at_stake": null
+    }
+  ]
+}

@@ -6,3 +6,6 @@ statements/
 node_modules/
 .next/
 .DS_Store
+!.env.example
+.env.local
+.vercel/

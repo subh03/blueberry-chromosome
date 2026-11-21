@@ -1,0 +1,45 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "flags": [
+    {
+      "id": "dq-1",
+      "store_id": null,
+      "kind": "packaging_rows",
+      "detail": "Packaging lines (₹0 bags/covers) excluded from items per bill and discount",
+      "rows_affected": 84001,
+      "alerted": false
+    },
+    {
+      "id": "dq-2",
+      "store_id": "PAT-03",
+      "kind": "bills_exceed_footfall",
+      "detail": "11 store-days with more bills than walk-ins; left out of conversion",
+      "rows_affected": 11,
+      "alerted": false
+    },
+    {
+      "id": "dq-3",
+      "store_id": "BLR-05",
+      "kind": "new_store_no_baseline",
+      "detail": "Opened 2026-10-10; too new to compare",
+      "rows_affected": 1,
+      "alerted": false
+    },
+    {
+      "id": "dq-4",
+      "store_id": null,
+      "kind": "staff_no_exit_date",
+      "detail": "Leavers inferred from 21+ days with no roster or bills",
+      "rows_affected": 0,
+      "alerted": false
+    },
+    {
+      "id": "dq-5",
+      "store_id": null,
+      "kind": "festival_dip",
+      "detail": "Diwali 2025-10-20 ±3 days excluded from baselines",
+      "rows_affected": 0,
+      "alerted": false
+    }
+  ]
+}

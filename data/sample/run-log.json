@@ -1,0 +1,19 @@
+{
+  "_note": "SAMPLE for UI building only. Shapes match types/index.ts exactly. Values are illustrative; real values come from npm run load.",
+  "runs": [
+    {
+      "id": "run-2026-10-31",
+      "trigger": "cron",
+      "started_at": "2026-10-31T06:00:00+05:30",
+      "finished_at": "2026-10-31T06:00:21+05:30",
+      "as_of": "2026-10-31",
+      "rows_read": 402171,
+      "issues": 12,
+      "cards": 24,
+      "gemini_ok": 21,
+      "gemini_fallback": 3,
+      "ok": true,
+      "error": null
+    }
+  ]
+}
