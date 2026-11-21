@@ -95,7 +95,7 @@
       "rows": 138
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of walk-ins",
       "value": 318800,
       "display": "₹3,18,800",
       "formula": "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100",
@@ -109,6 +109,11 @@
      "why": "Most bills in LKO-02 since 15 Sep"
     },
     "subject": null,
+    "action": {
+     "who": "Store manager, LKO-02",
+     "what": "Put Sumit A. on the floor at the busiest hours and have the newest seller shadow them",
+     "when": "This Saturday and Sunday"
+    },
     "allowedNumbers": [
      "23.3%",
      "90",
@@ -186,7 +191,7 @@
       "rows": 5099
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 22900,
       "display": "₹22,900",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -202,6 +207,11 @@
     "subject": {
      "salesperson_id": "SP1015",
      "display_name": "Tushar N."
+    },
+    "action": {
+     "who": "Tushar N., LKO-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "3.0%",
@@ -272,7 +282,7 @@
       "rows": 5099
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 20400,
       "display": "₹20,400",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -288,6 +298,11 @@
     "subject": {
      "salesperson_id": "SP1013",
      "display_name": "Arif M."
+    },
+    "action": {
+     "who": "Arif M., LKO-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "1.0%",
@@ -358,7 +373,7 @@
       "rows": 1231
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of bills",
       "value": 8700,
       "display": "₹8,700",
       "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
@@ -374,6 +389,11 @@
     "subject": {
      "salesperson_id": "SP1009",
      "display_name": "Ashish K."
+    },
+    "action": {
+     "who": "Ashish K., LKO-01",
+     "what": "Show a jacket with every kurta trial",
+     "when": "Today"
     },
     "allowedNumbers": [
      "10.3%",
@@ -444,7 +464,7 @@
       "rows": 723
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of bills",
       "value": 5700,
       "display": "₹5,700",
       "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
@@ -460,6 +480,11 @@
     "subject": {
      "salesperson_id": "SP1053",
      "display_name": "Dheeraj R."
+    },
+    "action": {
+     "who": "Dheeraj R., KNP-01",
+     "what": "Show a jacket with every kurta trial",
+     "when": "Today"
     },
     "allowedNumbers": [
      "12.9%",
@@ -560,7 +585,7 @@
       "rows": 237
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of walk-ins",
       "value": 481200,
       "display": "₹4,81,200",
       "formula": "walk-ins lost × conversion ÷ 100 × average bill value, rounded to ₹100",
@@ -570,6 +595,11 @@
     "cause": "All 3 Kanpur stores lost walk-ins vs the rest of the fleet in the last 28 days (KNP-01 −19.2%, KNP-02 −19.3%, KNP-03 −18.6%); the same weeks last year: −2.1%. A market slowdown, not one store's problem.",
     "peer": null,
     "subject": null,
+    "action": {
+     "who": "Area manager, Kanpur",
+     "what": "Treat it as a market dip: ask each store manager what changed locally and keep store targets as they are",
+     "when": "This week"
+    },
     "allowedNumbers": [
      "3",
      "−19.1%",
@@ -646,7 +676,7 @@
       "rows": 4627
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 13800,
       "display": "₹13,800",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -662,6 +692,11 @@
     "subject": {
      "salesperson_id": "SP1072",
      "display_name": "Faizan K."
+    },
+    "action": {
+     "who": "Faizan K., PAT-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "3.4%",
@@ -725,7 +760,7 @@
       "rows": 158
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of MRP sales",
       "value": 13400,
       "display": "₹13,400",
       "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
@@ -741,6 +776,11 @@
     "subject": {
      "salesperson_id": "SP1064",
      "display_name": "Manoj N."
+    },
+    "action": {
+     "who": "Manoj N., PAT-01",
+     "what": "Check with the store manager before giving any discount",
+     "when": "From today"
     },
     "allowedNumbers": [
      "7.3%",
@@ -810,7 +850,7 @@
       "rows": 2650
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 12000,
       "display": "₹12,000",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -826,6 +866,11 @@
     "subject": {
      "salesperson_id": "SP1088",
      "display_name": "Saurabh P."
+    },
+    "action": {
+     "who": "Saurabh P., PAT-02",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "1.6%",
@@ -896,7 +941,7 @@
       "rows": 2650
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 11700,
       "display": "₹11,700",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -912,6 +957,11 @@
     "subject": {
      "salesperson_id": "SP1090",
      "display_name": "Jitendra K."
+    },
+    "action": {
+     "who": "Jitendra K., PAT-02",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "1.6%",
@@ -975,7 +1025,7 @@
       "rows": 167
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of MRP sales",
       "value": 11500,
       "display": "₹11,500",
       "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
@@ -991,6 +1041,11 @@
     "subject": {
      "salesperson_id": "SP1065",
      "display_name": "Sanjay K."
+    },
+    "action": {
+     "who": "Sanjay K., PAT-01",
+     "what": "Check with the store manager before giving any discount",
+     "when": "From today"
     },
     "allowedNumbers": [
      "6.3%",
@@ -1060,7 +1115,7 @@
       "rows": 1075
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of bills",
       "value": 1400,
       "display": "₹1,400",
       "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
@@ -1076,6 +1131,11 @@
     "subject": {
      "salesperson_id": "SP1087",
      "display_name": "Arjun D."
+    },
+    "action": {
+     "who": "Arjun D., PAT-02",
+     "what": "Show a safa and mojari with every sherwani trial",
+     "when": "Today"
     },
     "allowedNumbers": [
      "47.6%",
@@ -1225,7 +1285,7 @@
       "rows": 161
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of walk-ins",
       "value": 131800,
       "display": "₹1,31,800",
       "formula": "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100",
@@ -1235,6 +1295,11 @@
     "cause": "Fewer people on the floor on Sat and Sun (7.4 → 6.6); Manjunath K. and Vijay N. stopped working weekends. Weekend conversion 13.0% → 10.4%.",
     "peer": null,
     "subject": null,
+    "action": {
+     "who": "Store manager, BLR-03",
+     "what": "Keep 7 people on the floor; move Manjunath K.'s and Vijay N.'s weekly off to a weekday",
+     "when": "This Saturday and Sunday"
+    },
     "allowedNumbers": [
      "6.6",
      "7.4",
@@ -1316,7 +1381,7 @@
       "rows": 370
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of bills",
       "value": 51800,
       "display": "₹51,800",
       "formula": "gap ÷ 100 × bills per 28 days × category value, rounded to ₹100",
@@ -1332,6 +1397,11 @@
     "subject": {
      "salesperson_id": "SP1125",
      "display_name": "Suresh K."
+    },
+    "action": {
+     "who": "Suresh K., BLR-02",
+     "what": "Show at least one Indo-Western option to every customer you serve",
+     "when": "Today"
     },
     "allowedNumbers": [
      "1.4%",
@@ -1402,7 +1472,7 @@
       "rows": 5296
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 13400,
       "display": "₹13,400",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -1418,6 +1488,11 @@
     "subject": {
      "salesperson_id": "SP1120",
      "display_name": "Suresh V."
+    },
+    "action": {
+     "who": "Suresh V., BLR-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "4.8%",
@@ -1488,7 +1563,7 @@
       "rows": 5296
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 11900,
       "display": "₹11,900",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -1504,6 +1579,11 @@
     "subject": {
      "salesperson_id": "SP1114",
      "display_name": "Manjunath C."
+    },
+    "action": {
+     "who": "Manjunath C., BLR-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "5.0%",
@@ -1574,7 +1654,7 @@
       "rows": 5296
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 11600,
       "display": "₹11,600",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -1590,6 +1670,11 @@
     "subject": {
      "salesperson_id": "SP1116",
      "display_name": "Chetan S."
+    },
+    "action": {
+     "who": "Chetan S., BLR-01",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "4.4%",
@@ -1660,7 +1745,7 @@
       "rows": 1471
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of bills",
       "value": 11100,
       "display": "₹11,100",
       "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
@@ -1676,6 +1761,11 @@
     "subject": {
      "salesperson_id": "SP1120",
      "display_name": "Suresh V."
+    },
+    "action": {
+     "who": "Suresh V., BLR-01",
+     "what": "Show a jacket with every kurta trial",
+     "when": "Today"
     },
     "allowedNumbers": [
      "16.2%",
@@ -1746,7 +1836,7 @@
       "rows": 2783
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of new customers",
       "value": 10600,
       "display": "₹10,600",
       "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
@@ -1762,6 +1852,11 @@
     "subject": {
      "salesperson_id": "SP1162",
      "display_name": "Sachin M."
+    },
+    "action": {
+     "who": "Sachin M., BLR-04",
+     "what": "Take the phone number on every bill and send a thank-you message the same evening",
+     "when": "From today"
     },
     "allowedNumbers": [
      "1.3%",
@@ -1825,7 +1920,7 @@
       "rows": 113
      },
      {
-      "label": "₹ at stake, next 28 days",
+      "label": "₹ at stake per 28 days, based on the last 28 days of MRP sales",
       "value": 4500,
       "display": "₹4,500",
       "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
@@ -1841,6 +1936,11 @@
     "subject": {
      "salesperson_id": "SP1122",
      "display_name": "Sunil T."
+    },
+    "action": {
+     "who": "Sunil T., BLR-01",
+     "what": "Check with the store manager before giving any discount",
+     "when": "From today"
     },
     "allowedNumbers": [
      "3.9%",
@@ -1912,6 +2012,11 @@
     "subject": {
      "salesperson_id": "SP1110",
      "display_name": "Karthik J."
+    },
+    "action": {
+     "who": "Store manager, BLR-01",
+     "what": "Ask Karthik J. to show the team how they follow up with customers",
+     "when": "Saturday's morning huddle"
     },
     "allowedNumbers": [
      "19.4%",
