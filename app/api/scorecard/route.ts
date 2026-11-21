@@ -1,30 +1,12 @@
-// GET /api/scorecard -> { as_of, rows: ScorecardRow[], source: "db" | "sample" }
-// Built from issues + dq_flags. The row list (the brief's own problems, in order) comes from the
-// scorecard catalogue in data/sample/scorecard.json. Falls back to the sample only when the issues
-// table is empty (detectors not run yet) or a read fails.
-import { connection } from "next/server";
-import type { ScorecardRow } from "@/types";
-import sample from "@/data/sample/scorecard.json";
-import { getBrowserDb } from "@/lib/db/browser";
-import { listDqFlags, listIssues } from "@/lib/db/queries";
-import { buildScorecard, dbOrSample, toDqFlag } from "@/lib/db/mappers";
-import { stripNote } from "../_lib/json";
+// GET /api/scorecard -> { as_of, title, note, store_rupees_at_stake, market_rupees_at_stake,
+//                         biggest_issue_id, rows: ScorecardRow[] (with kind + reason), source: "generated" }
+// Served from data/generated/scorecard.json, committed by `npm run load` from the same run that fills the
+// issues table. The market note (city_slowdown) is kept out of store_rupees_at_stake.
+import generated from "@/data/generated/scorecard.json";
+import { scorecardBody, type GeneratedScorecard } from "@/lib/db/scorecard-body";
 
-const sampleBody = stripNote(sample) as { as_of: string; rows: ScorecardRow[] };
-const catalogue = sampleBody.rows.map(({ lever, brief_problem, type }) => ({ lever, brief_problem, type }));
+const body = scorecardBody(generated as GeneratedScorecard);
 
 export async function GET() {
-  await connection();
-  let issueCount = 0;
-  const body = await dbOrSample(
-    async () => {
-      const db = getBrowserDb(); // inside the read, so a missing env falls back to the sample too
-      const [issues, flags] = await Promise.all([listIssues(db), listDqFlags(db)]);
-      issueCount = issues.length;
-      return { as_of: issues[0]?.as_of ?? "", rows: buildScorecard(catalogue, issues, flags.map(toDqFlag)) };
-    },
-    () => issueCount === 0,
-    sampleBody,
-  );
   return Response.json(body);
 }
