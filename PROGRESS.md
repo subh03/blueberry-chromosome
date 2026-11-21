@@ -67,3 +67,11 @@
 ## Sagnik judge guidance - task 4
 - Added a short How to read this line under the headline and the requested Try demo: open the biggest problem button. It opens the highest-rupee scorecard problem with available evidence, focuses the evidence region, and exposes the existing action-card link. If no evidence is available the demo button is disabled with an explanation.
 - Verified at 390 px and desktop: exactly two clicks from home to evidence to card, focus moves into evidence, Replay is available and there is no page overflow. Production build, ESLint and Impeccable passed; screenshots inspected.
+
+## Naman F1 detectors checkpoint - 21 Nov 2026
+- Done: `engine/detectors.ts` (9 detectors + DQ guard), `engine/rupees.ts`, `engine/scorecard.ts` ("Problems from the brief", 13 rows). `npm run load` now writes `data/generated/{issues,scorecard,evidence,am-briefs,card-inputs}.json` and upserts **21 issues** into Supabase (evidence inside `issues.evidence`, no separate table). 18 salesperson card inputs (evidence + allowedNumbers). `npm test` 34 pass; `check:baseline` passes.
+- Found: LKO-02 top seller left (₹3,12,900) · BLR-03 weekend understaffing (₹2,02,800) · Kanpur city slowdown (market note, ₹6,21,100) · BLR-02 Indo-Western avoidance · PAT-01 two heavy discounters · 4 missing-pair sellers · low-repeat sellers · BLR-01 role model. Dropped: MYS-02, KNP-03 discount (why in DECISIONS.md).
+- **Type change (once):** `Evidence.subject?` (optional) = the salesperson a salesperson-level issue is about. Old fields kept. @Shubh @Sagnik: use it for `ActionCard.salesperson_id`. Salesperson-level issue ids end in `:SPxxxx`.
+- **@Shubh:** the issues table is filled. Live `/api/scorecard`, `/api/issues`, `/api/brief?am=AM-01` already return `"source": "db"`. Redeploy so `/api/scorecard` picks up the 13-row catalogue in `data/sample/scorecard.json` (currently 9).
+- Next: F3 prompt + number validator in `engine/` and plug `aiStep` into `app/api/_lib/make-card.ts`.
+

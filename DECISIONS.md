@@ -23,6 +23,22 @@
 - **Loader rows (`engine/rows.ts`):** conversion in store_metrics uses clean days only; IPB/discount use all bills. Repeat rate = customers whose fleet-wide first bill is in the window and 30+ days before as-of, who billed again 30+ days later; attributed to the first bill's store/salesperson; null under 30 customers. So `current_28d` repeat is always null and `baseline_mayjul` repeat (~1%) is short-follow-up — use `all_time` repeat for detectors. salesperson_metrics window = Aug-Oct 2026; includes staff active since 1 May; `inferred_left` uses `rosterLeavers`. presence is null for `all_time`.
 - Scorecard rows = the **brief's own problem list**. We never claim to know Manyavar's hidden answers.
 
+## Detectors (Naman, 21 Nov, F1)
+- **Windows:** before = the 3 calendar months before the last 3 (May-Jul 2026); after = Aug-Oct 2026. ₹ inputs use the last 28 days. Salesperson habits (pairs, categories) use the last 12 months; discounts use Aug-Oct; repeat uses all time (fleet **7.6%**: customers whose first bill is 30+ days before as-of; 7.3% if recent customers are counted too).
+- **Fair comparison:** a store is flagged on conversion only if its change minus the peer change is ≤ −1.0 pt vs BOTH same-city and same-state peers (pooled, no new stores), AND its own drop is real (two-proportion z ≥ 2). ₹ uses the smaller of the two gaps. Salespeople are compared with the rest of their own store (pairs, discount, repeat) or their city (category mix, so regional taste is respected).
+- **₹ at stake (28 days):** conversion issues = gap ÷ 100 × walk-ins (last 28 days, clean days) × average bill value; all three are evidence steps. Rate levers = gap ÷ 100 × bills (or customers, or MRP value) per 28 days × ₹ per unit. Role models get ₹0: they are upside and appear as the peer on low-repeat cards.
+- **One conversion issue per store** (most specific wins: understaffed > left/missed shifts > generic drop), so ₹ is never counted twice. A city with a slowdown gets no store conversion alerts.
+- **Top seller who left:** roster stops 21+ days before as-of, bill share ≥ 1.3× an even split and rank 1-2 in the 90 days before. "Before" is May-Jul when they left after July (the 8 weeks before leaving already held a weak August at LKO-02 and hid a 1.65-pt gap).
+- **Missing pair:** exact binomial lower tail ≤ 0.001 and gap ≥ 5 pts (the normal approximation gave a false hit on small sherwani counts).
+- **Names in evidence:** first name + initial (as the synthetic data gives them) appear in `issues.evidence` / `cause` / `action`, because the brief says to name role models and peers. No customer IDs anywhere. `data/generated/*.json` follows the same rule.
+- **Leads checked and dropped:**
+  - **MYS-02** conversion 8.31→6.79: gap vs state peers only −0.79 pts and z 1.57 (not significant on ~90 bills a month). Dropped.
+  - **KNP-03** discount 0.1→1.1%: tiny volume (42-74 lines per seller in Aug-Oct), still under the state norm, no seller ≥ 2× the rest of the store. Dropped.
+  - **PAT-01** discount: holds, but at salesperson level: two sellers give 6-7% off MRP vs ~1% for the rest of the store (54-60% of their lines discounted).
+  - **BLR-01** conversion 14.23→12.82: gap −0.86 pts, just under the bar. Not alerted.
+  - Most all-time repeat "role models" (24.9%, 22.6%, ...) left before May 2026 (not on the roster), so they are not named; only active ones are.
+- **Diwali check on real data:** run as of 31 Oct 2025 (Diwali 20 Oct inside the window): no city slowdown and no Diwali-driven store alerts.
+
 ## AI
 - Gemini writes words only, from an `Evidence` JSON. The validator rejects any number not in `allowedNumbers`, any card over 60 words, and any card with no peer named. Rejected → retry once → template. Timeout 8 s.
 
