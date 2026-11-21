@@ -486,3 +486,8 @@ summary:focus-visible { outline: 3px solid #75562c; outline-offset: 4px; }
 .draft blockquote { color: #684b28; line-height: 1.6; margin: 16px 0; }
 .trust-beat { padding: 20px; background: #f5ead3; color: #6d4c17; }
 @media (max-width: 700px) { .card-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; } .phone-frame { max-width: 360px; width: 100%; margin: 0 auto; padding: 16px 20px 28px; } }
+.quality-strip { margin-top: 36px; padding: 24px; background: #eeeee6; }
+.quality-strip ul { list-style: none; }
+.quality-strip li { display: grid; grid-template-columns: 175px 1fr; gap: 6px 20px; padding: 16px 0; border-top: 1px solid #d3d8cb; }
+.quality-strip small { grid-column: 2; color: #526055; }
+@media (max-width: 640px) { .quality-strip { padding: 20px 16px; } .quality-strip li { display: block; } .quality-strip p { margin: 8px 0; } }
