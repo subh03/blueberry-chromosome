@@ -61,6 +61,9 @@ function rng(seed: number) {
   };
 }
 
+/** Letters-only default name ("Sel L3-2" would read as a number range): L3-2 -> "Seller Lcb K." */
+const defaultName = (id: string) => `Seller ${id.replace(/\d/g, (d) => "abcdefghij"[Number(d)]).replace(/-/g, "")} K.`;
+
 export function buildWorld(o: {
   from: string;
   to: string;
@@ -84,7 +87,7 @@ export function buildWorld(o: {
       store_id: s.store_id, city: s.city, state: s.state, zone: "Z", tier: s.tier ?? "A",
       opened_on: opened, area_manager_id: s.area_manager_id ?? `AM-${s.city}`,
     });
-    s.sellers.forEach((p) => w.salespeople.push({ salesperson_id: p.id, store_id: s.store_id, join_date: "2020-01-01", name: p.name ?? `Seller ${p.id}` }));
+    s.sellers.forEach((p) => w.salespeople.push({ salesperson_id: p.id, store_id: s.store_id, join_date: "2020-01-01", name: p.name ?? defaultName(p.id) }));
     let carry = 0;
     for (let d = o.from > opened ? o.from : opened; d <= o.to; d = addDays(d, 1)) {
       const ff = Math.round(s.footfall(d));
