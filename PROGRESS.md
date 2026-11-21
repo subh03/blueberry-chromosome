@@ -49,3 +49,8 @@
 - `/api/card`: Gemini client ready (GEMINI_MODEL, structured JSON, retry once, 8 s, live-tested). Returns the template until Naman plugs the prompt + validator into `aiStep` in `app/api/_lib/make-card.ts` (TODO marked).
 - Tests: `npx tsx --test lib/db/*.test.ts app/api/_lib/*.test.ts` (19 pass). DB smoke script passes.
 - Next: Naman wires `aiStep`; once `issues` has rows, check scorecard/issues/brief flip to `"source": "db"`.
+
+## Sagnik live QA - task 1
+- Fresh non-persistent browser contexts at 390x844 and 1440x1000. Checked live home, AM-01 through AM-06, and a card opened by issue ID. All 16 navigations returned HTTP 200, with no page overflow. Mobile page-error collection was empty.
+- Opened and closed every home row at both widths, every available manager evidence panel, and replayed the phone rejection moment. Saved and inspected screenshots of every page at both widths. Impeccable detector returned no findings on the page components and CSS.
+- AM-02 through AM-06 have empty briefs and show a message. The issues API reports sample provenance while the home heading says Store data; fixing this explicitly in task 3. The latest live run is manual with zero rows/issues/cards; the demo script must describe those actual values instead of the sample cron story.
