@@ -54,3 +54,7 @@
 - Fresh non-persistent browser contexts at 390x844 and 1440x1000. Checked live home, AM-01 through AM-06, and a card opened by issue ID. All 16 navigations returned HTTP 200, with no page overflow. Mobile page-error collection was empty.
 - Opened and closed every home row at both widths, every available manager evidence panel, and replayed the phone rejection moment. Saved and inspected screenshots of every page at both widths. Impeccable detector returned no findings on the page components and CSS.
 - AM-02 through AM-06 have empty briefs and show a message. The issues API reports sample provenance while the home heading says Store data; fixing this explicitly in task 3. The latest live run is manual with zero rows/issues/cards; the demo script must describe those actual values instead of the sample cron story.
+
+## Sagnik list-state QA - task 2
+- AM-02's empty brief now states that no issues were returned and offers a scorecard link. Missing cards (404) show an empty state with a recovery link. Empty metric-step lists have an explicit message. Error-page skip navigation now reaches main content.
+- Verified delayed, empty and failed AM responses plus retry recovery in Playwright. Verified missing-card empty state. Forced flags/run-history loading, empty, error and retry states in a fresh context. Home list loading/empty/error branches and cancellation guards reviewed. Build passed; Impeccable returned no findings; phone and desktop empty-state screenshots inspected.

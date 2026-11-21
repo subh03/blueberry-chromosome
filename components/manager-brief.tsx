@@ -77,7 +77,7 @@ export function ManagerBrief({ amId }: { amId: string }) {
             <p className="market-note">{brief.market_note}</p>
           )}
           {issues.length === 0 ? (
-            <p className="state">No store issues need attention this week.</p>
+            <div className="state" role="status"><p>No issues in this manager’s weekly brief.</p><Link className="text-link" href="/">Review the store scorecard</Link></div>
           ) : (
             <ol className="brief-list">
               {issues.map((issue) => (

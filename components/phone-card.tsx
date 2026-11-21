@@ -72,7 +72,7 @@ export function PhoneCard({
           </Button>
         </div>
       ) : !card ? (
-        <p className="state">No card is available for this issue yet.</p>
+        <div className="state"><p>No card is available for this issue yet.</p><Link className="text-link" href="/">Choose another store problem</Link></div>
       ) : (
         <div className="card-layout">
           <section className="phone-frame" aria-label="Phone preview">

@@ -65,6 +65,7 @@ export async function getCard(
     body: JSON.stringify({ issue_id: issueId, audience: "salesperson" }),
     signal: AbortSignal.timeout(10000),
   });
+  if (response.status === 404) return null;
   if (!response.ok)
     throw new Error("The action card is unavailable. Please try again.");
   return response.json() as Promise<ActionCard>;
