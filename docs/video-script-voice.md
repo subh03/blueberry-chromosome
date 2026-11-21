@@ -1,3 +1,5 @@
+> Superseded: the script the team records from is `docs/demo-script.md` (live figures, labelled stress test). This early draft is kept for reference only.
+
 # Demo video: voice-over script (max 2:00)
 
 Read at a calm pace, about 140 words a minute.

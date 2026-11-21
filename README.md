@@ -49,19 +49,19 @@ The engine reproduces the fleet baseline, checked against an independent pandas 
 
 `npm run check:baseline` flags LKO-02 (conversion 12.61% in May-Jul, 11.01% in the last 28 days) and BLR-03 (staff presence 80.1% down to 76.5%).
 
-As of 31 Oct 2026 the detectors find 21 issues across the 20 stores: 20 store and salesperson alerts worth ₹7,54,200 over 28 days, and one city-wide market note.
+As of 31 Oct 2026 the detectors find 21 issues across the 20 stores: 20 store and salesperson alerts worth ₹7,60,100 over 28 days, and one city-wide market note.
 The brief checklist has 13 rows: 8 problems found, 1 not found (walk-ins steady but fewer buying), and 4 data issues that are shown but never alerted.
 The biggest store problems:
 
 | Store | Problem | ₹ at stake (28 days) | Cause, as the engine writes it |
 |---|---|---|---|
-| LKO-02 | a good salesperson has left | ₹3,12,900 | the top seller (23.3% of bills) has not been on the roster since 14 Sep; conversion fell from 12.6% to 10.4% |
-| BLR-03 | too few people on busy days | ₹2,02,800 | fewer people on the floor on Saturdays and Sundays (7.4 down to 6.6) |
-| BLR-02 | a category the city buys is avoided | ₹54,000 | one seller sells Indo-Western on 1.3% of bills, against 8.1% in the rest of Bengaluru |
+| LKO-02 | a good salesperson has left | ₹3,22,400 | the top seller (23.3% of bills) has not been on the roster since 14 Sep; conversion fell from 12.6% to 10.4% |
+| BLR-03 | too few people on busy days | ₹1,99,600 | fewer people on the floor on Saturdays and Sundays (7.4 down to 6.6); weekend conversion fell from 13.0% to 9.8% |
+| BLR-02 | a category the city buys is avoided | ₹53,800 | one seller sells Indo-Western on 1.3% of bills, against 8.1% in the rest of Bengaluru |
 
 The other 17 issues are salesperson-level: missing pairs (4), discounts above the store's norm (3), low repeat customers (9) and one role model to copy.
-All 3 Kanpur stores also lost walk-ins against the rest of the fleet (KNP-01 down 19.3%).
-The engine puts that at ₹6,21,100, but it is a market note for the area manager, not a store alert, so it is not in the ₹7,54,200.
+All 3 Kanpur stores also lost walk-ins against the rest of the fleet in the last 28 days (KNP-01 down 19.3%, KNP-02 down 18.4%, KNP-03 down 16.1%), against 2.1% down in the same weeks last year.
+The engine puts that at ₹6,18,300, but it is a market note for the area manager, not a store alert, so it is not in the ₹7,60,100.
 
 Cards (model `gemini-3.1-flash-lite`, 8 s deadline):
 
@@ -118,12 +118,12 @@ It is a team-written test, not a Gemini mistake, and the app and the demo video 
 
 ## API
 
-Every read route tries Supabase first and falls back to `data/sample/*.json` only when the table is empty or the read fails.
-The response carries `"source": "db"` or `"source": "sample"`, so you can always tell which one you are looking at.
+The other read routes try Supabase first and fall back to `data/sample/*.json` only when the table is empty or the read fails.
+Each response carries `"source"` (`db`, `sample` or `generated`), so you can always tell where the data came from.
 
 | Route | Reads |
 |---|---|
-| `GET /api/scorecard` | `issues` + `dq_flags` |
+| `GET /api/scorecard` | `data/generated/scorecard.json`, written by the same `npm run load` that fills `issues`; returns each row's `kind` and `reason`, the store and market totals, and `"source": "generated"` |
 | `GET /api/issues` | `issues` (evidence is stored inside each issue) |
 | `GET /api/brief?am=AM-01` | `area_managers` + `issues` |
 | `GET /api/dq-flags` | `dq_flags` |
