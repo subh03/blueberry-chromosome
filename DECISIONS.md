@@ -36,3 +36,6 @@
 - `salesperson_metrics` is server-only (no anon access). Pages read names only through `Evidence`.
 - The browser uses the Supabase publishable key (`sb_publishable_...`) in `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Writes only use the service role, on the server.
 - Vercel project lives under the `blueberrychromosome-1281` account, Git-linked to `subh03/blueberry-chromosome`.
+
+## Design
+- **DESIGN.md: "the auditor's ledger"** (21 Nov). Ivory paper `#F7F7F5`, bottle green `#244E3B`, brass `#75562C` for every rupee figure and the evidence thread, madder `#A23B2A` only for ↓ and the rejected number. IBM Plex Sans / Sans Condensed (figures) / Mono (formulas) via next/font. Extends Sagnik's existing CSS, no blue, no gradients. No Lenis or scroll animation (work tool); 3 moments: rupee count-up, evidence thread, "AI draft rejected" stamp.
