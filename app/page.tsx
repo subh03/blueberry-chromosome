@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FileSearch, ShieldCheck, Smartphone } from "lucide-react";
 import type { DataQualityFlag, Issue, ScorecardRow } from "@/types";
 import scorecardJson from "@/data/generated/scorecard.json";
@@ -109,9 +110,9 @@ export default function Home() {
             </div>
             <div className="hero-actions enter enter-3">
               {biggest && <OpenBiggestButton issueId={biggest.id} />}
-              <a className="btn btn-ghost-light" href="/am/AM-01">
+              <Link className="btn btn-ghost-light" href="/am/AM-01">
                 Open this week&rsquo;s brief
-              </a>
+              </Link>
             </div>
           </div>
           {heroCard && (

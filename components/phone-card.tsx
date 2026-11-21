@@ -51,6 +51,13 @@ export function PhoneCard({
       : card.source === "template"
         ? "Checked template"
         : "Worded by Gemini";
+  // Manager cards: a market note is for the area manager; every other one is the store manager's job,
+  // forwarded by the area manager. Issue ids are `${as_of}:${store_id}:${type}[:…]`.
+  const [, cardStore = "", cardType = ""] = card?.issue_id.split(":") ?? [];
+  const managerCard =
+    cardType === "city_slowdown"
+      ? { title: "For your stores", recipient: "the area manager" }
+      : { title: "For the store manager", recipient: `the ${cardStore} store manager, sent by the area manager` };
   const copy = async () => {
     if (!card) return;
     setCopied((await copyWithToast(card.text)) ? "done" : "failed");
@@ -123,11 +130,11 @@ export function PhoneCard({
                   Store Coach
                   <span className={`source-chip source-${card.validation.team_edit ? "edited" : card.source}`}>{sourceLabel}</span>
                 </p>
-                <h2>{card.audience === "salesperson" ? "On the floor today" : "For your stores"}</h2>
+                <h2>{card.audience === "salesperson" ? "On the floor today" : managerCard.title}</h2>
                 <p className="recipient">
                   For{" "}
                   {card.audience === "am"
-                    ? "the area manager"
+                    ? managerCard.recipient
                     : (names[card.issue_id] ?? card.salesperson_id ?? "the salesperson")}
                 </p>
                 {overLimit ? (
