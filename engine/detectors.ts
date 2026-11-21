@@ -155,7 +155,10 @@ export function buildContext(input: DetectInput): Ctx {
 }
 
 // ---------------------------------------------------------------- formatting + evidence
+const r1 = (n: number) => Math.round(n * 10) / 10;
 const r2 = (n: number) => Math.round(n * 100) / 100;
+/** A gap computed from two rates exactly as displayed (1 decimal), so a reader can redo it. */
+const shownGap = (hi: number, lo: number) => r1(r1(hi) - r1(lo));
 export const fmt = {
   pct: (n: number) => `${n.toFixed(1)}%`,
   pts: (n: number) => `${n.toFixed(1)} pts`,
@@ -266,7 +269,7 @@ function conversionSteps(ctx: Ctx, storeId: string, c: ConvCheck, o: { afterLabe
   const ff = tot(ctx, [storeId], ctx.cur28, o.f);
   const val = tot(ctx, [storeId], ctx.cur28, () => true, "all");
   const abv = val.bills ? val.sales_value / val.bills : 0;
-  const gapPts = r2(-c.gap);
+  const gapPts = r1(-c.gap); // ₹ uses the gap exactly as displayed
   const rupees = rupeesAtStake({ gapPts, footfall: ff.footfall, avgBillValue: Math.round(abv) });
   const steps: EvidenceStep[] = [
     step(`Conversion${scope}, ${o.afterLabel}`, c.store.after, fmt.pct(c.store.after), "bills ÷ footfall × 100, clean days", c.store.B.days,
@@ -280,7 +283,7 @@ function conversionSteps(ctx: Ctx, storeId: string, c: ConvCheck, o: { afterLabe
     step("Conversion gap vs peers", gapPts, fmt.pts(gapPts), "−(store change − peer change); the smaller of the city and state gaps", c.store.A.days + c.store.B.days),
     step(`Walk-ins (footfall)${scope}, last 28 days`, ff.footfall, fmt.int(ff.footfall), "Σ footfall, clean days", ff.days),
     step("Average bill value, last 28 days", Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", val.bills),
-    step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × walk-ins × average bill value", ff.days),
+    step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100", ff.days),
   );
   return { steps, rupees };
 }
@@ -461,8 +464,8 @@ export function detectCitySlowdown(ctx: Ctx): Issue[] {
     if (Number.isFinite(ly) && now - ly > -T.citySeasonGapPct) continue;
     const t = tot(ctx, ids, ctx.cur28);
     const v = tot(ctx, ids, ctx.cur28, () => true, "all");
-    const lost = t.footfall * (1 / (1 + now / 100) - 1);
-    const conv = conversion(t);
+    const lost = Math.round(t.footfall * (1 / (1 + now / 100) - 1));
+    const conv = r1(conversion(t));
     const abv = v.bills ? v.sales_value / v.bills : 0;
     const rupees = rupeesFromRate({ gapPts: conv, base: lost, rupeesPerUnit: Math.round(abv) });
     const biggest = [...ids].sort((a, b) => tot(ctx, [b], ctx.cur28).footfall - tot(ctx, [a], ctx.cur28).footfall)[0];
@@ -474,7 +477,7 @@ export function detectCitySlowdown(ctx: Ctx): Issue[] {
       step("Walk-ins lost, last 28 days", lost, fmt.int(lost), "city footfall × (1 ÷ (1 + change) − 1)", t.days),
       step("City conversion, last 28 days", conv, fmt.pct(conv), "bills ÷ footfall × 100", t.days),
       step("Average bill value, last 28 days", Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", v.bills),
-      step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "walk-ins lost × conversion × average bill value", t.days),
+      step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "walk-ins lost × conversion ÷ 100 × average bill value, rounded to ₹100", t.days),
     ];
     out.push(issue(ctx, {
       store_id: biggest, lever: "more_bills", type: "city_slowdown", rupees, steps,
@@ -541,8 +544,8 @@ export function detectMissingPair(ctx: Ctx): Issue[] {
         for (const a of pair.adds) if (v?.byCat.has(a)) { addRs += v.byCat.get(a)!; addN++; }
       }
       const unit = addN ? addRs / addN : 0;
-      const per28 = (me.n * 28) / 365;
-      const gap = r2(p0 - p);
+      const per28 = r1((me.n * 28) / 365);
+      const gap = shownGap(p0, p);
       const rupees = rupeesFromRate({ gapPts: gap, base: per28, rupeesPerUnit: Math.round(unit) });
       const nm = ctx.name.get(x.sp) ?? x.sp;
       const peer = bestPeer(ctx, by, x, (o) => { const r = rate(o.bills, pair.base, pair.adds); return r.n >= T.pairMinBills ? r.y / r.n : null; });
@@ -552,7 +555,7 @@ export function detectMissingPair(ctx: Ctx): Issue[] {
         step("Pair gap vs the rest of the store", gap, fmt.pts(gap), "store rate − salesperson rate", me.n + ot.n),
         step(`${nm}: ${pair.base} bills per 28 days`, per28, fmt.one(per28), "12-month count × 28 ÷ 365", me.n),
         step(`Average ${pair.addLabel} price`, Math.round(unit), fmt.rupees(unit), "Σ add-on selling value ÷ bills with the add-on", addN),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × add-on price", me.n),
+        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100", me.n),
       ];
       const cand = issue(ctx, {
         store_id: x.store, lever: "bigger_baskets", type: "missing_pair", rupees, steps, idSuffix: x.sp,
@@ -595,8 +598,8 @@ export function detectCategoryAvoidance(ctx: Ctx): Issue[] {
       if (v) { catRs += v; catN++; }
     }
     const unit = catN ? catRs / catN : 0;
-    const per28 = (x.bills.length * 28) / 365;
-    const gap = r2(worst.p0 - worst.p);
+    const per28 = r1((x.bills.length * 28) / 365);
+    const gap = shownGap(worst.p0, worst.p);
     const rupees = rupeesFromRate({ gapPts: gap, base: per28, rupeesPerUnit: Math.round(unit) });
     const peer = bestPeer(ctx, by, x, (o) => (o.bills.length >= 50 ? o.bills.filter((b) => ctx.billCats.get(b.bill_id)?.has(worst!.cat)).length / o.bills.length : null));
     out.push(issue(ctx, {
@@ -607,7 +610,7 @@ export function detectCategoryAvoidance(ctx: Ctx): Issue[] {
         step("Category gap vs the city", gap, fmt.pts(gap), "city share − salesperson share", x.bills.length + others.length),
         step(`${nm}: bills per 28 days`, per28, fmt.one(per28), "12-month count × 28 ÷ 365", x.bills.length),
         step(`Average ${worst.cat} value per bill in ${x.store}`, Math.round(unit), fmt.rupees(unit), `Σ ${worst.cat} selling value ÷ bills with ${worst.cat}`, catN),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × category value", x.bills.length),
+        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × bills per 28 days × category value, rounded to ₹100", x.bills.length),
       ],
       cause: `${nm} sells ${worst.cat} on ${fmt.pct(worst.p)} of bills; the rest of ${city} sells it on ${fmt.pct(worst.p0)}.`,
       action: { who: `${nm}, ${x.store}`, what: `Show at least one ${worst.cat} option to every customer you serve`, when: "Today" },
@@ -635,8 +638,8 @@ export function detectDiscountAboveNorm(ctx: Ctx): Issue[] {
     if (me.lines < T.discMinLines || ot.lines < T.discMinLines) continue;
     if (me.pct < ot.pct * T.discX || me.pct - ot.pct < T.discGapPts) continue;
     const nm = ctx.name.get(x.sp) ?? x.sp;
-    const mrp28 = (me.mrp * 28) / days;
-    const gap = r2(me.pct - ot.pct);
+    const mrp28 = Math.round((me.mrp * 28) / days);
+    const gap = shownGap(me.pct, ot.pct);
     const rupees = rupeesFromRate({ gapPts: gap, base: mrp28, rupeesPerUnit: 1 });
     const peer = bestPeer(ctx, by, x, (o) => { const d = disc(o.bills); return d.lines >= T.discMinLines ? -d.pct : null; });
     out.push(issue(ctx, {
@@ -646,7 +649,7 @@ export function detectDiscountAboveNorm(ctx: Ctx): Issue[] {
           { label: `Rest of ${x.store}`, value: r2(ot.pct), display: fmt.pct(ot.pct) }),
         step("Discount above the store's norm", gap, fmt.pts(gap), "salesperson − rest of store", me.lines + ot.lines),
         step(`${nm}: MRP value sold per 28 days`, mrp28, fmt.rupees(mrp28), `Σ mrp × qty, ${ctx.recent.label} × 28 ÷ ${days}`, me.lines),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × MRP value per 28 days", me.lines),
+        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × MRP value per 28 days, rounded to ₹100", me.lines),
       ],
       cause: `${nm} gives ${fmt.pct(me.pct)} off MRP; the rest of ${x.store} gives ${fmt.pct(ot.pct)}.`,
       action: { who: `${nm}, ${x.store}`, what: "Check with the store manager before giving any discount", when: "From today" },
@@ -727,8 +730,8 @@ export function detectRepeat(ctx: Ctx): Issue[] {
     const nm = ctx.name.get(sp) ?? sp;
     const v = tot(ctx, [x.store], ctx.year, () => true, "all");
     const abv = v.bills ? v.sales_value / v.bills : 0;
-    const per28 = (x.recent * 28) / 365;
-    const gap = r2(p0 - p);
+    const per28 = r1((x.recent * 28) / 365);
+    const gap = shownGap(p0, p);
     const rupees = rupeesFromRate({ gapPts: gap, base: per28, rupeesPerUnit: Math.round(abv) });
     const rm = role.get(x.store);
     out.push(issue(ctx, {
@@ -739,7 +742,7 @@ export function detectRepeat(ctx: Ctx): Issue[] {
         step("Repeat gap vs the rest of the store", gap, fmt.pts(gap), "store rate − salesperson rate", x.n + o.n),
         step(`${nm}: new customers per 28 days`, per28, fmt.one(per28), "first bills in the last 12 months × 28 ÷ 365", x.recent),
         step(`Average bill value in ${x.store}, ${ctx.year.label}`, Math.round(abv), fmt.rupees(abv), "Σ qty × selling price ÷ bills", v.bills),
-        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × new customers per 28 days × average bill value", x.n),
+        step("₹ at stake, next 28 days", rupees, fmt.rupees(rupees), "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100", x.n),
       ],
       cause: `Only ${fmt.pct(p)} of ${nm}'s customers come back; the rest of ${x.store}: ${fmt.pct(p0)}.`,
       action: { who: `${nm}, ${x.store}`, what: "Take the phone number on every bill and send a thank-you message the same evening", when: "From today" },

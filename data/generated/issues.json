@@ -9,7 +9,7 @@
    "area_manager_id": "AM-01",
    "lever": "more_bills",
    "type": "staff_absent_or_left",
-   "rupees_at_stake": 312900,
+   "rupees_at_stake": 322400,
    "rank": 1,
    "cause": "Top seller Imran C. (23.3% of bills) not on roster since 14 Sep; conversion 12.6% → 10.4% while peers held.",
    "action": {
@@ -75,8 +75,8 @@
      },
      {
       "label": "Conversion gap vs peers",
-      "value": 1.65,
-      "display": "1.6 pts",
+      "value": 1.7,
+      "display": "1.7 pts",
       "formula": "−(store change − peer change); the smaller of the city and state gaps",
       "rows": 139
      },
@@ -96,9 +96,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 312900,
-      "display": "₹3,12,900",
-      "formula": "gap ÷ 100 × walk-ins × average bill value",
+      "value": 322400,
+      "display": "₹3,22,400",
+      "formula": "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100",
       "rows": 28
      }
     ],
@@ -122,12 +122,12 @@
      "12.9%",
      "12.3%",
      "12.7%",
-     "1.6 pts",
-     "1.6",
+     "1.7 pts",
+     "1.7",
      "1,935",
      "28",
      "₹9,801",
-     "₹3,12,900"
+     "₹3,22,400"
     ]
    },
    "followup": null
@@ -139,7 +139,7 @@
    "area_manager_id": "AM-01",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 22400,
+   "rupees_at_stake": 22600,
    "rank": 2,
    "cause": "Only 3.1% of Tushar N.'s customers come back; the rest of LKO-01: 8.2%.",
    "action": {
@@ -167,14 +167,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 5.05,
-      "display": "5.0 pts",
+      "value": 5.1,
+      "display": "5.1 pts",
       "formula": "store rate − salesperson rate",
       "rows": 8427
      },
      {
       "label": "Tushar N.: new customers per 28 days",
-      "value": 44.42,
+      "value": 44.4,
       "display": "44.4",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 579
@@ -188,9 +188,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 22400,
-      "display": "₹22,400",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 22600,
+      "display": "₹22,600",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 986
      }
     ],
@@ -207,13 +207,13 @@
     "allowedNumbers": [
      "3.1%",
      "8.2%",
-     "5.0 pts",
-     "5.0",
+     "5.1 pts",
+     "5.1",
      "44.4",
      "28",
      "₹9,988",
      "12",
-     "₹22,400"
+     "₹22,600"
     ]
    },
    "followup": null
@@ -225,7 +225,7 @@
    "area_manager_id": "AM-01",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 19900,
+   "rupees_at_stake": 19700,
    "rank": 3,
    "cause": "Only 1.2% of Arif M.'s customers come back; the rest of LKO-01: 7.9%.",
    "action": {
@@ -253,14 +253,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 6.76,
-      "display": "6.8 pts",
+      "value": 6.7,
+      "display": "6.7 pts",
       "formula": "store rate − salesperson rate",
       "rows": 8427
      },
      {
       "label": "Arif M.: new customers per 28 days",
-      "value": 29.46,
+      "value": 29.5,
       "display": "29.5",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 384
@@ -274,9 +274,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 19900,
-      "display": "₹19,900",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 19700,
+      "display": "₹19,700",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 423
      }
     ],
@@ -293,13 +293,13 @@
     "allowedNumbers": [
      "1.2%",
      "7.9%",
-     "6.8 pts",
-     "6.8",
+     "6.7 pts",
+     "6.7",
      "29.5",
      "28",
      "₹9,988",
      "12",
-     "₹19,900"
+     "₹19,700"
     ]
    },
    "followup": null
@@ -311,7 +311,7 @@
    "area_manager_id": "AM-01",
    "lever": "bigger_baskets",
    "type": "missing_pair",
-   "rupees_at_stake": 8500,
+   "rupees_at_stake": 8400,
    "rank": 4,
    "cause": "Ashish K. adds a jacket to 10.3% of Kurta Set bills; the rest of LKO-01 does it on 17.9%.",
    "action": {
@@ -346,7 +346,7 @@
      },
      {
       "label": "Ashish K.: Kurta Set bills per 28 days",
-      "value": 24.55,
+      "value": 24.5,
       "display": "24.5",
       "formula": "12-month count × 28 ÷ 365",
       "rows": 320
@@ -360,9 +360,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 8500,
-      "display": "₹8,500",
-      "formula": "gap ÷ 100 × bills per 28 days × add-on price",
+      "value": 8400,
+      "display": "₹8,400",
+      "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
       "rows": 320
      }
     ],
@@ -385,7 +385,7 @@
      "24.5",
      "28",
      "₹4,535",
-     "₹8,500"
+     "₹8,400"
     ]
    },
    "followup": null
@@ -432,7 +432,7 @@
      },
      {
       "label": "Shahid A.: Kurta Set bills per 28 days",
-      "value": 18.49,
+      "value": 18.5,
       "display": "18.5",
       "formula": "12-month count × 28 ÷ 365",
       "rows": 241
@@ -448,7 +448,7 @@
       "label": "₹ at stake, next 28 days",
       "value": 7200,
       "display": "₹7,200",
-      "formula": "gap ÷ 100 × bills per 28 days × add-on price",
+      "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
       "rows": 241
      }
     ],
@@ -483,7 +483,7 @@
    "area_manager_id": "AM-02",
    "lever": "more_bills",
    "type": "city_slowdown",
-   "rupees_at_stake": 621100,
+   "rupees_at_stake": 618300,
    "rank": 2,
    "cause": "All 3 Kanpur stores lost walk-ins vs the rest of the fleet in the last 28 days (KNP-01 −19.3%, KNP-02 −18.4%, KNP-03 −16.1%); the same weeks last year: −2.1%. A market slowdown, not one store's problem.",
    "action": {
@@ -541,14 +541,14 @@
      },
      {
       "label": "Walk-ins lost, last 28 days",
-      "value": 586.26,
+      "value": 586,
       "display": "586",
       "formula": "city footfall × (1 ÷ (1 + change) − 1)",
       "rows": 84
      },
      {
       "label": "City conversion, last 28 days",
-      "value": 11.95,
+      "value": 11.9,
       "display": "11.9%",
       "formula": "bills ÷ footfall × 100",
       "rows": 84
@@ -562,9 +562,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 621100,
-      "display": "₹6,21,100",
-      "formula": "walk-ins lost × conversion × average bill value",
+      "value": 618300,
+      "display": "₹6,18,300",
+      "formula": "walk-ins lost × conversion ÷ 100 × average bill value, rounded to ₹100",
       "rows": 84
      }
     ],
@@ -587,7 +587,7 @@
      "586",
      "11.9%",
      "₹8,867",
-     "₹6,21,100"
+     "₹6,18,300"
     ]
    },
    "followup": null
@@ -599,7 +599,7 @@
    "area_manager_id": "AM-03",
    "lever": "bigger_baskets",
    "type": "discount_above_norm",
-   "rupees_at_stake": 14400,
+   "rupees_at_stake": 14200,
    "rank": 1,
    "cause": "Manoj N. gives 7.1% off MRP; the rest of PAT-01 gives 1.9%.",
    "action": {
@@ -627,23 +627,23 @@
      },
      {
       "label": "Discount above the store's norm",
-      "value": 5.25,
-      "display": "5.3 pts",
+      "value": 5.2,
+      "display": "5.2 pts",
       "formula": "salesperson − rest of store",
       "rows": 1759
      },
      {
       "label": "Manoj N.: MRP value sold per 28 days",
-      "value": 273483.3,
+      "value": 273483,
       "display": "₹2,73,483",
       "formula": "Σ mrp × qty, Aug-Oct 2026 × 28 ÷ 92",
       "rows": 182
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 14400,
-      "display": "₹14,400",
-      "formula": "gap ÷ 100 × MRP value per 28 days",
+      "value": 14200,
+      "display": "₹14,200",
+      "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
       "rows": 182
      }
     ],
@@ -661,11 +661,11 @@
      "7.1%",
      "1.9%",
      "2026",
-     "5.3 pts",
-     "5.3",
+     "5.2 pts",
+     "5.2",
      "₹2,73,483",
      "28",
-     "₹14,400"
+     "₹14,200"
     ]
    },
    "followup": null
@@ -677,7 +677,7 @@
    "area_manager_id": "AM-03",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 13700,
+   "rupees_at_stake": 13600,
    "rank": 2,
    "cause": "Only 3.4% of Faizan K.'s customers come back; the rest of PAT-01: 7.9%.",
    "action": {
@@ -705,14 +705,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 4.51,
+      "value": 4.5,
       "display": "4.5 pts",
       "formula": "store rate − salesperson rate",
       "rows": 7804
      },
      {
       "label": "Faizan K.: new customers per 28 days",
-      "value": 28.38,
+      "value": 28.4,
       "display": "28.4",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 370
@@ -726,9 +726,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 13700,
-      "display": "₹13,700",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 13600,
+      "display": "₹13,600",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 861
      }
     ],
@@ -751,7 +751,7 @@
      "28",
      "₹10,671",
      "12",
-     "₹13,700"
+     "₹13,600"
     ]
    },
    "followup": null
@@ -763,7 +763,7 @@
    "area_manager_id": "AM-03",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 11700,
+   "rupees_at_stake": 11800,
    "rank": 3,
    "cause": "Only 1.6% of Saurabh P.'s customers come back; the rest of PAT-02: 8.3%.",
    "action": {
@@ -791,7 +791,7 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 6.67,
+      "value": 6.7,
       "display": "6.7 pts",
       "formula": "store rate − salesperson rate",
       "rows": 4504
@@ -812,9 +812,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 11700,
-      "display": "₹11,700",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 11800,
+      "display": "₹11,800",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 311
      }
     ],
@@ -837,7 +837,7 @@
      "28",
      "₹9,189",
      "12",
-     "₹11,700"
+     "₹11,800"
     ]
    },
    "followup": null
@@ -849,7 +849,7 @@
    "area_manager_id": "AM-03",
    "lever": "bigger_baskets",
    "type": "discount_above_norm",
-   "rupees_at_stake": 11500,
+   "rupees_at_stake": 11600,
    "rank": 4,
    "cause": "Sanjay K. gives 6.2% off MRP; the rest of PAT-01 gives 2.0%.",
    "action": {
@@ -877,23 +877,23 @@
      },
      {
       "label": "Discount above the store's norm",
-      "value": 4.17,
+      "value": 4.2,
       "display": "4.2 pts",
       "formula": "salesperson − rest of store",
       "rows": 1759
      },
      {
       "label": "Sanjay K.: MRP value sold per 28 days",
-      "value": 275463.39,
+      "value": 275463,
       "display": "₹2,75,463",
       "formula": "Σ mrp × qty, Aug-Oct 2026 × 28 ÷ 92",
       "rows": 181
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 11500,
-      "display": "₹11,500",
-      "formula": "gap ÷ 100 × MRP value per 28 days",
+      "value": 11600,
+      "display": "₹11,600",
+      "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
       "rows": 181
      }
     ],
@@ -915,7 +915,7 @@
      "4.2",
      "₹2,75,463",
      "28",
-     "₹11,500"
+     "₹11,600"
     ]
    },
    "followup": null
@@ -927,7 +927,7 @@
    "area_manager_id": "AM-03",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 11400,
+   "rupees_at_stake": 11500,
    "rank": 5,
    "cause": "Only 1.6% of Jitendra K.'s customers come back; the rest of PAT-02: 8.3%.",
    "action": {
@@ -955,14 +955,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 6.64,
-      "display": "6.6 pts",
+      "value": 6.7,
+      "display": "6.7 pts",
       "formula": "store rate − salesperson rate",
       "rows": 4504
      },
      {
       "label": "Jitendra K.: new customers per 28 days",
-      "value": 18.72,
+      "value": 18.7,
       "display": "18.7",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 244
@@ -976,9 +976,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 11400,
-      "display": "₹11,400",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 11500,
+      "display": "₹11,500",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 307
      }
     ],
@@ -995,13 +995,13 @@
     "allowedNumbers": [
      "1.6%",
      "8.3%",
-     "6.6 pts",
-     "6.6",
+     "6.7 pts",
+     "6.7",
      "18.7",
      "28",
      "₹9,189",
      "12",
-     "₹11,400"
+     "₹11,500"
     ]
    },
    "followup": null
@@ -1013,7 +1013,7 @@
    "area_manager_id": "AM-03",
    "lever": "bigger_baskets",
    "type": "missing_pair",
-   "rupees_at_stake": 1500,
+   "rupees_at_stake": 1600,
    "rank": 6,
    "cause": "Arjun D. adds a safa, mojari or mala to 47.8% of Sherwani bills; the rest of PAT-02 does it on 82.7%.",
    "action": {
@@ -1041,14 +1041,14 @@
      },
      {
       "label": "Pair gap vs the rest of the store",
-      "value": 34.91,
+      "value": 34.9,
       "display": "34.9 pts",
       "formula": "store rate − salesperson rate",
       "rows": 162
      },
      {
       "label": "Arjun D.: Sherwani bills per 28 days",
-      "value": 1.76,
+      "value": 1.8,
       "display": "1.8",
       "formula": "12-month count × 28 ÷ 365",
       "rows": 23
@@ -1062,9 +1062,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 1500,
-      "display": "₹1,500",
-      "formula": "gap ÷ 100 × bills per 28 days × add-on price",
+      "value": 1600,
+      "display": "₹1,600",
+      "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
       "rows": 23
      }
     ],
@@ -1087,7 +1087,7 @@
      "1.8",
      "28",
      "₹2,512",
-     "₹1,500"
+     "₹1,600"
     ]
    },
    "followup": null
@@ -1099,7 +1099,7 @@
    "area_manager_id": "AM-05",
    "lever": "more_bills",
    "type": "understaffed_busy_days",
-   "rupees_at_stake": 202800,
+   "rupees_at_stake": 199600,
    "rank": 1,
    "cause": "Fewer people on the floor on Sat and Sun (7.4 → 6.6); Manjunath K. and Vijay N. stopped working weekends. Weekend conversion 13.0% → 9.8%.",
    "action": {
@@ -1206,7 +1206,7 @@
      },
      {
       "label": "Conversion gap vs peers",
-      "value": 2.54,
+      "value": 2.5,
       "display": "2.5 pts",
       "formula": "−(store change − peer change); the smaller of the city and state gaps",
       "rows": 53
@@ -1227,9 +1227,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 202800,
-      "display": "₹2,02,800",
-      "formula": "gap ÷ 100 × walk-ins × average bill value",
+      "value": 199600,
+      "display": "₹1,99,600",
+      "formula": "gap ÷ 100 × walk-ins × average bill value, rounded to ₹100",
       "rows": 8
      }
     ],
@@ -1257,7 +1257,7 @@
      "791",
      "28",
      "₹10,092",
-     "₹2,02,800"
+     "₹1,99,600"
     ]
    },
    "followup": null
@@ -1269,7 +1269,7 @@
    "area_manager_id": "AM-05",
    "lever": "bigger_baskets",
    "type": "category_avoidance",
-   "rupees_at_stake": 54000,
+   "rupees_at_stake": 53800,
    "rank": 2,
    "cause": "Suresh K. sells Indo-Western on 1.3% of bills; the rest of Bengaluru sells it on 8.1%.",
    "action": {
@@ -1297,14 +1297,14 @@
      },
      {
       "label": "Category gap vs the city",
-      "value": 6.82,
+      "value": 6.8,
       "display": "6.8 pts",
       "formula": "city share − salesperson share",
       "rows": 15672
      },
      {
       "label": "Suresh K.: bills per 28 days",
-      "value": 35.44,
+      "value": 35.4,
       "display": "35.4",
       "formula": "12-month count × 28 ÷ 365",
       "rows": 462
@@ -1318,9 +1318,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 54000,
-      "display": "₹54,000",
-      "formula": "gap ÷ 100 × bills per 28 days × category value",
+      "value": 53800,
+      "display": "₹53,800",
+      "formula": "gap ÷ 100 × bills per 28 days × category value, rounded to ₹100",
       "rows": 462
      }
     ],
@@ -1343,7 +1343,7 @@
      "35.4",
      "28",
      "₹22,358",
-     "₹54,000"
+     "₹53,800"
     ]
    },
    "followup": null
@@ -1355,7 +1355,7 @@
    "area_manager_id": "AM-05",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 13400,
+   "rupees_at_stake": 13300,
    "rank": 3,
    "cause": "Only 4.8% of Suresh V.'s customers come back; the rest of BLR-01: 9.1%.",
    "action": {
@@ -1383,14 +1383,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 4.33,
+      "value": 4.3,
       "display": "4.3 pts",
       "formula": "store rate − salesperson rate",
       "rows": 9065
      },
      {
       "label": "Suresh V.: new customers per 28 days",
-      "value": 30.76,
+      "value": 30.8,
       "display": "30.8",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 401
@@ -1404,9 +1404,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 13400,
-      "display": "₹13,400",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 13300,
+      "display": "₹13,300",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 820
      }
     ],
@@ -1429,7 +1429,7 @@
      "28",
      "₹10,063",
      "12",
-     "₹13,400"
+     "₹13,300"
     ]
    },
    "followup": null
@@ -1441,7 +1441,7 @@
    "area_manager_id": "AM-05",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 12000,
+   "rupees_at_stake": 12100,
    "rank": 4,
    "cause": "Only 5.0% of Manjunath C.'s customers come back; the rest of BLR-01: 9.1%.",
    "action": {
@@ -1469,7 +1469,7 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 4.08,
+      "value": 4.1,
       "display": "4.1 pts",
       "formula": "store rate − salesperson rate",
       "rows": 9065
@@ -1490,9 +1490,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 12000,
-      "display": "₹12,000",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 12100,
+      "display": "₹12,100",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 879
      }
     ],
@@ -1515,7 +1515,7 @@
      "28",
      "₹10,063",
      "12",
-     "₹12,000"
+     "₹12,100"
     ]
    },
    "followup": null
@@ -1555,14 +1555,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 4.38,
+      "value": 4.4,
       "display": "4.4 pts",
       "formula": "store rate − salesperson rate",
       "rows": 9065
      },
      {
       "label": "Chetan S.: new customers per 28 days",
-      "value": 24.47,
+      "value": 24.5,
       "display": "24.5",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 319
@@ -1578,7 +1578,7 @@
       "label": "₹ at stake, next 28 days",
       "value": 10800,
       "display": "₹10,800",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 689
      }
     ],
@@ -1613,7 +1613,7 @@
    "area_manager_id": "AM-05",
    "lever": "more_repeat",
    "type": "low_repeat",
-   "rupees_at_stake": 10700,
+   "rupees_at_stake": 10600,
    "rank": 6,
    "cause": "Only 1.3% of Sachin M.'s customers come back; the rest of BLR-04: 7.8%.",
    "action": {
@@ -1641,14 +1641,14 @@
      },
      {
       "label": "Repeat gap vs the rest of the store",
-      "value": 6.55,
+      "value": 6.5,
       "display": "6.5 pts",
       "formula": "store rate − salesperson rate",
       "rows": 4780
      },
      {
       "label": "Sachin M.: new customers per 28 days",
-      "value": 16.72,
+      "value": 16.7,
       "display": "16.7",
       "formula": "first bills in the last 12 months × 28 ÷ 365",
       "rows": 218
@@ -1662,9 +1662,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 10700,
-      "display": "₹10,700",
-      "formula": "gap ÷ 100 × new customers per 28 days × average bill value",
+      "value": 10600,
+      "display": "₹10,600",
+      "formula": "gap ÷ 100 × new customers per 28 days × average bill value, rounded to ₹100",
       "rows": 312
      }
     ],
@@ -1687,7 +1687,7 @@
      "28",
      "₹9,737",
      "12",
-     "₹10,700"
+     "₹10,600"
     ]
    },
    "followup": null
@@ -1699,7 +1699,7 @@
    "area_manager_id": "AM-05",
    "lever": "bigger_baskets",
    "type": "missing_pair",
-   "rupees_at_stake": 10400,
+   "rupees_at_stake": 10300,
    "rank": 7,
    "cause": "Suresh V. adds a jacket to 16.5% of Kurta Set bills; the rest of BLR-01 does it on 25.2%.",
    "action": {
@@ -1727,14 +1727,14 @@
      },
      {
       "label": "Pair gap vs the rest of the store",
-      "value": 8.73,
+      "value": 8.7,
       "display": "8.7 pts",
       "formula": "store rate − salesperson rate",
       "rows": 3457
      },
      {
       "label": "Suresh V.: Kurta Set bills per 28 days",
-      "value": 26.54,
+      "value": 26.5,
       "display": "26.5",
       "formula": "12-month count × 28 ÷ 365",
       "rows": 346
@@ -1748,9 +1748,9 @@
      },
      {
       "label": "₹ at stake, next 28 days",
-      "value": 10400,
-      "display": "₹10,400",
-      "formula": "gap ÷ 100 × bills per 28 days × add-on price",
+      "value": 10300,
+      "display": "₹10,300",
+      "formula": "gap ÷ 100 × bills per 28 days × add-on price, rounded to ₹100",
       "rows": 346
      }
     ],
@@ -1773,7 +1773,7 @@
      "26.5",
      "28",
      "₹4,485",
-     "₹10,400"
+     "₹10,300"
     ]
    },
    "followup": null
@@ -1820,7 +1820,7 @@
      },
      {
       "label": "Sunil T.: MRP value sold per 28 days",
-      "value": 193470.26,
+      "value": 193470,
       "display": "₹1,93,470",
       "formula": "Σ mrp × qty, Aug-Oct 2026 × 28 ÷ 92",
       "rows": 135
@@ -1829,7 +1829,7 @@
       "label": "₹ at stake, next 28 days",
       "value": 5000,
       "display": "₹5,000",
-      "formula": "gap ÷ 100 × MRP value per 28 days",
+      "formula": "gap ÷ 100 × MRP value per 28 days, rounded to ₹100",
       "rows": 135
      }
     ],
