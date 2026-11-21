@@ -10,7 +10,8 @@
     "load": "tsx scripts/load.ts",
     "check:baseline": "tsx scripts/check-baseline.ts",
     "test": "tsx --test tests/*.test.ts",
-    "cards": "tsx scripts/cards.ts"
+    "cards": "tsx scripts/cards.ts",
+    "cards:stress": "tsx scripts/stress-card.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

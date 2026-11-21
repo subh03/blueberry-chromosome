@@ -39,6 +39,11 @@
   - Most all-time repeat "role models" (24.9%, 22.6%, ...) left before May 2026 (not on the roster), so they are not named; only active ones are.
 - **Diwali check on real data:** run as of 31 Oct 2025 (Diwali 20 Oct inside the window): no city slowdown and no Diwali-driven store alerts.
 
+## Cards (Naman, 21 Nov, F3)
+- Validator: a bare decimal never matches a percentage (3.1 ≠ 3.1%); no rounding (8% ≠ 8.2%); ₹/Rs/k/lakh are the same number; "one" is not counted (too common: "one thing"); two and up, years and clock times are. Peer rule applies only when the evidence has a peer (store-wide cards have none).
+- Prompt: action first, say when ("today", "this Saturday and Sunday"), no clock times, numbers copied exactly from allowedNumbers, no closing benefit line.
+- Honesty: Gemini made no number mistakes in 37 real drafts, so the trust beat uses one labelled stress-test card with a team-written draft. Never presented as a Gemini error.
+
 ## AI
 - Gemini writes words only, from an `Evidence` JSON. The validator rejects any number not in `allowedNumbers`, any card over 60 words, and any card with no peer named. Rejected → retry once → template. Timeout 8 s.
 

@@ -1,0 +1,26 @@
+{
+ "_note": "STRESS TEST. The rejected draft was injected by the team to show the validator working. Gemini did not write it. Label it 'injected test draft' wherever it is shown.",
+ "draft_origin": "injected test draft",
+ "card": {
+  "id": "stress-test:2026-10-31:PAT-01:discount_above_norm:SP1064:salesperson",
+  "issue_id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
+  "audience": "salesperson",
+  "salesperson_id": "SP1064",
+  "text": "Manoj, from today check with the store manager before you give any discount. Your bills average 7.1% off MRP, and the rest of PAT-01 gives 1.9%. Mukesh D. discounts the least here. Ask them what they say when a customer wants a better price.",
+  "source": "template",
+  "validation": {
+   "passed": false,
+   "word_count": 20,
+   "rejected_numbers": [
+    "18%",
+    "₹40,000"
+   ],
+   "reasons": [
+    "number not in evidence: 18%",
+    "number not in evidence: ₹40,000"
+   ]
+  },
+  "created_at": "2026-11-21T00:00:00.000Z",
+  "rejected_draft": "Injected test draft (written by the team, not by Gemini): Manoj, give smaller discounts today, like Mukesh D.. This will lift your sales by 18% and add ₹40,000 this week."
+ }
+}
