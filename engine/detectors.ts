@@ -34,6 +34,7 @@ export const T = {
   catMinBills: 100, catZ: 4, catShareX: 0.5,
   discMinLines: 60, discGapPts: 2, discX: 2,
   repMin: 60, roleZ: 5, roleX: 2, lowRepMin: 150, lowRepZ: 4,
+  peerRecentDays: 56, // a named peer's last 8 weeks must not be below the store norm
 } as const;
 
 const PAIRS = [
@@ -549,7 +550,7 @@ export function detectMissingPair(ctx: Ctx): Issue[] {
       const gap = shownGap(p0, p);
       const rupees = rupeesFromRate({ gapPts: gap, base: per28, rupeesPerUnit: Math.round(unit) });
       const nm = ctx.name.get(x.sp) ?? x.sp;
-      const peer = bestPeer(ctx, by, x, (o) => { const r = rate(o.bills, pair.base, pair.adds); return r.n >= T.pairMinBills ? r.y / r.n : null; });
+      const peer = bestPeer(ctx, by, x, (o) => { const r = rate(o.bills, pair.base, pair.adds); return r.n >= T.pairMinBills ? r.y / r.n : null; }, p0 / 100);
       const steps = [
         step(`${nm}: ${pair.base} bills with a ${pair.addLabel}, ${ctx.year.label}`, p, fmt.pct(p), `bills with ${pair.base} and ${pair.addLabel} ÷ bills with ${pair.base} × 100`, me.n,
           { label: `Rest of ${x.store}`, value: r2(p0), display: fmt.pct(p0) }),
@@ -602,7 +603,7 @@ export function detectCategoryAvoidance(ctx: Ctx): Issue[] {
     const per28 = r1((x.bills.length * 28) / 365);
     const gap = shownGap(worst.p0, worst.p);
     const rupees = rupeesFromRate({ gapPts: gap, base: per28, rupeesPerUnit: Math.round(unit) });
-    const peer = bestPeer(ctx, by, x, (o) => (o.bills.length >= 50 ? o.bills.filter((b) => ctx.billCats.get(b.bill_id)?.has(worst!.cat)).length / o.bills.length : null));
+    const peer = bestPeer(ctx, by, x, (o) => (o.bills.length >= 50 ? o.bills.filter((b) => ctx.billCats.get(b.bill_id)?.has(worst!.cat)).length / o.bills.length : null), worst.p0 / 100);
     out.push(issue(ctx, {
       store_id: x.store, lever: "bigger_baskets", type: "category_avoidance", rupees, idSuffix: x.sp,
       steps: [
@@ -642,7 +643,7 @@ export function detectDiscountAboveNorm(ctx: Ctx): Issue[] {
     const mrp28 = Math.round((me.mrp * 28) / days);
     const gap = shownGap(me.pct, ot.pct);
     const rupees = rupeesFromRate({ gapPts: gap, base: mrp28, rupeesPerUnit: 1 });
-    const peer = bestPeer(ctx, by, x, (o) => { const d = disc(o.bills); return d.lines >= T.discMinLines ? -d.pct : null; });
+    const peer = bestPeer(ctx, by, x, (o) => { const d = disc(o.bills); return d.lines >= T.discMinLines ? -d.pct : null; }, -ot.pct);
     out.push(issue(ctx, {
       store_id: x.store, lever: "bigger_baskets", type: "discount_above_norm", rupees, idSuffix: x.sp,
       steps: [
@@ -761,14 +762,27 @@ function pick(p: { salesperson_id: string; display_name: string }) {
   return { salesperson_id: p.salesperson_id, display_name: p.display_name };
 }
 
-function bestPeer(ctx: Ctx, by: Map<string, SpBills>, x: SpBills, score: (o: SpBills) => number | null) {
-  let best: { salesperson_id: string; display_name: string; s: number } | null = null;
+/** Peer candidates scored on the detector's window (`year`) and on the last 8 weeks (`recent`, null = too few bills to judge). */
+export interface PeerCand { salesperson_id: string; display_name: string; year: number | null; recent: number | null }
+
+/** Best 12-month peer whose last 8 weeks are not below the store norm (higher is better). A peer who
+ *  stopped doing the habit recently is never named as the example (relevance audit: KNP-01 SP1044). */
+export function choosePeer(cands: PeerCand[], norm: number) {
+  const ok = cands
+    .filter((c) => c.year !== null && (c.recent === null || c.recent >= norm))
+    .sort((a, b) => b.year! - a.year! || a.salesperson_id.localeCompare(b.salesperson_id));
+  return ok[0] ? pick(ok[0]) : null;
+}
+
+function bestPeer(ctx: Ctx, by: Map<string, SpBills>, x: SpBills, score: (o: SpBills) => number | null, norm: number) {
+  const from = addDays(ctx.asOf, -(T.peerRecentDays - 1));
+  const cands: PeerCand[] = [];
   for (const o of by.values()) {
     if (o.store !== x.store || o.sp === x.sp || !ctx.active(o.sp)) continue;
-    const s = score(o);
-    if (s !== null && (!best || s > best.s)) best = { salesperson_id: o.sp, display_name: ctx.name.get(o.sp) ?? o.sp, s };
+    const recent = { ...o, bills: o.bills.filter((b) => b.bill_date >= from && b.bill_date <= ctx.asOf) };
+    cands.push({ salesperson_id: o.sp, display_name: ctx.name.get(o.sp) ?? o.sp, year: score(o), recent: score(recent) });
   }
-  return best ? pick(best) : null;
+  return choosePeer(cands, norm);
 }
 
 function billShare(ctx: Ctx, storeId: string, sp: string, w: { from: string; to: string }) {

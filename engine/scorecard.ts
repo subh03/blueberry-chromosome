@@ -17,6 +17,7 @@ export const BRIEF_PROBLEMS: Problem[] = [
   { lever: "not_a_problem", brief_problem: "Normal festival and season swings", type: "festival_dip" },
   { lever: "not_a_problem", brief_problem: "A number that can't be right: data issue, no alert", type: "bills_exceed_footfall" },
   { lever: "not_a_problem", brief_problem: "Brand-new store: no fair baseline yet", type: "new_store_no_baseline" },
+  { lever: "not_a_problem", brief_problem: "Regional taste differences", type: "regional_taste" },
   { lever: "not_a_problem", brief_problem: "Staff with no exit date: 'left' read from the roster only", type: "staff_no_exit_date" },
 ];
 
@@ -47,6 +48,7 @@ export const NOT_FOUND_REASON: Record<string, string> = {
   festival_dip: "No Diwali fell inside the comparison windows, so there was no festival swing to set aside.",
   bills_exceed_footfall: "No store-day had more bills than walk-ins.",
   new_store_no_baseline: "No store opened after the baseline started.",
+  regional_taste: "We compare each store and each salesperson only with peers in the same city and state, so a regional taste difference is not flagged.",
   staff_no_exit_date: "No salesperson dropped off the roster 21+ days before the as-of date.",
 };
 

@@ -37,12 +37,12 @@ test("a discount going down is 'down' and counts as improved", () => {
 
 test("a change too small to show is 'flat', not improved, and says it did not move", () => {
   const f = followupFor(
-    mk("2026-10-24", "low_repeat", [step("A: customers who came back, all time", 3.04, "3.0%")], ":SP1"),
-    mk("2026-10-31", "low_repeat", [step("A: customers who came back, all time", 3.01, "3.0%")], ":SP1"),
+    mk("2026-10-24", "missing_pair", [step("A: Kurta Set bills with a jacket", 3.04, "3.0%")], ":SP1"),
+    mk("2026-10-31", "missing_pair", [step("A: Kurta Set bills with a jacket", 3.01, "3.0%")], ":SP1"),
   )!;
   assert.equal(f.direction, "flat");
   assert.equal(f.improved, false);
-  assert.equal(f.display, "Repeat rate 3.0% → 3.0%: did not move since last week's alert.");
+  assert.equal(f.display, "Pair rate 3.0% → 3.0%: did not move since last week's alert.");
 });
 
 test("each issue type follows its own metric", () => {

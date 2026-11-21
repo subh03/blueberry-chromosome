@@ -43,13 +43,15 @@ const BEFORE = "2026-10-24";
 const weekBefore = detectAll({ ...input, asOf: BEFORE }).issues;
 const issues = attachFollowups(found, weekBefore, BEFORE);
 const fu = issues.filter((i) => i.followup);
-console.log(`follow  ${fu.length}/${issues.length} issues also flagged on ${BEFORE}: ${["up", "down", "flat"].map((d) => `${d} ${fu.filter((i) => i.followup!.direction === d).length}`).join(", ")}; improved ${fu.filter((i) => i.followup!.improved).length}; new this week ${issues.length - fu.length}`);
+console.log(`follow  ${fu.length}/${issues.length} issues also flagged on ${BEFORE}: ${["up", "down", "flat", "too_early"].map((d) => `${d} ${fu.filter((i) => i.followup!.direction === d).length}`).join(", ")}; improved ${fu.filter((i) => i.followup!.improved).length}; new this week ${issues.length - fu.length}`);
 // Computed notes for scorecard rows that come back not_found: named leads and stores explained by a sharper cause.
 const leadNote = (id: string) => {
   const e = explainConversion(ctx, id);
-  if (!e || e.holds) return null;
+  if (!e || e.holds || !e.city || !e.state) return null;
   const bits = [e.gap > -1 ? `${(-e.gap).toFixed(2)} pts worse than peers, under the 1-point bar` : null, e.z < 2 ? `not statistically significant (z ${e.z.toFixed(2)})` : null].filter(Boolean);
-  return `${id}: conversion ${e.before.toFixed(2)}% → ${e.after.toFixed(2)}%, ${bits.join(", ")}; dropped.`;
+  const st = ctx.store.get(id)!;
+  const peers = `${st.city} peers ${e.city.before.toFixed(2)}% → ${e.city.after.toFixed(2)}%, ${st.state} peers ${e.state.before.toFixed(2)}% → ${e.state.after.toFixed(2)}%`;
+  return `${id}: conversion ${e.before.toFixed(2)}% → ${e.after.toFixed(2)}% (${peers}), ${bits.join(", ")}; we did not alert.`;
 };
 const explained = [...ctx.judged].filter((id) => explainConversion(ctx, id)?.holds && issues.some((i) => i.store_id === id && i.lever === "more_bills" && i.type !== "conversion_drop_footfall_steady"));
 const notes = {

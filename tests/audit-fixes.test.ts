@@ -53,15 +53,15 @@ test("H2: every template card passes the action check for its issue", () => {
 // ---------- M2: flat only when the DISPLAYED values are the same ----------
 const step = (label: string, value: number) => ({ label, value, display: "x", formula: "f", rows: 1 });
 const mk = (asOf: string, v: number) => ({
-  id: `${asOf}:S1:low_repeat:SP1`, as_of: asOf, type: "low_repeat",
-  evidence: { steps: [step("A: customers who came back, all time", v)] },
+  id: `${asOf}:S1:missing_pair:SP1`, as_of: asOf, type: "missing_pair", // repeat rates are "too early" after a week
+  evidence: { steps: [step("A: Kurta Set bills with a jacket", v)] },
 }) as unknown as Issue;
 
 test("M2: 3.05 → 3.14 shows '3.0% → 3.1%', so it moved up (not 'did not move')", () => {
   const f = followupFor(mk("2026-10-24", 3.05), mk("2026-10-31", 3.14))!;
   assert.equal(f.direction, "up");
   assert.equal(f.improved, true);
-  assert.equal(f.display, "Repeat rate 3.0% → 3.1% (up) since last week's alert.");
+  assert.equal(f.display, "Pair rate 3.0% → 3.1% (up) since last week's alert.");
 });
 
 test("M2: direction always agrees with the displayed numbers", () => {
