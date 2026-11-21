@@ -70,13 +70,14 @@ export async function getStoreMetrics(db: Db, storeId: string, asOf: string): Pr
   return check(await db.from("store_metrics").select("*").eq("store_id", storeId).eq("as_of", asOf), "store metrics") as StoreMetrics[];
 }
 
-/** The newest saved card for an issue and audience (written by /api/run), or null. */
-export async function getLatestCard(db: Db, issueId: string, audience: ActionCard["audience"]): Promise<ActionCard | null> {
-  const row = maybe(
-    await db.from("cards").select("*").eq("issue_id", issueId).eq("audience", audience).order("created_at", { ascending: false }).limit(1).maybeSingle(),
-    "latest card",
-  );
-  return (row as unknown as ActionCard | null) ?? null;
+/** All saved cards for an issue (written by /api/run or the card scripts); the route picks one. */
+export async function listCardsForIssue(db: Db, issueId: string): Promise<ActionCard[]> {
+  return check(await db.from("cards").select("*").eq("issue_id", issueId), "cards for issue") as unknown as ActionCard[];
+}
+
+/** One stored card by its id, or null. */
+export async function getCardById(db: Db, id: string): Promise<ActionCard | null> {
+  return maybe(await db.from("cards").select("*").eq("id", id).maybeSingle(), "card by id") as unknown as ActionCard | null;
 }
 
 /** Server client only (RLS blocks anon writes). */
@@ -91,6 +92,12 @@ export async function finishRun(db: Db, id: string, result: Partial<Tables["runs
     await db.from("runs").update({ ...result, finished_at: new Date().toISOString() }).eq("id", id).select("*").single(),
     "finish run",
   );
+}
+
+/** Server client only. Inserts the card under its own id (e.g. `gemini:<issue_id>:am`); fails if the id exists. */
+export async function insertCardWithId(db: Db, card: ActionCard): Promise<ActionCard> {
+  const insert: Tables["cards"]["Insert"] = { ...card, validation: card.validation as unknown as Tables["cards"]["Insert"]["validation"] };
+  return check(await db.from("cards").insert(insert).select("*").single(), "insert card") as unknown as ActionCard;
 }
 
 /** Server client only. */
