@@ -375,9 +375,9 @@ a {
   animation-delay: 160ms;
   animation-duration: 400ms;
 }
+/* Movement only: content is visible from the first paint (no fade), so it never delays LCP. */
 @keyframes enter-rise {
   from {
-    opacity: 0;
     transform: translateY(10px);
   }
 }
@@ -1326,7 +1326,6 @@ a {
 }
 @keyframes enter-rise-12 {
   from {
-    opacity: 0;
     transform: translateY(12px);
   }
 }
