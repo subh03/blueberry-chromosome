@@ -4,6 +4,7 @@ import type { ActionCard, CardValidation, Evidence, Issue } from "@/types";
 import { generateJson } from "./gemini";
 import { templateCard } from "./card";
 import { aiTimeoutMs, withTimeout } from "./with-timeout";
+import { cardAiStep } from "@/engine/card-ai";
 
 type Audience = ActionCard["audience"];
 
@@ -15,10 +16,9 @@ export interface AiStep {
   validate(text: string, evidence: Evidence): CardValidation;
 }
 
-// TODO(Naman): wire the engine/ prompt + validator here when they exist, e.g.
-//   import { aiStep as engineAiStep } from "@/engine/ai";  export const aiStep = engineAiStep;
-// While this is null, every card is the template card (source "template").
-export const aiStep = null as AiStep | null;
+// Naman (F3): engine/ prompt + number validator. A rejected draft's reasons go into the retry prompt
+// (engine/card-ai.ts keeps them per evidence object, since buildPrompt has no feedback argument).
+export const aiStep: AiStep | null = cardAiStep;
 
 export interface CardDeps {
   aiStep: AiStep | null;
