@@ -84,7 +84,8 @@
         "after_as_of": "2026-10-31",
         "after": 11.0,
         "direction": "up",
-        "display": "10.8% → 11.0%"
+        "improved": true,
+        "display": "Sample: Conversion 10.8% → 11.0% (up) since last week's alert."
       }
     },
     {
@@ -143,9 +144,11 @@
           "6",
           "4-8 pm",
           "₹98,000"
-        ]
+        ],
+        "followup_note": "Sample: New this week: not flagged on 2026-10-24, so there is nothing to compare yet."
       },
-      "followup": null
+      "followup": null,
+      "followup_note": "Sample: New this week: not flagged on 2026-10-24, so there is nothing to compare yet."
     }
   ]
 }

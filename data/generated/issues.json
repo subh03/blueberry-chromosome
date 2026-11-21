@@ -130,7 +130,16 @@
      "₹3,22,400"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "conversion",
+    "before_as_of": "2026-10-24",
+    "before": 9.99,
+    "after_as_of": "2026-10-31",
+    "after": 10.44,
+    "direction": "up",
+    "improved": true,
+    "display": "Conversion 10.0% → 10.4% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:LKO-01:low_repeat:SP1015",
@@ -216,7 +225,16 @@
      "₹22,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 3.05,
+    "after_as_of": "2026-10-31",
+    "after": 3.14,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 3.0% → 3.1%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:LKO-01:low_repeat:SP1013",
@@ -302,7 +320,16 @@
      "₹19,700"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 0.96,
+    "after_as_of": "2026-10-31",
+    "after": 1.18,
+    "direction": "up",
+    "improved": true,
+    "display": "Repeat rate 1.0% → 1.2% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:LKO-01:missing_pair:SP1009",
@@ -388,7 +415,16 @@
      "₹8,400"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "pair rate",
+    "before_as_of": "2026-10-24",
+    "before": 10.34,
+    "after_as_of": "2026-10-31",
+    "after": 10.31,
+    "direction": "flat",
+    "improved": false,
+    "display": "Pair rate 10.3% → 10.3%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:KNP-01:missing_pair:SP1054",
@@ -472,9 +508,11 @@
      "28",
      "₹4,494",
      "₹7,200"
-    ]
+    ],
+    "followup_note": "New this week: not flagged on 2026-10-24, so there is nothing to compare yet."
    },
-   "followup": null
+   "followup": null,
+   "followup_note": "New this week: not flagged on 2026-10-24, so there is nothing to compare yet."
   },
   {
    "id": "2026-10-31:KNP-01:city_slowdown",
@@ -590,7 +628,16 @@
      "₹6,18,300"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "walk-ins vs the rest of the fleet",
+    "before_as_of": "2026-10-24",
+    "before": -19.12,
+    "after_as_of": "2026-10-31",
+    "after": -18.48,
+    "direction": "up",
+    "improved": true,
+    "display": "Walk-ins vs the rest of the fleet −19.1% → −18.5% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-01:discount_above_norm:SP1064",
@@ -668,7 +715,16 @@
      "₹14,200"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "discount off MRP",
+    "before_as_of": "2026-10-24",
+    "before": 7.3,
+    "after_as_of": "2026-10-31",
+    "after": 7.14,
+    "direction": "down",
+    "improved": true,
+    "display": "Discount off MRP 7.3% → 7.1% (down) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-01:low_repeat:SP1072",
@@ -754,7 +810,16 @@
      "₹13,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 3.38,
+    "after_as_of": "2026-10-31",
+    "after": 3.37,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 3.4% → 3.4%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-02:low_repeat:SP1088",
@@ -840,7 +905,16 @@
      "₹11,800"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 1.61,
+    "after_as_of": "2026-10-31",
+    "after": 1.61,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 1.6% → 1.6%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-01:discount_above_norm:SP1065",
@@ -918,7 +992,16 @@
      "₹11,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "discount off MRP",
+    "before_as_of": "2026-10-24",
+    "before": 6.26,
+    "after_as_of": "2026-10-31",
+    "after": 6.17,
+    "direction": "down",
+    "improved": true,
+    "display": "Discount off MRP 6.3% → 6.2% (down) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-02:low_repeat:SP1090",
@@ -1004,7 +1087,16 @@
      "₹11,500"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 1.63,
+    "after_as_of": "2026-10-31",
+    "after": 1.63,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 1.6% → 1.6%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:PAT-02:missing_pair:SP1087",
@@ -1090,7 +1182,16 @@
      "₹1,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "pair rate",
+    "before_as_of": "2026-10-24",
+    "before": 47.62,
+    "after_as_of": "2026-10-31",
+    "after": 47.83,
+    "direction": "up",
+    "improved": true,
+    "display": "Pair rate 47.6% → 47.8% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-03:understaffed_busy_days",
@@ -1260,7 +1361,16 @@
      "₹1,99,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "weekend conversion",
+    "before_as_of": "2026-10-24",
+    "before": 10.43,
+    "after_as_of": "2026-10-31",
+    "after": 9.77,
+    "direction": "down",
+    "improved": false,
+    "display": "Weekend conversion 10.4% → 9.8% (down) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-02:category_avoidance:SP1125",
@@ -1346,7 +1456,16 @@
      "₹53,800"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "category share",
+    "before_as_of": "2026-10-24",
+    "before": 1.36,
+    "after_as_of": "2026-10-31",
+    "after": 1.3,
+    "direction": "down",
+    "improved": false,
+    "display": "Category share 1.4% → 1.3% (down) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:low_repeat:SP1120",
@@ -1432,7 +1551,16 @@
      "₹13,300"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 4.77,
+    "after_as_of": "2026-10-31",
+    "after": 4.76,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 4.8% → 4.8%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:low_repeat:SP1114",
@@ -1518,7 +1646,16 @@
      "₹12,100"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 5.03,
+    "after_as_of": "2026-10-31",
+    "after": 5.01,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 5.0% → 5.0%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:low_repeat:SP1116",
@@ -1604,7 +1741,16 @@
      "₹10,800"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 4.37,
+    "after_as_of": "2026-10-31",
+    "after": 4.64,
+    "direction": "up",
+    "improved": true,
+    "display": "Repeat rate 4.4% → 4.6% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-04:low_repeat:SP1162",
@@ -1690,7 +1836,16 @@
      "₹10,600"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 1.29,
+    "after_as_of": "2026-10-31",
+    "after": 1.28,
+    "direction": "flat",
+    "improved": false,
+    "display": "Repeat rate 1.3% → 1.3%: did not move since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:missing_pair:SP1120",
@@ -1776,7 +1931,16 @@
      "₹10,300"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "pair rate",
+    "before_as_of": "2026-10-24",
+    "before": 16.18,
+    "after_as_of": "2026-10-31",
+    "after": 16.47,
+    "direction": "up",
+    "improved": true,
+    "display": "Pair rate 16.2% → 16.5% (up) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:discount_above_norm:SP1122",
@@ -1854,7 +2018,16 @@
      "₹5,000"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "discount off MRP",
+    "before_as_of": "2026-10-24",
+    "before": 3.86,
+    "after_as_of": "2026-10-31",
+    "after": 3.84,
+    "direction": "down",
+    "improved": true,
+    "display": "Discount off MRP 3.9% → 3.8% (down) since last week's alert."
+   }
   },
   {
    "id": "2026-10-31:BLR-01:role_model:SP1110",
@@ -1921,7 +2094,16 @@
      "₹0"
     ]
    },
-   "followup": null
+   "followup": {
+    "metric": "repeat rate",
+    "before_as_of": "2026-10-24",
+    "before": 19.41,
+    "after_as_of": "2026-10-31",
+    "after": 19.3,
+    "direction": "down",
+    "improved": false,
+    "display": "Repeat rate 19.4% → 19.3% (down) since last week's alert."
+   }
   }
  ]
 }
