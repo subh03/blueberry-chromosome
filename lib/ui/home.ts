@@ -5,9 +5,10 @@ export const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
 export type Severity = "high" | "medium" | "low" | "model";
 
 /** Severity is a ranking label computed from ₹ at stake; always shown as a word. */
-export function severityOf(row: ScorecardRow): Severity {
+export function severityOf(row: ScorecardRow, biggest?: number): Severity {
   if (row.type === "role_model") return "model";
-  const rupees = row.rupees_at_stake ?? 0;
+  // A row that adds up several people is rated by its biggest single issue, not by the sum.
+  const rupees = biggest ?? row.rupees_at_stake ?? 0;
   if (rupees >= 100000) return "high";
   if (rupees >= 40000) return "medium";
   return "low";
