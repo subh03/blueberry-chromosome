@@ -1,11 +1,14 @@
 "use client";
-import { Button } from "@/components/ui/button";
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
-    <main className="coach-shell" id="main-content">
-      <h1>The page couldn’t load</h1>
-      <p>Try loading the store data again.</p>
-      <Button onClick={reset}>Try again</Button>
+    <main className="shell page" id="main-content">
+      <div className="state" role="alert">
+        <h1>This page didn&rsquo;t load</h1>
+        <p>The store data couldn&rsquo;t be read just now. Try again.</p>
+        <button type="button" className="btn btn-secondary" onClick={reset}>
+          Try again
+        </button>
+      </div>
     </main>
   );
 }

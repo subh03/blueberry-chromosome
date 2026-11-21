@@ -12,7 +12,7 @@ export default function Page({
   params: Promise<{ amId: string }>;
 }) {
   return (
-    <Suspense fallback={<p role="status">Loading weekly brief…</p>}>
+    <Suspense fallback={<main className="shell page" role="status" aria-label="Loading the weekly brief"><div className="skeleton" style={{ height: 160 }} /></main>}>
       <BriefRoute params={params} />
     </Suspense>
   );

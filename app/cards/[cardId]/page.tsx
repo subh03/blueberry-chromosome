@@ -22,7 +22,7 @@ async function CardRoute({ params, searchParams }: Props) {
 }
 export default function Page(props: Props) {
   return (
-    <Suspense fallback={<p role="status">Loading action card…</p>}>
+    <Suspense fallback={<main className="shell page" role="status" aria-label="Loading the action card"><div className="skeleton" style={{ height: 560, maxWidth: 380 }} /></main>}>
       <CardRoute {...props} />
     </Suspense>
   );
