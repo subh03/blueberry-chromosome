@@ -35,15 +35,11 @@ export function RejectedDraft({
 export function CardRejection({ card }: { card: ActionCard }) {
   const sequence = useRef<HTMLDivElement>(null);
   const hasRejection =
-    card.source === "template" &&
-    Boolean(card.rejected_draft) &&
-    card.validation.rejected_numbers.some(
-      (token) => token && card.rejected_draft?.includes(token),
-    );
+    Boolean(card.rejected_draft);
   const rejected = card.validation.rejected_numbers.filter(
     (token) => token && card.rejected_draft?.includes(token),
   );
-  const stamp = `Rejected: ${rejected.join(", ")} ${rejected.length > 1 ? "are" : "is"} not in the evidence`;
+  const stamp = rejected.length ? `Rejected: ${rejected.join(", ")} ${rejected.length > 1 ? "are" : "is"} not in the evidence` : "Draft rejected by the validator";
   const play = () => {
     const element = sequence.current;
     if (!element) return;
@@ -87,7 +83,7 @@ export function CardRejection({ card }: { card: ActionCard }) {
         )}
         <div className="template-card">
           <p className="card-copy">{card.text}</p>
-          {hasRejection && (
+          {hasRejection && card.source === "template" && (
             <p className="template-footer">
               Template used. Every number checked.
             </p>

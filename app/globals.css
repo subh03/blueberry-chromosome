@@ -960,3 +960,11 @@ thead th:nth-child(3) {
   padding: 0 20px 16px;
 }
 .scorecard-row .market-note-label { padding: 12px 20px 0; margin-bottom: -8px; }
+.stress-test-note {
+  padding: 16px 20px;
+  margin: 0 0 28px;
+  background: var(--green-tint);
+  border-left: 2px solid var(--brass);
+  max-width: 760px;
+}
+.card-audit, .phone-content { overflow-wrap: anywhere; }

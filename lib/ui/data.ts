@@ -9,6 +9,13 @@ import type {
 export type DataSource = "sample" | "db";
 export type UiData<T> = T & { dataSource?: DataSource };
 
+export function cardDraftOrigin(card: ActionCard) {
+  return card.draft_origin ?? card.validation.draft_origin ?? (
+    card.id.startsWith("stress-test:") || card.rejected_draft?.startsWith("Injected test draft")
+      ? "injected_test" : undefined
+  );
+}
+
 export const usesSample = process.env.NEXT_PUBLIC_USE_SAMPLE === "1";
 async function readApi<T>(path: string): Promise<UiData<T>> {
   const response = await fetch(path, {
@@ -69,35 +76,33 @@ export async function getCard(
   issueId?: string,
   audience: ActionCard["audience"] = "salesperson",
 ): Promise<UiData<ActionCard> | null> {
+  let lookupId: string;
+  try { lookupId = decodeURIComponent(cardId); } catch { return null; }
   if (usesSample) {
     const { cards } = (await import("@/data/sample/cards.json")).default as {
       cards: ActionCard[];
     };
     const card =
       cards.find((card) =>
-        issueId ? card.issue_id === issueId : card.id === cardId,
+        issueId ? card.issue_id === issueId : card.id === lookupId,
       ) ?? null;
     return card ? { ...card, dataSource: "sample" } : null;
   }
-  if (!issueId) throw new Error("Open an action card from its evidence chain.");
-  const [response, provenance] = await Promise.all([
-    fetch("/api/card", {
+  const response = !issueId
+    ? await fetch(`/api/card?id=${encodeURIComponent(lookupId)}`, { cache: "no-store", signal: AbortSignal.timeout(10000) })
+    : await fetch("/api/card", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ issue_id: issueId, audience }),
       signal: AbortSignal.timeout(10000),
-    }),
-    getIssues().catch(() => null),
-  ]);
+    });
   if (response.status === 404) return null;
   if (!response.ok)
     throw new Error("The action card is unavailable. Please try again.");
-  const card = (await response.json()) as ActionCard;
+  const card = (await response.json()) as UiData<ActionCard>;
   return {
     ...card,
-    dataSource: provenance?.issues.some((issue) => issue.id === issueId)
-      ? provenance.dataSource
-      : undefined,
+    dataSource: card.dataSource === "sample" || card.dataSource === "db" ? card.dataSource : undefined,
   };
 }
 export async function getFlags(): Promise<

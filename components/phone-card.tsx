@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import type { ActionCard } from "@/types";
-import { getCard, type UiData } from "@/lib/ui/data";
+import { getCard, cardDraftOrigin, type UiData } from "@/lib/ui/data";
 import { DataSourceLabel } from "@/components/data-source-label";
 import { Button } from "@/components/ui/button";
 import { CardRejection, RejectedDraft } from "@/components/card-rejection";
@@ -39,6 +39,7 @@ export function PhoneCard({
   }, [cardId, issueId, audience, attempt]);
   const words = card?.text.trim().split(/\s+/).filter(Boolean).length ?? 0;
   const overLimit = card?.audience === "salesperson" && words > 60;
+  const origin = card ? cardDraftOrigin(card) : undefined;
   return (
     <main className="coach-shell" id="main-content">
       <header className="masthead">
@@ -84,6 +85,8 @@ export function PhoneCard({
           </Link>
         </div>
       ) : (
+        <>
+        {origin === "injected_test" && <p className="stress-test-note">Stress test: this draft was written by our team to prove the validator catches invented numbers. Gemini did not make this mistake.</p>}
         <div className="card-layout">
           <section className="phone-frame" aria-label="Phone preview">
             <div className="phone-top" aria-hidden="true" />
@@ -105,7 +108,7 @@ export function PhoneCard({
                 <CardRejection card={card} />
               )}
               <p className="card-meta">
-                {words} words ·{" "}
+                {words} words. {" "}
                 {card.source === "template" ? "Template" : "Gemini"}
               </p>
             </div>
@@ -115,6 +118,7 @@ export function PhoneCard({
             <dl>
               <dt>Source</dt>
               <dd>{card.source === "gemini" ? "Gemini" : "Template"}</dd>
+              {card.rejected_draft && <><dt>Draft source</dt><dd>{origin === "injected_test" ? "Injected test draft" : origin === "gemini" ? "Gemini" : "Not supplied"}</dd></>}
               <dt>
                 {card.rejected_draft
                   ? "Rejected draft validation"
@@ -128,14 +132,14 @@ export function PhoneCard({
               </dt>
               <dd>{card.validation.word_count}</dd>
             </dl>
-            {card.source === "template" && !card.validation.passed && (
+            {card.source === "template" && card.rejected_draft && (
               <p className="trust-beat">
-                AI draft had an invented number. Rejected. Template used.
+                Draft rejected. Template used.
               </p>
             )}
             {card.rejected_draft && (
               <section className="draft">
-                <h3>Rejected AI draft</h3>
+                <h3>{origin === "injected_test" ? "Rejected injected test draft" : origin === "gemini" ? "Rejected Gemini draft" : "Rejected draft"}</h3>
                 <blockquote>
                   <RejectedDraft
                     text={card.rejected_draft}
@@ -163,11 +167,12 @@ export function PhoneCard({
             )}
             {card.validation.rejected_numbers.length > 0 && (
               <p>
-                Rejected numbers · {card.validation.rejected_numbers.join(", ")}
+                Rejected numbers: {card.validation.rejected_numbers.join(", ")}
               </p>
             )}
           </aside>
         </div>
+        </>
       )}
     </main>
   );
