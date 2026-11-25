@@ -241,9 +241,8 @@
     "before": 3.05,
     "after_as_of": "2026-10-31",
     "after": 3.14,
-    "direction": "up",
-    "improved": true,
-    "display": "Repeat rate 3.0% → 3.1% (up) since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 3.0% → 3.1%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -341,9 +340,8 @@
     "before": 0.96,
     "after_as_of": "2026-10-31",
     "after": 1.18,
-    "direction": "up",
-    "improved": true,
-    "display": "Repeat rate 1.0% → 1.2% (up) since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 1.0% → 1.2%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -510,8 +508,8 @@
     ],
     "cause": "Shahid A. adds a jacket to 14.5% of Kurta Set bills; the rest of KNP-01 does it on 23.2%.",
     "peer": {
-     "salesperson_id": "SP1044",
-     "display_name": "Rohit V.",
+     "salesperson_id": "SP1045",
+     "display_name": "Ravi C.",
      "why": "Best Kurta Set pairing in KNP-01"
     },
     "subject": {
@@ -856,9 +854,8 @@
     "before": 3.38,
     "after_as_of": "2026-10-31",
     "after": 3.37,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 3.4% → 3.4%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 3.4% → 3.4%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -956,9 +953,8 @@
     "before": 1.61,
     "after_as_of": "2026-10-31",
     "after": 1.61,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 1.6% → 1.6%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 1.6% → 1.6%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -1148,9 +1144,8 @@
     "before": 1.63,
     "after_as_of": "2026-10-31",
     "after": 1.63,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 1.6% → 1.6%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 1.6% → 1.6%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -1632,9 +1627,8 @@
     "before": 4.77,
     "after_as_of": "2026-10-31",
     "after": 4.76,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 4.8% → 4.8%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 4.8% → 4.8%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -1732,9 +1726,8 @@
     "before": 5.03,
     "after_as_of": "2026-10-31",
     "after": 5.01,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 5.0% → 5.0%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 5.0% → 5.0%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -1832,9 +1825,8 @@
     "before": 4.37,
     "after_as_of": "2026-10-31",
     "after": 4.64,
-    "direction": "up",
-    "improved": true,
-    "display": "Repeat rate 4.4% → 4.6% (up) since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 4.4% → 4.6%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -1932,9 +1924,8 @@
     "before": 1.29,
     "after_as_of": "2026-10-31",
     "after": 1.28,
-    "direction": "flat",
-    "improved": false,
-    "display": "Repeat rate 1.3% → 1.3%: did not move since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 1.3% → 1.3%. Too early to tell: repeat rates move over months."
    }
   },
   {
@@ -2205,9 +2196,8 @@
     "before": 19.41,
     "after_as_of": "2026-10-31",
     "after": 19.3,
-    "direction": "down",
-    "improved": false,
-    "display": "Repeat rate 19.4% → 19.3% (down) since last week's alert."
+    "direction": "too_early",
+    "display": "Repeat rate 19.4% → 19.3%. Too early to tell: repeat rates move over months."
    }
   }
  ]

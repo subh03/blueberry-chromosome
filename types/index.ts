@@ -113,7 +113,8 @@ export interface Followup {
   before: number;
   after_as_of: ISODate; // "2026-10-31"
   after: number;
-  direction: "up" | "down" | "flat";
+  /** "too_early" (21 Nov): long-window repeat rates after one week; neutral, no `improved`. */
+  direction: "up" | "down" | "flat" | "too_early";
   display: string; // "Conversion 12.6% → 10.4% (down) since last week's alert."
   /** Added 21 Nov (optional): did the metric move the good way? For discounts, down is better. Flat = false.
    *  Says nothing about why it moved: never present it as caused by the action. */
@@ -159,7 +160,8 @@ export type DqKind =
   | "bills_exceed_footfall"
   | "new_store_no_baseline"
   | "staff_no_exit_date"
-  | "festival_dip";
+  | "festival_dip"
+  | "regional_taste"; // scorecard "not a problem" row only: comparisons are within city and state
 
 export interface DataQualityFlag {
   id: string;

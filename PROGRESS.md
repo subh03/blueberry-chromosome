@@ -11,7 +11,7 @@
 - `npm run load` works: computes 20 stores, 59 store_metrics (3 windows; BLR-05 has no May-Jul row), 140 salesperson_metrics, 11 dq_flags, and writes `data/generated/*.json` (aggregates only). Upserts area_managers, stores, store_metrics, salesperson_metrics, dq_flags + a `runs` row when `.env.local` has the Supabase URL + service key. Not yet run against Supabase from Naman's Mac (no `.env.local`). Naman
 
 ## In progress
-- Naman: P1 detectors + ₹ at stake (next)
+- Naman (21 Nov, relevance audit): named peers must hold up over the last 8 weeks (KNP-01 card now names Ravi C. instead of Rohit V., whose jacket rate fell to 6.3%; both stored cards regenerated and validated, no ₹/rank change). Repeat-rate follow-ups now say "too early to tell" (neutral). Scorecard has a "Regional taste differences" row and the BLR-01 near-miss with its peer numbers. Follow-ups: up 4, down 5, flat 1, too early 10. Next: BLR-01 city-gap rule and SP1044 "stopped doing it" detector (report §next).
 - Shubh: Supabase project + `0001_init.sql`, Vercel project + env, `/api/card` stub, deploy by 12:00
 - Sagnik: home scorecard from `data/sample/scorecard.json`
 
@@ -203,5 +203,11 @@ Merged `ux-overhaul` into `main` as `0570d55` (no conflicts, no file edits). Ver
 - **@Shubh:** please redeploy and confirm the live site: the home reads `data/generated` at build time, and `/api/card` should return the 12 new card texts.
 - **@Sagnik / UX window:** 12 salesperson card texts changed (9 are now `source: "template"` with no rejected draft, so no Replay). The ₹ label in evidence is now "₹ at stake per 28 days, based on the last 28 days of …". LKO-01 SP1015's follow-up badge is now up/improved.
 
+## Shubh persona-audit fixes - 21 Nov 2026, 15:35 IST
+- **M7 done:** public `POST /api/card` never calls Gemini: it serves the saved card, else the template built from the evidence. Gemini runs only in `/api/run` and the card scripts. Live: a pair with no saved card returns `source: template` in 0.55 s.
+- **H5 done:** `/api/run` only makes a card for an issue/audience that has none; it never updates or deletes rows, so team-edited cards and the stress card are never overwritten or shadowed. Live run: 21 issues, 0 cards made, 0 Gemini calls, all 29 cards byte-for-byte unchanged (5 protected).
+- **M8 done:** `vercel.json` sends `Content-Security-Policy` (default-src 'self'; scripts/styles 'self' + 'unsafe-inline' because App Router inlines its bootstrap without nonces; img/font self + data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY`. Shipped report-only first: no violations on home, evidence, action card, stress card (incl. Replay) or the manager brief; then enforced and re-checked with the same click-through (0 console errors, fonts load).
+- **@Sagnik:** the logs show 4 errors at 15:05 IST from a request to `/cards/%E0%A4` (half a Devanagari character): Next fails to decode the `[cardId]` param. The page still answers 200, so it is log noise, but `app/cards/[cardId]` could catch it. `/api/card?id=` already rejects it with 400.
+- 21 Nov ~16:05 (Shubh): manager cards now say who acts ("For the LKO-02 store manager, sent by the area manager"; Kanpur market note stays "For the area manager"); home brief link uses next/link (lint clean); docs/demo-script.md rewritten to match the live build. Build 0, lint 0, tsc 0; verified live on production.
 - 25 Nov (Naman, branch `v2-roles`): role screens (home picker, area manager store table, store manager team table, salesperson "My last 28 days"), `npm run team` (store compare, basket check, team rows), Hindi + Bengali UI and number-checked card translations. Tests and `next build` pass. Not deployed (Shubh owns deploys). Next: promote the basket check to a detector with cards, then deploy.
 - 25 Nov (Naman, `v2-roles`): v2.1 problem screen for every role (what is wrong → evidence → what to do → card), area manager page fully translated, role model note on the salesperson page, `npm run issues:translate`.

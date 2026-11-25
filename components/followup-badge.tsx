@@ -27,7 +27,7 @@ export function FollowupBadge({
     );
   }
   const tone =
-    followup.improved === true ? "better" : followup.direction === "flat" ? "flat" : "worse";
+    followup.improved === true ? "better" : followup.direction === "flat" || followup.improved === undefined ? "flat" : "worse";
   return (
     <span className={`followup followup-${tone}${compact ? " followup-compact" : ""}`}>
       <span className="followup-label">Moved?</span>

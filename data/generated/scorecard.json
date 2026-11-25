@@ -37,7 +37,7 @@
    "type": "conversion_drop_footfall_steady",
    "kind": "store",
    "status": "not_found",
-   "reason": "No store had steady walk-ins and a conversion drop at least 1 point worse than both city and state peers, statistically real (z of 2 or more) and not already explained by a more specific cause. LKO-02: the drop is there, but a sharper cause explains it (staff_absent_or_left). MYS-02: conversion 8.31% → 6.79%, 0.79 pts worse than peers, under the 1-point bar, not statistically significant (z 1.57); dropped. BLR-01: conversion 14.23% → 12.82%, 0.86 pts worse than peers, under the 1-point bar; dropped.",
+   "reason": "No store had steady walk-ins and a conversion drop at least 1 point worse than both city and state peers, statistically real (z of 2 or more) and not already explained by a more specific cause. LKO-02: the drop is there, but a sharper cause explains it (staff_absent_or_left). MYS-02: conversion 8.31% → 6.79% (Mysuru peers 8.56% → 8.43%, Karnataka peers 13.10% → 12.37%), 0.79 pts worse than peers, under the 1-point bar, not statistically significant (z 1.57); we did not alert. BLR-01: conversion 14.23% → 12.82% (Bengaluru peers 13.15% → 12.65%, Karnataka peers 12.28% → 11.73%), 0.86 pts worse than peers, under the 1-point bar; we did not alert.",
    "store_ids": [],
    "top_issue_id": null,
    "rupees_at_stake": null
@@ -156,6 +156,17 @@
    "store_ids": [
     "BLR-05"
    ],
+   "top_issue_id": null,
+   "rupees_at_stake": null
+  },
+  {
+   "lever": "not_a_problem",
+   "brief_problem": "Regional taste differences",
+   "type": "regional_taste",
+   "kind": "data_quality",
+   "status": "not_found",
+   "reason": "We compare each store and each salesperson only with peers in the same city and state, so a regional taste difference is not flagged.",
+   "store_ids": [],
    "top_issue_id": null,
    "rupees_at_stake": null
   },

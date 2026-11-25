@@ -36,9 +36,19 @@ export function headline(i: Pick<Issue, "type" | "evidence">): Headline | null {
 }
 
 /** Follow-up for one issue flagged on both dates, or null if its metric cannot be read. */
+/** Long-window repeat rates (all-time customers) cannot move meaningfully in one week: no up/down, no improved. */
+export const SLOW_METRIC_TYPES = new Set(["low_repeat", "role_model"]);
+
 export function followupFor(before: Issue, after: Issue): Followup | null {
   const b = headline(before), a = headline(after);
   if (!b || !a || b.metric !== a.metric) return null;
+  if (SLOW_METRIC_TYPES.has(after.type)) {
+    return {
+      metric: a.metric, before_as_of: before.as_of, before: b.value, after_as_of: after.as_of, after: a.value,
+      direction: "too_early",
+      display: `${a.label} ${a.display(b.value)} → ${a.display(a.value)}. Too early to tell: repeat rates move over months.`,
+    };
+  }
   // Direction is read from the DISPLAYED values (toFixed(1)), so "3.0% → 3.1%" can never say "did not move".
   const shown = (v: number) => Number(v.toFixed(1));
   const diff = shown(a.value) - shown(b.value);
