@@ -202,3 +202,5 @@ Merged `ux-overhaul` into `main` as `0570d55` (no conflicts, no file edits). Ver
 - Issues upserted (24 Oct run stays JSON only). 169 tests pass, check:baseline PASS, tsc + lint clean, build exit 0 (webpack; Turbopack refuses the symlinked node_modules in the bc-main worktree only).
 - **@Shubh:** please redeploy and confirm the live site: the home reads `data/generated` at build time, and `/api/card` should return the 12 new card texts.
 - **@Sagnik / UX window:** 12 salesperson card texts changed (9 are now `source: "template"` with no rejected draft, so no Replay). The ₹ label in evidence is now "₹ at stake per 28 days, based on the last 28 days of …". LKO-01 SP1015's follow-up badge is now up/improved.
+
+- 25 Nov (Naman, branch `v2-roles`): role screens (home picker, area manager store table, store manager team table, salesperson "My last 28 days"), `npm run team` (store compare, basket check, team rows), Hindi + Bengali UI and number-checked card translations. Tests and `next build` pass. Not deployed (Shubh owns deploys). Next: promote the basket check to a detector with cards, then deploy.

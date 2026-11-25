@@ -210,3 +210,77 @@ export interface RunLog {
   ok: boolean;
   error: string | null;
 }
+
+// ---------------------------------------------------------------- v2 (25 Nov): role screens
+// Written by `npm run team` to data/generated/team.json. Aggregates only; names are first name + initial.
+
+export type Lang = "en" | "hi" | "bn";
+
+/** How a number sits against its comparison. Computed in code; the UI only colours it. */
+export type Standing = "above" | "below" | "same" | null;
+
+/** One metric for one store: now (last 28 days) vs its own baseline (May-Jul) and vs peers. */
+export interface StoreMetricCompare {
+  now: number | null;
+  baseline: number | null;
+  city_peers: number | null; // pooled, same-city stores excluding this one
+  state_peers: number | null; // pooled, same-state stores excluding this one
+  vs_peers: Standing; // "below" only when worse than BOTH city and state peers by the metric's bar
+}
+
+export interface StoreCompare {
+  store_id: StoreId;
+  city: string;
+  state: string;
+  area_manager_id: AreaManagerId;
+  is_new: boolean; // opened after the baseline: no comparison, shown as "too new to compare"
+  footfall: number; // last 28 days
+  bills: number; // last 28 days
+  conversion: StoreMetricCompare; // %
+  ipb: StoreMetricCompare; // items per bill
+  presence: StoreMetricCompare; // % Present of roster rows
+  /** Store-level basket check: items per bill below BOTH city and state peers and below its own baseline. */
+  basket_flag: {
+    gap_vs_peers: number; // items per bill, smaller of the city and state gaps (positive = store is lower)
+    rupees: number; // gap × bills × average item value, 28 days, rounded to ₹100
+    avg_item_value: number;
+    formula: string; // "gap × bills × average item value"
+    display: string; // plain line, e.g. "1.69 items per bill vs 1.85 city / 1.84 state"
+  } | null;
+}
+
+/** One salesperson in their store's team table, last 28 days. */
+export interface TeamRow {
+  salesperson_id: SalespersonId;
+  store_id: StoreId;
+  display_name: string;
+  days_rostered: number;
+  days_present: number;
+  presence: number | null; // %
+  bills: number;
+  /** Estimate: bills ÷ (store walk-ins on their present days ÷ salespeople present those days) × 100. Footfall is per store, not per person. */
+  est_conversion: number | null;
+  ipb: number | null;
+  repeat_rate: number | null; // % of customers back, Aug 1 to as-of (needs 30+ days of history); null when too few customers
+  vs_store: { presence: Standing; est_conversion: Standing; ipb: Standing; repeat_rate: Standing }; // vs the median of the rest of the store
+  on_roster: boolean; // false = not on the roster in the window (left or away)
+}
+
+export interface TeamFile {
+  _note: string;
+  as_of: ISODate;
+  window: { from: ISODate; to: ISODate };
+  baseline: { from: ISODate; to: ISODate };
+  stores: StoreCompare[];
+  team: TeamRow[];
+}
+
+/** Written by `npm run cards:translate` to data/generated/card-translations.json. */
+export interface CardTranslation {
+  issue_id: string;
+  audience: "am" | "salesperson";
+  en: string; // the stored, validated English card
+  hi: string | null; // null = translation failed the number check; UI shows English
+  bn: string | null;
+  checks: { hi: { passed: boolean; reasons: string[] }; bn: { passed: boolean; reasons: string[] } };
+}

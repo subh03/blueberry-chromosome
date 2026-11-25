@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, Noto_Sans_Bengali, Noto_Sans_Devanagari } from "next/font/google";
 import { Suspense } from "react";
 import { SiteHeader, SiteHeaderLive } from "@/components/site-header";
 import { Logo } from "@/components/brand/logo";
@@ -18,6 +18,10 @@ const sans = IBM_Plex_Sans({
   variable: "--font-sans",
   display: "swap",
 });
+
+// Hindi and Bengali cards and role screens (v2). Loaded as fallbacks after IBM Plex Sans.
+const devanagari = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "600"], variable: "--font-deva", display: "swap" });
+const bengali = Noto_Sans_Bengali({ subsets: ["bengali"], weight: ["400", "600"], variable: "--font-beng", display: "swap" });
 
 const DESCRIPTION =
   "Store Coach for Manyavar: finds what is going wrong in your stores and tells each person what to do today";
@@ -45,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${display.variable} ${sans.variable}`}
+      className={`${display.variable} ${sans.variable} ${devanagari.variable} ${bengali.variable}`}
       suppressHydrationWarning
     >
       <body>

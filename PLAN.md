@@ -164,3 +164,23 @@ Cut now: P2 detectors become "only if green at 14:20". Hindi cards: later only. 
 
 ### Later, only if time
 Hindi card toggle · role-model leaderboard · category-avoidance detector · per-salesperson history sparkline.
+
+---
+
+## 12. v2 (25 Nov, after the hackathon, Naman, branch `v2-roles`): one screen per role
+
+Why: a real area manager can't read a company-wide page every morning. Each role sees only what they can act on.
+
+| Screen | Route | Shows | Never shows |
+|---|---|---|---|
+| Home | `/` | "Who are you?" picker (area manager, store manager, salesperson), one line on how it works, language switch. The phone remembers the choice; no login | company metrics (they moved to `/overview`) |
+| Overview (proof) | `/overview` | the old home: ₹ at stake, problems, evidence chain, How we checked | |
+| Area manager | `/am/[amId]` | the existing weekly brief (≤5) + **their stores vs city/state peers** (conversion, items per bill, days present, basket flag) | salesperson rows |
+| Store manager | `/store/[storeId]` | today's 1-3 actions (checked card text), **team table** (days present, est. conversion, items per bill, customers back vs the store middle), role model, store vs peers | other stores |
+| Salesperson | `/me/[spId]` | one action card + "My last 28 days" vs the store middle | other people's numbers |
+
+Engine (`npm run team` → `data/generated/team.json`, `engine/team.ts`): store compare vs own May-Jul baseline and pooled city/state peers; **store basket check** (items per bill below both peers by ≥0.10 and below own baseline by ≥0.05; ₹ = gap × bills × average item value); team rows with **estimated** per-person conversion (footfall is per store: each day's walk-ins split across the people present). Standings are words + arrows, computed in code.
+
+Languages: English, Hindi, Bengali on every role screen (`lib/ui/i18n.ts`, `?lang=hi|bn`). Card text comes from `npm run cards:translate` → `data/generated/card-translations.json`: Gemini translates the stored English card, code checks that every number is unchanged (Devanagari/Bengali digits normalised); a failed language falls back to English with a note.
+
+Not doing in v2: a single 0-100 score (weights would be a guess and hide the cause), logins, the basket check as a card-generating detector (needs a DB re-load and card regen; next step).

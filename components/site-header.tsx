@@ -7,9 +7,10 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 
 const LINKS = [
-  { href: "/", label: "Overview" },
+  { href: "/", label: "Who are you?" },
+  { href: "/overview", label: "Overview" },
   { href: "/am/AM-01", label: "Weekly brief" },
-  { href: "/#how-we-checked", label: "How we checked" },
+  { href: "/overview#how-we-checked", label: "How we checked" },
 ];
 
 /** Header that marks the current page. Render inside <Suspense> (it reads the URL). */
@@ -36,7 +37,7 @@ export function SiteHeader({ pathname = "" }: { pathname?: string }) {
   }, [open]);
 
   const current = (href: string) =>
-    href === "/" ? pathname === "/" : href.startsWith("/am/") ? pathname.startsWith("/am/") : false;
+    href === "/" ? pathname === "/" : href === "/overview" ? pathname === "/overview" : href.startsWith("/am/") ? pathname.startsWith("/am/") : false;
 
   return (
     <header className="site-header" data-scrolled={scrolled || undefined}>
