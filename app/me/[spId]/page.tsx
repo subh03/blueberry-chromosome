@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LangSwitch } from "@/components/lang-switch";
-import { ActionItem } from "@/components/action-item";
+import { ProblemRow } from "@/components/problem-row";
 import { Standing, fmtNum, fmtPct } from "@/components/standing";
 import { dict, langOf, withLang } from "@/lib/ui/i18n";
-import { TEAM, median, personById, personIssues, teamOf } from "@/lib/ui/roles";
+import { ISSUES, TEAM, issueWords, median, personById, personIssues, problemHref, teamOf } from "@/lib/ui/roles";
 
 type Props = { params: Promise<{ spId: string }>; searchParams: Promise<{ lang?: string }> };
 
@@ -25,7 +25,8 @@ async function MePage({ params, searchParams }: Props) {
   if (!me) notFound();
   const lang = langOf(rawLang);
   const d = dict(lang);
-  const issues = personIssues(spId).slice(0, 1); // one thing a day
+  const issues = personIssues(spId);
+  const model = ISSUES.find((i) => i.type === "role_model" && i.evidence.subject?.salesperson_id === spId) ?? null;
   const others = teamOf(me.store_id).filter((p) => p.salesperson_id !== spId && p.on_roster);
   const mid = {
     presence: median(others.map((p) => p.presence)),
@@ -56,17 +57,26 @@ async function MePage({ params, searchParams }: Props) {
       </div>
 
       <section className="section-tight" aria-labelledby="one-title">
-        <h2 id="one-title">{d.oneThing}</h2>
+        <h2 id="one-title">{issues.length > 1 ? d.myProblems : d.oneThing}</h2>
         {issues.length ? (
-          <ol className="action-list">
+          <ol className="problem-rows">
             {issues.map((issue) => (
-              <ActionItem key={issue.id} issue={issue} lang={lang} />
+              <ProblemRow key={issue.id} issue={issue} lang={lang} from={`/me/${spId}`} />
             ))}
           </ol>
         ) : (
           <p className="state">{d.noCard}</p>
         )}
       </section>
+
+      {model && (
+        <p className="model-line">
+          <span className="chip chip-model">{d.sevmodel}</span>{" "}
+          <Link href={problemHref(model, lang, `/me/${spId}`)} lang={issueWords(model, lang).cause.lang}>
+            {issueWords(model, lang).cause.text}
+          </Link>
+        </p>
+      )}
 
       <section className="section-tight" aria-labelledby="week-title">
         <h2 id="week-title">{d.myWeek}</h2>

@@ -16,6 +16,7 @@
     "cards:audit": "tsx scripts/revalidate-cards.ts",
     "cards:regen": "tsx scripts/regen-cards.ts",
     "cards:translate": "tsx scripts/translate-cards.ts",
+    "issues:translate": "tsx scripts/translate-issues.ts",
     "team": "tsx scripts/team.ts"
   },
   "dependencies": {

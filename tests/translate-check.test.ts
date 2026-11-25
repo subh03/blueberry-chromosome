@@ -47,3 +47,11 @@ test("with a language, Romanised text fails and native script passes", () => {
   assert.equal(checkTranslation(EN, hi, "hi").passed, true);
   assert.equal(checkTranslation(EN, hi, "bn").passed, false);
 });
+
+test("rejects a Bengali translation with Devanagari letters mixed in", () => {
+  const en = "Sell 2 more today.";
+  assert.equal(checkTranslation(en, "আজ আরও 2 টি বিক্রি করুন।", "bn").passed, true);
+  const mixed = checkTranslation(en, "আজ আরও 2 টি बेचें করুন।", "bn");
+  assert.equal(mixed.passed, false);
+  assert.ok(mixed.reasons.some((r) => r.includes("Devanagari")));
+});

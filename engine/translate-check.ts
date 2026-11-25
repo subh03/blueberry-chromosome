@@ -57,6 +57,9 @@ export function checkTranslation(en: string, tr: string | null | undefined, lang
     const native = (tr.match(SCRIPT[lang].re) ?? []).length;
     const roman = (tr.match(/[A-Za-z]/g) ?? []).length;
     if (native < roman) reasons.push(`not in ${SCRIPT[lang].name} script (${native} vs ${roman} Latin letters)`);
+    // No letters from the other Indian script (the danda । is shared punctuation, so it is allowed).
+    const other = lang === "hi" ? /[\u0980-\u09FF]/ : /[\u0900-\u0963\u0966-\u097F]/;
+    if (other.test(tr)) reasons.push(`mixes in ${lang === "hi" ? "Bengali" : "Devanagari"} letters`);
   }
   return { passed: reasons.length === 0, reasons };
 }

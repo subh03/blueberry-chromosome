@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Lang } from "@/types";
-import { LANGS, dict } from "@/lib/ui/i18n";
+import { LANGS, dict, withLang } from "@/lib/ui/i18n";
 
 /** Plain links (no JS needed): each keeps the page and swaps ?lang=. */
 export function LangSwitch({ path, lang }: { path: string; lang: Lang }) {
@@ -9,7 +9,7 @@ export function LangSwitch({ path, lang }: { path: string; lang: Lang }) {
       {LANGS.map((l) => (
         <Link
           key={l.code}
-          href={l.code === "en" ? path : `${path}?lang=${l.code}`}
+          href={withLang(path, l.code)}
           aria-current={l.code === lang ? "true" : undefined}
           lang={l.code}
           prefetch={false}

@@ -59,3 +59,36 @@ export function median(values: (number | null)[]) {
   const m = Math.floor(v.length / 2);
   return v.length % 2 ? v[m] : Math.round(((v[m - 1] + v[m]) / 2) * 100) / 100;
 }
+
+// ---------------------------------------------------------------- problem screen (v2.1)
+import issueTrJson from "@/data/generated/issue-translations.json";
+type IssueTr = { issue_id: string; cause: { en: string; hi: string | null; bn: string | null }; action: { en: string; hi: string | null; bn: string | null } };
+const ISSUE_TR = ((issueTrJson as unknown as { issues?: IssueTr[] }).issues ?? []);
+
+export const issueById = (id: string) => ISSUES.find((i) => i.id === id) ?? null;
+
+const actionLine = (i: Issue) => `${i.action.who}: ${i.action.what.replace(/\.$/, "")}. ${i.action.when.replace(/\.$/, "")}.`;
+
+/** Cause and action in the chosen language; English when the translation is missing or failed its number check. */
+export function issueWords(issue: Issue, lang: Lang) {
+  const t = ISSUE_TR.find((x) => x.issue_id === issue.id);
+  // Cause must match the current English exactly (stale translations are ignored); the action line may differ only in punctuation.
+  const pick = (f: { en: string; hi: string | null; bn: string | null } | undefined, en: string, strict = true) => {
+    if (lang === "en" || !f || (strict && f.en !== en)) return { text: en, lang: "en" as Lang };
+    const v = f[lang];
+    return v ? { text: v, lang } : { text: en, lang: "en" as Lang };
+  };
+  return { cause: pick(t?.cause, issue.cause), action: pick(t?.action, actionLine(issue), false) };
+}
+
+/** Severity word from ₹ at stake, same bars as the overview (High ≥ ₹1,00,000, Medium ≥ ₹40,000). */
+export const severityOfIssue = (i: Issue): "high" | "medium" | "low" | "model" =>
+  i.type === "role_model" ? "model" : i.rupees_at_stake >= 100000 ? "high" : i.rupees_at_stake >= 40000 ? "medium" : "low";
+
+export const problemHref = (issue: Issue, lang: Lang, from?: string) => {
+  const q = new URLSearchParams();
+  if (lang !== "en") q.set("lang", lang);
+  if (from) q.set("from", from);
+  const qs = q.toString();
+  return `/problem/${encodeURIComponent(issue.id)}${qs ? `?${qs}` : ""}`;
+};

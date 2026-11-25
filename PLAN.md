@@ -184,3 +184,6 @@ Engine (`npm run team` → `data/generated/team.json`, `engine/team.ts`): store 
 Languages: English, Hindi, Bengali on every role screen (`lib/ui/i18n.ts`, `?lang=hi|bn`). Card text comes from `npm run cards:translate` → `data/generated/card-translations.json`: Gemini translates the stored English card, code checks that every number is unchanged (Devanagari/Bengali digits normalised); a failed language falls back to English with a note.
 
 Not doing in v2: a single 0-100 score (weights would be a guess and hide the cause), logins, the basket check as a card-generating detector (needs a DB re-load and card regen; next step).
+
+### v2.1 (25 Nov): the same flow for every role
+List of problems → tap one → **problem screen** `/problem/[id]`: (1) what is wrong, (2) how we know (button opens the evidence chain), (3) what to do, (4) the action card in the chosen language with Copy / Share on WhatsApp, and a link to the full checked card. Back returns to the role page it came from. The area manager page is rebuilt so it is fully translated (problems, market note, morning message, store table). Causes and actions are translated by `npm run issues:translate` with the same number check; failures show English.

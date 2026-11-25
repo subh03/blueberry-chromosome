@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LangSwitch } from "@/components/lang-switch";
 import { StoreTable } from "@/components/store-table";
-import { ActionItem } from "@/components/action-item";
+import { ProblemRow } from "@/components/problem-row";
 import { Standing, fmtNum, fmtPct } from "@/components/standing";
 import { dict, langOf, withLang } from "@/lib/ui/i18n";
 import { inr } from "@/lib/ui/home";
@@ -57,9 +57,9 @@ async function StorePage({ params, searchParams }: Props) {
       <section className="section-tight" aria-labelledby="today-title">
         <h2 id="today-title">{d.todayActions}</h2>
         {issues.length || store.basket_flag ? (
-          <ol className="action-list">
+          <ol className="problem-rows">
             {issues.map((issue, i) => (
-              <ActionItem key={issue.id} issue={issue} lang={lang} index={i} />
+              <ProblemRow key={issue.id} issue={issue} lang={lang} from={`/store/${storeId}`} index={i} />
             ))}
             {store.basket_flag && (
               <li className="action-item">
